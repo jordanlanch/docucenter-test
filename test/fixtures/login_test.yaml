@@ -1,0 +1,299 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 34
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.dev93@gmail.com"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://127.0.0.1:42783/signup
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 68
+        uncompressed: false
+        body: '{"message":"[ERROR] invalid payload [(root): password is required]"}'
+        headers:
+            Content-Length:
+                - "68"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:56 GMT
+        status: 400 Bad Request
+        code: 400
+        duration: 884.894µs
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 34
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.dev93@gmail.com"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://127.0.0.1:42783/login
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 49
+        uncompressed: false
+        body: '{"message":"User not found with the given email"}'
+        headers:
+            Content-Length:
+                - "49"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:56 GMT
+        status: 404 Not Found
+        code: 404
+        duration: 6.234395ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 57
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.dev93@gmail.com","password":"pass1234*"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://127.0.0.1:42783/signup
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 408
+        uncompressed: false
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY4OTkzMDU5Nn0.07rrnC9D2tQ1-QFaVRMOwkDhMGXxsw0FuwSO7pUGekY","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY5MDUyODE5Nn0.iFf0qaI2FAKBL9l6Ij2bGO2R99hVYHQ5oodwtIfjbeE"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 83.281994ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 57
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.dev93@gmail.com","password":"pass1234*"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://127.0.0.1:42783/login
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 408
+        uncompressed: false
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY4OTkzMDU5N30.vwRuICj3Jq7t07GRehNSBlr33QTKgBGswOKLCtBP9kk","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY5MDUyODE5N30.301JmSi7KEMUXW0ntcH3p3t97GfGoNKzacd1Ll7_1qs"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:57 GMT
+        status: 200 OK
+        code: 200
+        duration: 75.452728ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY4OTkzMDU5N30.vwRuICj3Jq7t07GRehNSBlr33QTKgBGswOKLCtBP9kk
+        url: http://127.0.0.1:42783/consumption?end_date=2023-06-26&kind_period=daily&limit=5&meters_ids=%5B1%2C2%5D&offset=0&start_date=2023-01-01
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 394
+        uncompressed: false
+        body: '{"period":["Jan 01","Jan 02","Jan 03"],"data_graph":[{"active":[24,24,24],"address":"Mock address","exported":[0,0,0],"meter_id":1,"reactive_capacitive":[0,0,0],"reactive_inductive":[70275.26999999999,70627.71,70976.08999999998]},{"active":[10,24],"address":"Mock address","exported":[0,0],"meter_id":2,"reactive_capacitive":[0,0],"reactive_inductive":[15990.480000000001,39768.399999999994]}]}'
+        headers:
+            Content-Length:
+                - "394"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:57 GMT
+        status: 200 OK
+        code: 200
+        duration: 28.402368ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY4OTkzMDU5N30.vwRuICj3Jq7t07GRehNSBlr33QTKgBGswOKLCtBP9kk
+        url: http://127.0.0.1:42783/consumption?end_date=2023-06-26&kind_period=weekly&limit=5&meters_ids=%5B1%2C2%5D&offset=0&start_date=2023-01-01
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 424
+        uncompressed: false
+        body: '{"period":["Jan 02 - Jan 08","Jan 09 - Jan 15","Dec 26 - Jan 01"],"data_graph":[{"active":[24,168,168],"address":"Mock address","exported":[0,0,0],"meter_id":1,"reactive_capacitive":[0,0,0],"reactive_inductive":[70275.27,501733.3400000003,470545.8999999998]},{"active":[154,168],"address":"Mock address","exported":[0,0],"meter_id":2,"reactive_capacitive":[0,0],"reactive_inductive":[282837.49999999994,373920.3199999997]}]}'
+        headers:
+            Content-Length:
+                - "424"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:57 GMT
+        status: 200 OK
+        code: 200
+        duration: 52.244882ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY4OTkzMDU5N30.vwRuICj3Jq7t07GRehNSBlr33QTKgBGswOKLCtBP9kk
+        url: http://127.0.0.1:42783/consumption?end_date=2023-06-26&kind_period=monthly&limit=5&meters_ids=%5B1%2C2%5D&offset=0&start_date=2023-01-01
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 411
+        uncompressed: false
+        body: '{"period":["Jan 2023","Feb 2023","Mar 2023"],"data_graph":[{"active":[744,2560,744],"address":"Mock address","exported":[0,0,0],"meter_id":1,"reactive_capacitive":[0,0,0],"reactive_inductive":[2318884.5000000014,9865547.82,3247056.7500000023]},{"active":[706,2353],"address":"Mock address","exported":[0,0],"meter_id":2,"reactive_capacitive":[0,0],"reactive_inductive":[1923679.2000000007,12801155.909999995]}]}'
+        headers:
+            Content-Length:
+                - "411"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:57 GMT
+        status: 200 OK
+        code: 200
+        duration: 27.428316ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjRmZGE5ODFkLTY3NzQtNDhjYS05YmE3LTY4ZjBhZDZjMmMwNiIsImV4cCI6MTY4OTkzMDU5N30.vwRuICj3Jq7t07GRehNSBlr33QTKgBGswOKLCtBP9kk
+        url: http://127.0.0.1:42783/consumption?end_date=2023-06-26&kind_period=monthly&limit=5&meters_ids=1&offset=0&start_date=2023-01-01
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 317
+        uncompressed: false
+        body: '{"period":["Jan 2023","Feb 2023","Mar 2023","Apr 2023","May 2023"],"data_graph":[{"active":[744,2560,744,720,744],"address":"Mock address","exported":[0,0,0,0,0],"meter_id":1,"reactive_capacitive":[0,0,0,0,0],"reactive_inductive":[2318884.5,9865547.819999972,3247056.750000006,3534967.340000004,4075089.5299999993]}]}'
+        headers:
+            Content-Length:
+                - "317"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Fri, 21 Jul 2023 07:09:57 GMT
+        status: 200 OK
+        code: 200
+        duration: 11.374314ms

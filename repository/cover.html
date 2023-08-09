@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>repository: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+
+				<option value="file0">github.com/jordanlanch/docucenter-test/repository/consumption_repository.go (98.6%)</option>
+
+				<option value="file1">github.com/jordanlanch/docucenter-test/repository/meter_repository.go (92.3%)</option>
+
+				<option value="file2">github.com/jordanlanch/docucenter-test/repository/user_repository.go (89.5%)</option>
+
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+
+			</div>
+		</div>
+		<div id="content">
+
+		<pre class="file" id="file0" style="display: none">package repository
+
+import (
+        "context"
+        "fmt"
+        "sort"
+        "strings"
+        "time"
+
+        "github.com/google/uuid"
+        "github.com/jordanlanch/docucenter-test/domain"
+        "gorm.io/gorm"
+)
+
+// ConsumptionRepository es una implementación de la interfaz domain.ConsumptionRepository.
+type consumptionRepository struct {
+        db    *gorm.DB
+        table string
+}
+
+// NewConsumptionRepository crea una nueva instancia de ConsumptionRepository.
+func NewConsumptionRepository(db *gorm.DB, table string) domain.ConsumptionRepository <span class="cov9" title="7">{
+        return &amp;consumptionRepository{db, table}
+}</span>
+
+// Save guarda el consumo en la base de datos.
+func (r *consumptionRepository) Save(ctx context.Context, consumption *domain.Consumption) error <span class="cov1" title="1">{
+        return r.db.WithContext(ctx).Save(consumption).Error
+}</span>
+
+// FindByID busca un consumo por su ID.
+func (r *consumptionRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Consumption, error) <span class="cov4" title="2">{
+        var consumption domain.Consumption
+        err := r.db.WithContext(ctx).First(&amp;consumption, "id = ?", id).Error
+        if err != nil </span><span class="cov1" title="1">{
+                return nil, err
+        }</span>
+        <span class="cov1" title="1">return &amp;consumption, nil</span>
+}
+
+// FindByPeriod busca consumos por tipo de período, fechas, IDs de medidores y paginación.
+func (r *consumptionRepository) FindByPeriod(ctx context.Context, periodType, start, end string, meterIDs []int, pagination *domain.Pagination) (*domain.Response, error) <span class="cov7" title="4">{
+        if !isValidPeriodType(periodType) </span><span class="cov1" title="1">{
+                return nil, fmt.Errorf("Invalid period type: %s", periodType)
+        }</span>
+        <span class="cov5" title="3">return r.findWithCondition(ctx, "meter_id IN (?) AND timestamp BETWEEN ? AND ?", []interface{}{meterIDs, start, end}, pagination, periodType)</span>
+}
+
+// findWithCondition es una función auxiliar para buscar consumos con una condición específica.
+func (r *consumptionRepository) findWithCondition(ctx context.Context, condition string, args []interface{}, pagination *domain.Pagination, periodType string) (*domain.Response, error) <span class="cov5" title="3">{
+        var consumptions []*domain.Consumption
+
+        datePeriodFormat, datePeriodSQL := getDatePeriodFormat(periodType)
+
+        db := applyPagination(r.db, pagination)
+        err := db.WithContext(ctx).
+                Select(fmt.Sprintf("%s, meter_id, SUM(active) as active, SUM(reactive_inductive) as reactive_inductive, SUM(reactive_capacitive) as reactive_capacitive, SUM(exported) as exported", datePeriodFormat)).
+                Where(condition, args...).
+                Group(datePeriodSQL + ", meter_id").
+                Order("MIN(timestamp)").
+                Find(&amp;consumptions).
+                Error
+
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov5" title="3">return formatConsumptionData(consumptions), nil</span>
+}
+
+// applyPagination aplica la paginación a la consulta de base de datos.
+func applyPagination(db *gorm.DB, pagination *domain.Pagination) *gorm.DB <span class="cov7" title="4">{
+        if pagination != nil </span><span class="cov7" title="4">{
+                if pagination.Limit != nil </span><span class="cov7" title="4">{
+                        db = db.Limit(*pagination.Limit)
+                }</span>
+                <span class="cov7" title="4">if pagination.Offset != nil </span><span class="cov7" title="4">{
+                        db = db.Offset(*pagination.Offset)
+                }</span>
+        }
+        <span class="cov7" title="4">return db</span>
+}
+
+// MeterData es una estructura personalizada para almacenar datos del medidor.
+type MeterData struct {
+        Period string
+        domain.Consumption
+}
+
+// formatConsumptionData formats the consumption data into the response structure.
+func formatConsumptionData(consumptions []*domain.Consumption) *domain.Response <span class="cov7" title="4">{
+        response := &amp;domain.Response{
+                Period:    make([]string, 0),
+                DataGraph: make([]map[string]interface{}, 0),
+        }
+
+        meterDataMap := make(map[int][]MeterData)
+
+        // Group the consumption data by meter ID and collect required data
+        for _, consumption := range consumptions </span><span class="cov1" title="1">{
+                meterDataMap[consumption.MeterID] = append(meterDataMap[consumption.MeterID], MeterData{
+                        Period:      consumption.Period,
+                        Consumption: *consumption,
+                })
+        }</span>
+
+        // Process meter data for each meter ID and create data graph items
+        <span class="cov7" title="4">for meterID, meterDataSlice := range meterDataMap </span><span class="cov1" title="1">{
+                active := make([]float64, len(meterDataSlice))
+                reactiveInductive := make([]float64, len(meterDataSlice))
+                reactiveCapacitive := make([]float64, len(meterDataSlice))
+                exported := make([]float64, len(meterDataSlice))
+
+                for i, meterData := range meterDataSlice </span><span class="cov1" title="1">{
+                        active[i] = meterData.Active
+                        reactiveInductive[i] = meterData.ReactiveInductive
+                        reactiveCapacitive[i] = meterData.ReactiveCapacitive
+                        exported[i] = meterData.Exported
+                }</span>
+
+                <span class="cov1" title="1">response.DataGraph = append(response.DataGraph, map[string]interface{}{
+                        "meter_id":            meterID,
+                        "address":             "Mock address",
+                        "active":              active,
+                        "reactive_inductive":  reactiveInductive,
+                        "reactive_capacitive": reactiveCapacitive,
+                        "exported":            exported,
+                })</span>
+        }
+
+        // Get unique and sorted periods
+        <span class="cov7" title="4">response.Period = getUniqueSortedPeriods(meterDataMap)
+
+        return response</span>
+}
+
+// getUniqueSortedPeriods returns the unique and sorted periods in date order.
+func getUniqueSortedPeriods(meterDataMap map[int][]MeterData) []string <span class="cov7" title="5">{
+        periodsMap := make(map[string]bool)
+
+        // Collect unique periods from meter data
+        for _, meterDataSlice := range meterDataMap </span><span class="cov5" title="3">{
+                for _, meterData := range meterDataSlice </span><span class="cov7" title="5">{
+                        periodsMap[meterData.Period] = true
+                }</span>
+        }
+
+        // Create a slice to store the unique periods
+        <span class="cov7" title="5">sortedPeriods := make([]string, 0, len(periodsMap))
+
+        // Add unique periods to the slice
+        for period := range periodsMap </span><span class="cov7" title="4">{
+                sortedPeriods = append(sortedPeriods, period)
+        }</span>
+
+        // Sort the periods based on the custom comparison function
+        <span class="cov7" title="5">sort.Slice(sortedPeriods, func(i, j int) bool </span><span class="cov4" title="2">{
+                dateI := parsePeriodDate(sortedPeriods[i])
+                dateJ := parsePeriodDate(sortedPeriods[j])
+                return dateI.Before(dateJ)
+        }</span>)
+
+        <span class="cov7" title="5">return sortedPeriods</span>
+}
+
+// parsePeriodDate parses the period string and returns the corresponding date.
+func parsePeriodDate(period string) time.Time <span class="cov10" title="8">{
+        // Remove leading/trailing spaces and hyphens
+        period = strings.Trim(period, " -")
+
+        // Try to parse the period as "Mon DD"
+        date, err := time.Parse("Jan 02", period)
+        if err == nil </span><span class="cov7" title="5">{
+                return date
+        }</span>
+
+        // Try to parse the period as "Mon YYYY"
+        <span class="cov5" title="3">date, err = time.Parse("Jan 2006", period)
+        if err == nil </span><span class="cov1" title="1">{
+                return date
+        }</span>
+
+        // Try to parse the period as "Mon DD - Mon DD"
+        <span class="cov4" title="2">date, err = time.Parse("Jan 02", strings.Split(period, " - ")[0])
+        if err == nil </span><span class="cov1" title="1">{
+                return date
+        }</span>
+
+        // If none of the formats match, return the zero value
+        <span class="cov1" title="1">return time.Time{}</span>
+}
+
+// getDatePeriodFormat returns the period format for the given period type.
+func getDatePeriodFormat(periodType string) (string, string) <span class="cov7" title="5">{
+        switch periodType </span>{
+        case "daily":<span class="cov4" title="2">
+                return "TO_CHAR(timestamp, 'Mon DD') AS period", "TO_CHAR(timestamp, 'Mon DD')"</span>
+        case "weekly":<span class="cov1" title="1">
+                // PostgreSQL doesn't have a built-in function to get the week of the year, so we create a date range for 7 days instead.
+                return "TO_CHAR(DATE_TRUNC('week', timestamp), 'Mon DD') || ' - ' || TO_CHAR(DATE_TRUNC('week', timestamp) + INTERVAL '6 days', 'Mon DD') AS period", "TO_CHAR(DATE_TRUNC('week', timestamp), 'Mon DD') || ' - ' || TO_CHAR(DATE_TRUNC('week', timestamp) + INTERVAL '6 days', 'Mon DD')"</span>
+        case "monthly":<span class="cov1" title="1">
+                return "TO_CHAR(timestamp, 'Mon YYYY') AS period", "TO_CHAR(timestamp, 'Mon YYYY')"</span>
+        default:<span class="cov1" title="1">
+                return "", ""</span>
+        }
+}
+
+// isValidPeriodType checks if the given period type is valid.
+func isValidPeriodType(periodType string) bool <span class="cov8" title="6">{
+        validPeriodTypes := map[string]bool{
+                "daily":   true,
+                "weekly":  true,
+                "monthly": true,
+        }
+        return validPeriodTypes[periodType]
+}</span>
+</pre>
+
+		<pre class="file" id="file1" style="display: none">package repository
+
+import (
+        "context"
+
+        "github.com/google/uuid"
+        "github.com/jordanlanch/docucenter-test/domain"
+        "gorm.io/gorm"
+)
+
+type meterRepository struct {
+        db    *gorm.DB
+        table string
+}
+
+func NewMeterRepository(db *gorm.DB, table string) domain.MeterRepository <span class="cov10" title="2">{
+        return &amp;meterRepository{db, table}
+}</span>
+
+func (r *meterRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Meter, error) <span class="cov10" title="2">{
+        var meter domain.Meter
+
+        result := r.db.WithContext(ctx).First(&amp;meter, "id = ?", id)
+        if result.Error != nil </span><span class="cov1" title="1">{
+                return nil, result.Error
+        }</span>
+        <span class="cov1" title="1">return &amp;meter, nil</span>
+}
+
+func (r *meterRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Meter, error) <span class="cov1" title="1">{
+        var meters []*domain.Meter
+        db := r.db.WithContext(ctx)
+        db = applyPagination(db, pagination)
+
+        result := db.Find(&amp;meters)
+        if result.Error != nil </span><span class="cov0" title="0">{
+                return nil, result.Error
+        }</span>
+        <span class="cov1" title="1">return meters, nil</span>
+}
+</pre>
+
+		<pre class="file" id="file2" style="display: none">package repository
+
+import (
+        "context"
+
+        "github.com/google/uuid"
+        "github.com/jordanlanch/docucenter-test/domain"
+        "gorm.io/gorm"
+)
+
+type userRepository struct {
+        db    *gorm.DB
+        table string
+}
+
+func NewUserRepository(db *gorm.DB, table string) domain.UserRepository <span class="cov10" title="4">{
+        return &amp;userRepository{db, table}
+}</span>
+
+func (r *userRepository) Create(ctx context.Context, user *domain.User) (*domain.User, error) <span class="cov1" title="1">{
+        result := r.db.WithContext(ctx).Create(user)
+        if result.Error != nil </span><span class="cov0" title="0">{
+                return nil, result.Error
+        }</span>
+        <span class="cov1" title="1">return user, nil</span>
+}
+
+func (r *userRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.User, error) <span class="cov5" title="2">{
+        var user domain.User
+        result := r.db.WithContext(ctx).First(&amp;user, "id = ?", id)
+        if result.Error != nil </span><span class="cov1" title="1">{
+                return nil, result.Error
+        }</span>
+        <span class="cov1" title="1">return &amp;user, nil</span>
+}
+
+func (r *userRepository) FindByEmail(ctx context.Context, email string) (*domain.User, error) <span class="cov5" title="2">{
+        var user domain.User
+        result := r.db.WithContext(ctx).First(&amp;user, "email = ?", email)
+        if result.Error != nil </span><span class="cov1" title="1">{
+                return nil, result.Error
+        }</span>
+        <span class="cov1" title="1">return &amp;user, nil</span>
+}
+
+func (r *userRepository) Update(ctx context.Context, user *domain.User) (*domain.User, error) <span class="cov1" title="1">{
+        result := r.db.WithContext(ctx).Save(user)
+        if result.Error != nil </span><span class="cov0" title="0">{
+                return nil, result.Error
+        }</span>
+        <span class="cov1" title="1">return user, nil</span>
+}
+</pre>
+
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>

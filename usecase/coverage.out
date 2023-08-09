@@ -1,0 +1,21 @@
+mode: count
+github.com/jordanlanch/docucenter-test/usecase/consumption_usecase.go:16.129,21.2 1 4
+github.com/jordanlanch/docucenter-test/usecase/consumption_usecase.go:23.93,28.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/consumption_usecase.go:30.158,35.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/login_usecase.go:16.103,21.2 1 5
+github.com/jordanlanch/docucenter-test/usecase/login_usecase.go:23.97,27.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/login_usecase.go:29.121,31.2 1 1
+github.com/jordanlanch/docucenter-test/usecase/login_usecase.go:33.123,35.2 1 1
+github.com/jordanlanch/docucenter-test/usecase/meter_usecase.go:16.105,21.2 1 5
+github.com/jordanlanch/docucenter-test/usecase/meter_usecase.go:23.75,28.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/meter_usecase.go:30.95,35.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go:16.117,21.2 1 7
+github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go:23.103,27.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go:29.129,31.2 1 1
+github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go:33.131,35.2 1 2
+github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go:37.104,39.2 1 1
+github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go:16.105,21.2 1 7
+github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go:23.95,27.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go:29.98,33.2 3 2
+github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go:35.122,37.2 1 1
+github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go:39.124,41.2 1 1

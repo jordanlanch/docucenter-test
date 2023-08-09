@@ -1,0 +1,43 @@
+version: '3.5'
+
+services:
+
+  db-docucenter:
+    image: postgres:14.0-alpine
+    volumes:
+      - dbstore-docucenter:/var/lib/postgresql/docucenter-test-db
+    ports:
+      - "5988:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: docucenter-test-db
+    networks:
+      - docucenter-net
+  api-docucenter:
+    depends_on:
+      - db-docucenter
+    volumes:
+      - .:/go/src/github.com/jordanlanch/docucenter-test
+    environment:
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: docucenter-test-db
+      DATABASE_HOSTNAME: db
+      DATABASE_PORT: 5432
+    env_file:
+      - .env
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8080:8080"
+    entrypoint: sh -c 'sleep 15 && goose -dir storage/migrations postgres "host=db-docucenter user=postgres password=password dbname=docucenter-test-db port=5432 sslmode=disable" up && watcher'
+    networks:
+      - docucenter-net
+
+volumes:
+  dbstore-docucenter:
+networks:
+  docucenter-net:
+    external: true
+    name: docucenter-net
