@@ -180,6 +180,22 @@ func TestLogistics(t *testing.T) {
 		t.Log("Ending test:", t.Name())
 	})
 
+	t.Run("Fetch logistics With Filter", func(t *testing.T) {
+		t.Log("Starting test:", t.Name())
+
+		resp := expect.GET("/logistics").
+			WithHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)).
+			WithQueryString("limit=10&offset=0&vehicle_plate=ABC123").
+			Expect().
+			Status(http.StatusOK).
+			JSON().Array()
+
+		firstLogistic := resp.Value(0).Object()
+		firstLogistic.Value("vehicle_plate").String().IsEqual("ABC123")
+
+		t.Log("Ending test:", t.Name())
+	})
+
 	// Logistics - Get by ID
 	t.Run("Get logistic by id", func(t *testing.T) {
 		t.Log("Starting test:", t.Name())

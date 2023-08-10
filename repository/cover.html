@@ -55,17 +55,17 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/jordanlanch/docucenter-test/repository/customer_repository.go (71.4%)</option>
+				<option value="file0">github.com/jordanlanch/docucenter-test/repository/customer_repository.go (67.6%)</option>
 				
-				<option value="file1">github.com/jordanlanch/docucenter-test/repository/discount_repository.go (85.3%)</option>
+				<option value="file1">github.com/jordanlanch/docucenter-test/repository/discount_repository.go (83.3%)</option>
 				
-				<option value="file2">github.com/jordanlanch/docucenter-test/repository/logistics_repository.go (86.2%)</option>
+				<option value="file2">github.com/jordanlanch/docucenter-test/repository/logistics_repository.go (87.1%)</option>
 				
-				<option value="file3">github.com/jordanlanch/docucenter-test/repository/product_repository.go (86.2%)</option>
+				<option value="file3">github.com/jordanlanch/docucenter-test/repository/product_repository.go (87.1%)</option>
 				
 				<option value="file4">github.com/jordanlanch/docucenter-test/repository/user_repository.go (66.7%)</option>
 				
-				<option value="file5">github.com/jordanlanch/docucenter-test/repository/warehouses_and_ports_repository.go (82.8%)</option>
+				<option value="file5">github.com/jordanlanch/docucenter-test/repository/warehouses_and_ports_repository.go (83.9%)</option>
 				
 				</select>
 			</div>
@@ -104,29 +104,33 @@ type customerRepository struct {
         table string
 }
 
-func NewCustomerRepository(db *gorm.DB, table string) domain.CustomerRepository <span class="cov9" title="5">{
+func NewCustomerRepository(db *gorm.DB, table string) domain.CustomerRepository <span class="cov7" title="5">{
         return &amp;customerRepository{db, table}
 }</span>
 
 // applyPagination aplica la paginación a la consulta de base de datos.
-func applyPagination(db *gorm.DB, pagination *domain.Pagination) *gorm.DB <span class="cov9" title="5">{
-        if pagination != nil </span><span class="cov7" title="4">{
-                if pagination.Limit != nil </span><span class="cov7" title="4">{
+func applyPagination(db *gorm.DB, pagination *domain.Pagination) *gorm.DB <span class="cov10" title="8">{
+        if pagination != nil </span><span class="cov9" title="7">{
+                if pagination.Limit != nil </span><span class="cov9" title="7">{
                         db = db.Limit(*pagination.Limit)
                 }</span>
-                <span class="cov7" title="4">if pagination.Offset != nil </span><span class="cov7" title="4">{
+                <span class="cov9" title="7">if pagination.Offset != nil </span><span class="cov9" title="7">{
                         db = db.Offset(*pagination.Offset)
                 }</span>
         }
-        <span class="cov9" title="5">return db</span>
+        <span class="cov10" title="8">return db</span>
 }
 
-func (r *customerRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Customer, error) <span class="cov0" title="0">{
+func (r *customerRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Customer, error) <span class="cov0" title="0">{
         var customer []*domain.Customer
         db := r.db.WithContext(ctx)
         db = applyPagination(db, pagination)
 
-        result := db.Find(&amp;customer)
+        for k, v := range filters </span><span class="cov0" title="0">{
+                db = db.Where(k+" = ?", v)
+        }</span>
+
+        <span class="cov0" title="0">result := db.Find(&amp;customer)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
@@ -143,12 +147,12 @@ func (r *customerRepository) FindByID(ctx context.Context, id uuid.UUID) (*domai
         <span class="cov4" title="2">return &amp;customer, nil</span>
 }
 
-func (r *customerRepository) Store(ctx context.Context, c *domain.Customer) (*domain.Customer, error) <span class="cov10" title="6">{
+func (r *customerRepository) Store(ctx context.Context, c *domain.Customer) (*domain.Customer, error) <span class="cov8" title="6">{
         result := r.db.WithContext(ctx).Create(c)
         if result.Error != nil </span><span class="cov1" title="1">{
                 return nil, result.Error
         }</span>
-        <span class="cov9" title="5">return c, nil</span>
+        <span class="cov7" title="5">return c, nil</span>
 }
 
 func (r *customerRepository) Update(ctx context.Context, c *domain.Customer, id uuid.UUID) (*domain.Customer, error) <span class="cov1" title="1">{
@@ -194,12 +198,16 @@ func NewDiscountRepository(db *gorm.DB, table string) domain.DiscountRepository 
         return &amp;discountRepository{db, table}
 }</span>
 
-func (r *discountRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Discount, error) <span class="cov1" title="1">{
+func (r *discountRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Discount, error) <span class="cov1" title="1">{
         var discount []*domain.Discount
         db := r.db.WithContext(ctx)
         db = applyPagination(db, pagination)
 
-        result := db.Find(&amp;discount)
+        for k, v := range filters </span><span class="cov0" title="0">{
+                db = db.Where(k+" = ?", v)
+        }</span>
+
+        <span class="cov1" title="1">result := db.Find(&amp;discount)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
@@ -275,19 +283,24 @@ func NewLogisticsRepository(db *gorm.DB, table string) domain.LogisticsRepositor
         return &amp;LogisticsRepository{db, table}
 }</span>
 
-func (r *LogisticsRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Logistics, error) <span class="cov4" title="2">{
+func (r *LogisticsRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Logistics, error) <span class="cov5" title="3">{
+
         var logistics []*domain.Logistics
         db := r.db.WithContext(ctx)
         db = applyPagination(db, pagination)
 
-        result := db.Find(&amp;logistics)
+        for k, v := range filters </span><span class="cov1" title="1">{
+                db = db.Where(k+" = ?", v)
+        }</span>
+
+        <span class="cov5" title="3">result := db.Find(&amp;logistics)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov4" title="2">return logistics, nil</span>
+        <span class="cov5" title="3">return logistics, nil</span>
 }
 
-func (r *LogisticsRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Logistics, error) <span class="cov6" title="3">{
+func (r *LogisticsRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Logistics, error) <span class="cov5" title="3">{
         var logistics domain.Logistics
 
         result := r.db.WithContext(ctx).First(&amp;logistics, "id = ?", id)
@@ -297,12 +310,12 @@ func (r *LogisticsRepository) FindByID(ctx context.Context, id uuid.UUID) (*doma
         <span class="cov4" title="2">return &amp;logistics, nil</span>
 }
 
-func (r *LogisticsRepository) Store(ctx context.Context, ll *domain.Logistics) (*domain.Logistics, error) <span class="cov10" title="6">{
+func (r *LogisticsRepository) Store(ctx context.Context, ll *domain.Logistics) (*domain.Logistics, error) <span class="cov10" title="8">{
         result := r.db.WithContext(ctx).Create(ll)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov10" title="6">return ll, nil</span>
+        <span class="cov10" title="8">return ll, nil</span>
 }
 
 func (r *LogisticsRepository) Update(ctx context.Context, ll *domain.Logistics, id uuid.UUID) (*domain.Logistics, error) <span class="cov4" title="2">{
@@ -344,23 +357,27 @@ type productRepository struct {
         table string
 }
 
-func NewProductRepository(db *gorm.DB, table string) domain.ProductRepository <span class="cov9" title="8">{
+func NewProductRepository(db *gorm.DB, table string) domain.ProductRepository <span class="cov8" title="9">{
         return &amp;productRepository{db, table}
 }</span>
 
-func (r *productRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Product, error) <span class="cov1" title="1">{
+func (r *productRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Product, error) <span class="cov3" title="2">{
         var product []*domain.Product
         db := r.db.WithContext(ctx)
         db = applyPagination(db, pagination)
 
-        result := db.Find(&amp;product)
+        for k, v := range filters </span><span class="cov1" title="1">{
+                db = db.Where(k+" = ?", v)
+        }</span>
+
+        <span class="cov3" title="2">result := db.Find(&amp;product)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov1" title="1">return product, nil</span>
+        <span class="cov3" title="2">return product, nil</span>
 }
 
-func (r *productRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Product, error) <span class="cov6" title="4">{
+func (r *productRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.Product, error) <span class="cov5" title="4">{
         var product domain.Product
 
         result := r.db.WithContext(ctx).First(&amp;product, "id = ?", id)
@@ -370,12 +387,12 @@ func (r *productRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain
         <span class="cov3" title="2">return &amp;product, nil</span>
 }
 
-func (r *productRepository) Store(ctx context.Context, p *domain.Product) (*domain.Product, error) <span class="cov10" title="10">{
+func (r *productRepository) Store(ctx context.Context, p *domain.Product) (*domain.Product, error) <span class="cov10" title="15">{
         result := r.db.WithContext(ctx).Create(p)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov10" title="10">return p, nil</span>
+        <span class="cov10" title="15">return p, nil</span>
 }
 
 func (r *productRepository) Update(ctx context.Context, p *domain.Product, id uuid.UUID) (*domain.Product, error) <span class="cov3" title="2">{
@@ -486,38 +503,42 @@ type warehousePortRepository struct {
         table string
 }
 
-func NewWarehousePortRepository(db *gorm.DB, table string) domain.WarehousePortRepository <span class="cov10" title="7">{
+func NewWarehousePortRepository(db *gorm.DB, table string) domain.WarehousePortRepository <span class="cov9" title="8">{
         return &amp;warehousePortRepository{db, table}
 }</span>
 
-func (r *warehousePortRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) <span class="cov1" title="1">{
+func (r *warehousePortRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.WarehousesAndPorts, error) <span class="cov3" title="2">{
         var warehousePort []*domain.WarehousesAndPorts
         db := r.db.WithContext(ctx)
         db = applyPagination(db, pagination)
 
-        result := db.Find(&amp;warehousePort)
+        for k, v := range filters </span><span class="cov1" title="1">{
+                db = db.Where(k+" = ?", v)
+        }</span>
+
+        <span class="cov3" title="2">result := db.Find(&amp;warehousePort)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov1" title="1">return warehousePort, nil</span>
+        <span class="cov3" title="2">return warehousePort, nil</span>
 }
 
-func (r *warehousePortRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov7" title="4">{
+func (r *warehousePortRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov6" title="4">{
         var warehousePort domain.WarehousesAndPorts
 
         result := r.db.WithContext(ctx).First(&amp;warehousePort, "id = ?", id)
-        if result.Error != nil </span><span class="cov4" title="2">{
+        if result.Error != nil </span><span class="cov3" title="2">{
                 return nil, result.Error
         }</span>
-        <span class="cov4" title="2">return &amp;warehousePort, nil</span>
+        <span class="cov3" title="2">return &amp;warehousePort, nil</span>
 }
 
-func (r *warehousePortRepository) Store(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) <span class="cov8" title="5">{
+func (r *warehousePortRepository) Store(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) <span class="cov10" title="10">{
         result := r.db.WithContext(ctx).Create(wp)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov8" title="5">return wp, nil</span>
+        <span class="cov10" title="10">return wp, nil</span>
 }
 
 func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts, id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov1" title="1">{
@@ -531,12 +552,12 @@ func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.Warehou
         <span class="cov1" title="1">return wp, nil</span>
 }
 
-func (r *warehousePortRepository) Delete(ctx context.Context, id uuid.UUID) error <span class="cov4" title="2">{
+func (r *warehousePortRepository) Delete(ctx context.Context, id uuid.UUID) error <span class="cov3" title="2">{
         result := r.db.WithContext(ctx).Delete(&amp;domain.WarehousesAndPorts{}, id)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return result.Error
         }</span>
-        <span class="cov4" title="2">if result.RowsAffected == 0 </span><span class="cov1" title="1">{
+        <span class="cov3" title="2">if result.RowsAffected == 0 </span><span class="cov1" title="1">{
                 return errors.New("no warehouses_and_ports record found to delete")
         }</span>
         <span class="cov1" title="1">return nil</span>

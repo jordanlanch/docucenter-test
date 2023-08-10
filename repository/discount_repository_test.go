@@ -26,8 +26,9 @@ func TestDiscountRepositoryStore(t *testing.T) {
 
 func TestDiscountRepositoryFindMany(t *testing.T) {
 	repo := NewDiscountRepository(db, domain.DiscountTable)
+	filter := map[string]interface{}{}
 
-	discounts, err := repo.FindMany(context.Background(), nil)
+	discounts, err := repo.FindMany(context.Background(), nil, filter)
 	assert.NoError(t, err)
 	assert.NotNil(t, discounts)
 }

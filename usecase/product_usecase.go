@@ -20,11 +20,11 @@ func NewProductUsecase(productRepository domain.ProductRepository, timeout time.
 	}
 }
 
-func (pu *productUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Product, error) {
+func (pu *productUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Product, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
 	defer cancel()
 
-	return pu.productRepository.FindMany(ctx, pagination)
+	return pu.productRepository.FindMany(ctx, pagination, filters)
 }
 
 func (pu *productUsecase) GetByID(id uuid.UUID) (*domain.Product, error) {

@@ -1,0 +1,83 @@
+@startuml
+!define FONTSERIF Noto Serif
+!define FONTSANS Noto Sans 
+!define FONTMONO console
+!define blue0 #527BC6
+!define blue1 #0D7AD4
+
+skinparam shadowing true 
+skinparam handwritten false
+skinparam backgroundColor White 
+'transparent
+skinparam componentStyle uml2
+skinparam dpi 250
+skinparam padding 0
+skinparam roundCorner 10
+
+Hide circle
+
+
+'Default'
+skinparam default{
+  'Font Style
+  FontColor Black
+  FontName FONTSANS
+  FontSize 10
+  FontStyle plain
+  MonospacedFontName FONTMONO
+
+  'Other Style
+  TextAlignment left
+}
+'Title (inherits from Default)
+skinparam title {
+  'Font Style (inherits from Default)
+  FontSize 14
+
+  'Border Color
+  BackgroundColor White
+  'transparent
+  BorderColor White
+  BorderRoundCorner 0
+  BorderThickness 0
+}
+'Entities
+skinparam Entity {
+    'AttributeIconSize 2
+    FontSize 20 
+
+    BackgroundColor blue0
+    FontName FONTMONO
+    BackgroundColor WhiteSmoke
+
+}
+'Classes
+skinparam Class {
+    'Font Style (inherits from Default)
+    'StereotypeFontColor WhiteSmoke 
+    '
+    FontSize 9
+    StereotypeFontName FONTMONO
+    StereotypeFontSize 9
+    StereotypeFontStyle italic
+    FontStyle bold
+
+    'Color
+    BackgroundColor blue0
+    FontColor WhiteSmoke
+    HeaderBackgroundColor blue0 
+    BorderColor Black
+    ArrowColor #222266
+    BorderThickness 1
+
+    'Attributions
+    AttributeFontColor WhiteSmoke
+    AttributeFontName FONTMONO
+    AttributeFontSize 8 
+    'BoxPadding 40
+
+    AttributeFontStyle plain
+    AttributeIconSize 0
+
+}
+@enduml

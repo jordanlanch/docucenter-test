@@ -18,10 +18,14 @@ func NewProductRepository(db *gorm.DB, table string) domain.ProductRepository {
 	return &productRepository{db, table}
 }
 
-func (r *productRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Product, error) {
+func (r *productRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Product, error) {
 	var product []*domain.Product
 	db := r.db.WithContext(ctx)
 	db = applyPagination(db, pagination)
+
+	for k, v := range filters {
+		db = db.Where(k+" = ?", v)
+	}
 
 	result := db.Find(&product)
 	if result.Error != nil {

@@ -60,13 +60,13 @@ func (_m *ProductUsecase) GetByID(id uuid.UUID) (*domain.Product, error) {
 	return r0, r1
 }
 
-// GetMany provides a mock function with given fields: pagination
-func (_m *ProductUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Product, error) {
-	ret := _m.Called(pagination)
+// GetMany provides a mock function with given fields: pagination, filters
+func (_m *ProductUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Product, error) {
+	ret := _m.Called(pagination, filters)
 
 	var r0 []*domain.Product
-	if rf, ok := ret.Get(0).(func(*domain.Pagination) []*domain.Product); ok {
-		r0 = rf(pagination)
+	if rf, ok := ret.Get(0).(func(*domain.Pagination, map[string]interface{}) []*domain.Product); ok {
+		r0 = rf(pagination, filters)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]*domain.Product)
@@ -74,8 +74,8 @@ func (_m *ProductUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Prod
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*domain.Pagination) error); ok {
-		r1 = rf(pagination)
+	if rf, ok := ret.Get(1).(func(*domain.Pagination, map[string]interface{}) error); ok {
+		r1 = rf(pagination, filters)
 	} else {
 		r1 = ret.Error(1)
 	}

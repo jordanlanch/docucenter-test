@@ -23,11 +23,11 @@ func NewLogisticsUsecase(LogisticsRepository domain.LogisticsRepository, discoun
 	}
 }
 
-func (llu *LogisticsUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Logistics, error) {
+func (llu *LogisticsUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Logistics, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
 	defer cancel()
 
-	return llu.LogisticsRepository.FindMany(ctx, pagination)
+	return llu.LogisticsRepository.FindMany(ctx, pagination, filters)
 }
 
 func (llu *LogisticsUsecase) GetByID(id uuid.UUID) (*domain.Logistics, error) {

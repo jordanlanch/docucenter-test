@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"github.com/google/uuid"
@@ -65,7 +66,7 @@ func TestUpdateWarehousePort(t *testing.T) {
 	assert.Equal(t, "UpdatedWarehouse", updatedWarehousePort.Name)
 }
 
-func TestFindManyMeters(t *testing.T) {
+func TestFindManyWarehousePort(t *testing.T) {
 	repo := NewWarehousePortRepository(db, domain.WarehousePortTable)
 
 	warehousesPorts := make([]*domain.WarehousesAndPorts, 10)
@@ -73,16 +74,37 @@ func TestFindManyMeters(t *testing.T) {
 		warehousesPorts[i] = &domain.WarehousesAndPorts{
 			ID:       uuid.New(),
 			Type:     "land",
-			Name:     "TestWarehouse",
+			Name:     "TestWarehouse " + fmt.Sprintf("%d", i),
 			Location: "TestLocation",
 		}
 		db.Create(warehousesPorts[i])
 	}
 
 	pagination := &domain.Pagination{Limit: pointer.Int(5), Offset: pointer.Int(0)}
-	foundWarehousesPorts, err := repo.FindMany(context.Background(), pagination)
+	filter := map[string]interface{}{}
+	foundWarehousesPorts, err := repo.FindMany(context.Background(), pagination, filter)
 	assert.NoError(t, err)
 	assert.Len(t, foundWarehousesPorts, 5)
+}
+
+func TestFindManyWarehousePortWithFilters(t *testing.T) {
+	repo := NewWarehousePortRepository(db, domain.WarehousePortTable)
+
+	for i := 0; i < 5; i++ {
+		warehousesPorts := &domain.WarehousesAndPorts{
+			ID:       uuid.New(),
+			Type:     "land",
+			Name:     "TestWarehouses " + fmt.Sprintf("%d", i),
+			Location: "TestLocation",
+		}
+		repo.Store(context.Background(), warehousesPorts)
+	}
+
+	pagination := &domain.Pagination{Limit: pointer.Int(5), Offset: pointer.Int(0)}
+	filter := map[string]interface{}{"name": "TestWarehouses 1"}
+	foundWarehousesPorts, err := repo.FindMany(context.Background(), pagination, filter)
+	assert.NoError(t, err)
+	assert.Len(t, foundWarehousesPorts, 1)
 }
 
 func TestDeleteWarehousePort(t *testing.T) {

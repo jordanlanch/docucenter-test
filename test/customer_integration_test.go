@@ -160,6 +160,22 @@ func TestCustomers(t *testing.T) {
 		t.Log("Ending test:", t.Name())
 	})
 
+	t.Run("Fetch customers with filter", func(t *testing.T) {
+		t.Log("Starting test:", t.Name())
+		resp := expect.GET("/customers").
+			WithHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)).
+			WithQueryString("limit=10&offset=0&email=contacto@empresaabc.com").
+			Expect().
+			Status(http.StatusOK).
+			JSON().Array()
+
+		resp.Length().IsEqual(1)
+
+		firstCustomer := resp.Value(0).Object()
+		firstCustomer.Value("email").String().IsEqual("contacto@empresaabc.com")
+		t.Log("Ending test:", t.Name())
+	})
+
 	t.Run("Delete customer", func(t *testing.T) {
 		t.Log("Starting test:", t.Name())
 

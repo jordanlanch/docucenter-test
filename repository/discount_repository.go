@@ -18,10 +18,14 @@ func NewDiscountRepository(db *gorm.DB, table string) domain.DiscountRepository 
 	return &discountRepository{db, table}
 }
 
-func (r *discountRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Discount, error) {
+func (r *discountRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Discount, error) {
 	var discount []*domain.Discount
 	db := r.db.WithContext(ctx)
 	db = applyPagination(db, pagination)
+
+	for k, v := range filters {
+		db = db.Where(k+" = ?", v)
+	}
 
 	result := db.Find(&discount)
 	if result.Error != nil {

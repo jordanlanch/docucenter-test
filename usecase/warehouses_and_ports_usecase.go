@@ -20,11 +20,11 @@ func NewWarehousePortUsecase(warehousePortRepository domain.WarehousePortReposit
 	}
 }
 
-func (wpu *warehousePortUsecase) GetMany(pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) {
+func (wpu *warehousePortUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.WarehousesAndPorts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
 	defer cancel()
 
-	return wpu.warehousePortRepository.FindMany(ctx, pagination)
+	return wpu.warehousePortRepository.FindMany(ctx, pagination, filters)
 }
 
 func (wpu *warehousePortUsecase) GetByID(id uuid.UUID) (*domain.WarehousesAndPorts, error) {

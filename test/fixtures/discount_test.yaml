@@ -9,7 +9,7 @@ interactions:
         content_length: 57
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:38665'
+        host: '[::1]:42557'
         remote_addr: ""
         request_uri: ""
         body: '{"email":"jordan.dev93@gmail.com","password":"pass1234*"}'
@@ -17,7 +17,7 @@ interactions:
         headers:
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://[::1]:38665/login
+        url: http://[::1]:42557/login
         method: POST
       response:
         proto: HTTP/1.1
@@ -27,17 +27,17 @@ interactions:
         trailer: {}
         content_length: 408
         uncompressed: false
-        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MjMwMzgzNn0.dWhz4RroUp4r-RpO1jxDBTY4rNd9750ctnnAYcs-2Zc"}'
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MjMwODgwNn0.VST54U0_799YwOCiQ8924iVkShqZa7pit-MPX87e738"}'
         headers:
             Content-Length:
                 - "408"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 61.625437ms
+        duration: 59.498237ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -46,17 +46,17 @@ interactions:
         content_length: 68
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:38665'
+        host: '[::1]:42557'
         remote_addr: ""
         request_uri: ""
         body: '{"percentage":20,"quantity_from":80,"quantity_to":100,"type":"land"}'
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://[::1]:38665/discounts
+        url: http://[::1]:42557/discounts
         method: POST
       response:
         proto: HTTP/1.1
@@ -66,17 +66,17 @@ interactions:
         trailer: {}
         content_length: 214
         uncompressed: false
-        body: '{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T15:23:56.421212713-05:00","updated_at":"2023-08-10T15:23:56.421212764-05:00"}'
+        body: '{"id":"a11cc44a-d824-49eb-aaeb-ab6186b6170a","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T16:46:46.919236184-05:00","updated_at":"2023-08-10T16:46:46.919236232-05:00"}'
         headers:
             Content-Length:
                 - "214"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 201 Created
         code: 201
-        duration: 3.065369ms
+        duration: 12.241804ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -85,15 +85,15 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:38665'
+        host: '[::1]:42557'
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://[::1]:38665/discounts?limit=10&offset=0
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://[::1]:42557/discounts?limit=10&offset=0
         method: GET
       response:
         proto: HTTP/1.1
@@ -103,17 +103,17 @@ interactions:
         trailer: {}
         content_length: 598
         uncompressed: false
-        body: '[{"id":"30915017-178c-40ae-91bc-1540cc2fc6e1","type":"land","quantity_from":11,"quantity_to":20,"percentage":5,"created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"613de318-f56e-47e9-aad8-dafc837958d6","type":"maritime","quantity_from":11,"quantity_to":20,"percentage":3,"created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T15:23:56.421212Z","updated_at":"2023-08-10T15:23:56.421212Z"}]'
+        body: '[{"id":"f3d374bc-c5f6-444f-8302-207da12a678e","type":"land","quantity_from":11,"quantity_to":20,"percentage":5,"created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"7aecddf6-62c7-4a2e-99f1-3861bf3724a2","type":"maritime","quantity_from":11,"quantity_to":20,"percentage":3,"created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"a11cc44a-d824-49eb-aaeb-ab6186b6170a","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T16:46:46.919236Z","updated_at":"2023-08-10T16:46:46.919236Z"}]'
         headers:
             Content-Length:
                 - "598"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 932.113µs
+        duration: 1.112197ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -122,15 +122,52 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:38665'
+        host: '[::1]:42557'
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://[::1]:38665/discounts/land/90
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://[::1]:42557/discounts?limit=10&offset=0&type=land
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 397
+        uncompressed: false
+        body: '[{"id":"f3d374bc-c5f6-444f-8302-207da12a678e","type":"land","quantity_from":11,"quantity_to":20,"percentage":5,"created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"a11cc44a-d824-49eb-aaeb-ab6186b6170a","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T16:46:46.919236Z","updated_at":"2023-08-10T16:46:46.919236Z"}]'
+        headers:
+            Content-Length:
+                - "397"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 21:46:46 GMT
+        status: 200 OK
+        code: 200
+        duration: 795.774µs
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:42557'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://[::1]:42557/discounts/land/90
         method: GET
       response:
         proto: HTTP/1.1
@@ -140,18 +177,18 @@ interactions:
         trailer: {}
         content_length: 198
         uncompressed: false
-        body: '{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T15:23:56.421212Z","updated_at":"2023-08-10T15:23:56.421212Z"}'
+        body: '{"id":"a11cc44a-d824-49eb-aaeb-ab6186b6170a","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T16:46:46.919236Z","updated_at":"2023-08-10T16:46:46.919236Z"}'
         headers:
             Content-Length:
                 - "198"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 962.448µs
-    - id: 4
+        duration: 792.949µs
+    - id: 5
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -159,17 +196,17 @@ interactions:
         content_length: 72
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:38665'
+        host: '[::1]:42557'
         remote_addr: ""
         request_uri: ""
         body: '{"percentage":15,"quantity_from":20,"quantity_to":200,"type":"maritime"}'
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://[::1]:38665/discounts/6250e572-d628-4d12-97cc-56fba75a0a9e
+        url: http://[::1]:42557/discounts/a11cc44a-d824-49eb-aaeb-ab6186b6170a
         method: PUT
       response:
         proto: HTTP/1.1
@@ -179,18 +216,18 @@ interactions:
         trailer: {}
         content_length: 210
         uncompressed: false
-        body: '{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"maritime","quantity_from":20,"quantity_to":200,"percentage":15,"created_at":"2023-08-10T15:23:56.421212Z","updated_at":"2023-08-10T15:23:56.432842602-05:00"}'
+        body: '{"id":"a11cc44a-d824-49eb-aaeb-ab6186b6170a","type":"maritime","quantity_from":20,"quantity_to":200,"percentage":15,"created_at":"2023-08-10T16:46:46.919236Z","updated_at":"2023-08-10T16:46:46.953121013-05:00"}'
         headers:
             Content-Length:
                 - "210"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 2.342016ms
-    - id: 5
+        duration: 14.237958ms
+    - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -198,15 +235,15 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:38665'
+        host: '[::1]:42557'
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://[::1]:38665/discounts/6250e572-d628-4d12-97cc-56fba75a0a9e
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://[::1]:42557/discounts/a11cc44a-d824-49eb-aaeb-ab6186b6170a
         method: DELETE
       response:
         proto: HTTP/1.1
@@ -223,7 +260,7 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 1.81002ms
+        duration: 1.985206ms

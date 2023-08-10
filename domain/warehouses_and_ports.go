@@ -19,7 +19,7 @@ type WarehousesAndPorts struct {
 }
 
 type WarehousePortRepository interface {
-	FindMany(ctx context.Context, pagination *Pagination) ([]*WarehousesAndPorts, error)
+	FindMany(ctx context.Context, pagination *Pagination, filters map[string]interface{}) ([]*WarehousesAndPorts, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*WarehousesAndPorts, error)
 	Store(ctx context.Context, wp *WarehousesAndPorts) (*WarehousesAndPorts, error)
 	Update(ctx context.Context, wp *WarehousesAndPorts, id uuid.UUID) (*WarehousesAndPorts, error)
@@ -27,7 +27,7 @@ type WarehousePortRepository interface {
 }
 
 type WarehousePortUsecase interface {
-	GetMany(pagination *Pagination) ([]*WarehousesAndPorts, error)
+	GetMany(pagination *Pagination, filters map[string]interface{}) ([]*WarehousesAndPorts, error)
 	GetByID(id uuid.UUID) (*WarehousesAndPorts, error)
 	Create(wp *WarehousesAndPorts) (*WarehousesAndPorts, error)
 	Modify(wp *WarehousesAndPorts, id uuid.UUID) (*WarehousesAndPorts, error)

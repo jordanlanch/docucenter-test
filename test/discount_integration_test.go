@@ -71,6 +71,22 @@ func TestDiscounts(t *testing.T) {
 		t.Log("Ending test:", t.Name())
 	})
 
+	t.Run("Fetch discounts", func(t *testing.T) {
+		t.Log("Starting test:", t.Name())
+
+		resp := expect.GET("/discounts").
+			WithHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)).
+			WithQueryString("limit=10&offset=0&type=land").
+			Expect().
+			Status(statusOK).
+			JSON().Array()
+
+		firstDiscount := resp.Value(0).Object()
+		firstDiscount.Value("type").String().IsEqual("land")
+
+		t.Log("Ending test:", t.Name())
+	})
+
 	t.Run("Get discount by id", func(t *testing.T) {
 		t.Log("Starting test:", t.Name())
 

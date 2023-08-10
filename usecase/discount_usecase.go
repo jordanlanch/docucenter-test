@@ -20,11 +20,11 @@ func NewDiscountUsecase(discountRepository domain.DiscountRepository, timeout ti
 	}
 }
 
-func (du *discountUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Discount, error) {
+func (du *discountUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Discount, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
 	defer cancel()
 
-	return du.discountRepository.FindMany(ctx, pagination)
+	return du.discountRepository.FindMany(ctx, pagination, filters)
 }
 
 func (du *discountUsecase) GetByTypeAndQuantity(dtype domain.LogisticsType, quantity int) (*domain.Discount, error) {

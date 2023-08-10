@@ -69,6 +69,22 @@ func TestProducts(t *testing.T) {
 		t.Log("Ending test:", t.Name())
 	})
 
+	t.Run("Fetch products with Filters", func(t *testing.T) {
+		t.Log("Starting test:", t.Name())
+
+		resp := expect.GET("/products").
+			WithHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)).
+			WithQueryString("limit=10&offset=0&type=land").
+			Expect().
+			Status(http.StatusOK).
+			JSON().Array()
+
+		firstProduct := resp.Value(0).Object()
+		firstProduct.Value("type").String().IsEqual("land")
+
+		t.Log("Ending test:", t.Name())
+	})
+
 	t.Run("Get product by id", func(t *testing.T) {
 		t.Log("Starting test:", t.Name())
 

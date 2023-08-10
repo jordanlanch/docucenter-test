@@ -78,3 +78,6 @@ migrate-reset:
 
 mocks:
 	mockery --dir=domain --output=domain/mocks --outpkg=mocks --all
+
+diagram:
+	plantuml -tpng -o ./ diagrams/diagram.puml

@@ -95,10 +95,33 @@ func TestFindManyProducts(t *testing.T) {
 	limit := 2
 	offset := 0
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
-
-	products, err := repo.FindMany(context.Background(), pagination)
+	filter := map[string]interface{}{}
+	products, err := repo.FindMany(context.Background(), pagination, filter)
 	assert.NoError(t, err)
 	assert.Len(t, products, 2) // Debería devolver solo 2 productos debido a la limitación
+}
+
+func TestFindManyProductsWithFilter(t *testing.T) {
+	repo := NewProductRepository(db, "products")
+
+	// Crear algunos productos para probar la paginación
+	for i := 0; i < 5; i++ {
+		product := &domain.Product{
+			ID:   uuid.New(),
+			Name: "Products " + fmt.Sprintf("%d", i),
+			Type: "land",
+		}
+		repo.Store(context.Background(), product)
+	}
+
+	// Prueba de paginación
+	limit := 2
+	offset := 0
+	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
+	filter := map[string]interface{}{"name": "Product 1"}
+	products, err := repo.FindMany(context.Background(), pagination, filter)
+	assert.NoError(t, err)
+	assert.Len(t, products, 1) // Debería devolver solo 1 productos debido al filtro
 }
 
 func TestUpdateProductNotFound(t *testing.T) {

@@ -20,11 +20,11 @@ func NewCustomerUsecase(customerRepository domain.CustomerRepository, timeout ti
 	}
 }
 
-func (cu *customerUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Customer, error) {
+func (cu *customerUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Customer, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
 	defer cancel()
 
-	return cu.customerRepository.FindMany(ctx, pagination)
+	return cu.customerRepository.FindMany(ctx, pagination, filters)
 }
 
 func (cu *customerUsecase) GetByID(id uuid.UUID) (*domain.Customer, error) {

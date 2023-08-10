@@ -53,13 +53,13 @@ func (_m *CustomerRepository) FindByID(ctx context.Context, id uuid.UUID) (*doma
 	return r0, r1
 }
 
-// FindMany provides a mock function with given fields: ctx, pagination
-func (_m *CustomerRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Customer, error) {
-	ret := _m.Called(ctx, pagination)
+// FindMany provides a mock function with given fields: ctx, pagination, filters
+func (_m *CustomerRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Customer, error) {
+	ret := _m.Called(ctx, pagination, filters)
 
 	var r0 []*domain.Customer
-	if rf, ok := ret.Get(0).(func(context.Context, *domain.Pagination) []*domain.Customer); ok {
-		r0 = rf(ctx, pagination)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.Pagination, map[string]interface{}) []*domain.Customer); ok {
+		r0 = rf(ctx, pagination, filters)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).([]*domain.Customer)
@@ -67,8 +67,8 @@ func (_m *CustomerRepository) FindMany(ctx context.Context, pagination *domain.P
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *domain.Pagination) error); ok {
-		r1 = rf(ctx, pagination)
+	if rf, ok := ret.Get(1).(func(context.Context, *domain.Pagination, map[string]interface{}) error); ok {
+		r1 = rf(ctx, pagination, filters)
 	} else {
 		r1 = ret.Error(1)
 	}

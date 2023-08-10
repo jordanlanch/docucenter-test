@@ -19,6 +19,8 @@ func TestDiscountUseCase_GetMany(t *testing.T) {
 	offset := 0
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
 
+	filter := map[string]interface{}{}
+
 	t.Run("success", func(t *testing.T) {
 		mockDiscounts := []*domain.Discount{
 			{
@@ -30,11 +32,11 @@ func TestDiscountUseCase_GetMany(t *testing.T) {
 			},
 		}
 
-		mockDiscountRepo.On("FindMany", mock.Anything, pagination).Return(mockDiscounts, nil).Once()
+		mockDiscountRepo.On("FindMany", mock.Anything, pagination, filter).Return(mockDiscounts, nil).Once()
 
 		u := NewDiscountUsecase(mockDiscountRepo, time.Second*2)
 
-		discounts, err := u.GetMany(pagination)
+		discounts, err := u.GetMany(pagination, filter)
 
 		assert.NoError(t, err)
 		assert.NotNil(t, discounts)

@@ -24,12 +24,12 @@ func TestLogisticsUsecase_GetMany(t *testing.T) {
 		{ID: uuid.New()},
 		{ID: uuid.New()},
 	}
+	filter := map[string]interface{}{}
 
 	t.Run("success", func(t *testing.T) {
-		mockLogisticsRepo.On("FindMany", mock.AnythingOfType("*context.timerCtx"), pagination).Return(mockLogistics, nil).Once()
-
+		mockLogisticsRepo.On("FindMany", mock.AnythingOfType("*context.timerCtx"), pagination, filter).Return(mockLogistics, nil).Once()
 		u := NewLogisticsUsecase(mockLogisticsRepo, mockDiscountRepo, time.Second*2)
-		result, err := u.GetMany(pagination)
+		result, err := u.GetMany(pagination, filter)
 
 		assert.NoError(t, err)
 		assert.Len(t, result, len(mockLogistics))
@@ -38,10 +38,9 @@ func TestLogisticsUsecase_GetMany(t *testing.T) {
 	})
 
 	t.Run("error", func(t *testing.T) {
-		mockLogisticsRepo.On("FindMany", mock.AnythingOfType("*context.timerCtx"), pagination).Return(nil, errors.New("Unexpected error")).Once()
-
+		mockLogisticsRepo.On("FindMany", mock.AnythingOfType("*context.timerCtx"), pagination, filter).Return(nil, errors.New("Unexpected error")).Once()
 		u := NewLogisticsUsecase(mockLogisticsRepo, mockDiscountRepo, time.Second*2)
-		result, err := u.GetMany(pagination)
+		result, err := u.GetMany(pagination, filter)
 
 		assert.Error(t, err)
 		assert.Nil(t, result)

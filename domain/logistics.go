@@ -56,7 +56,7 @@ func (ll *Logistics) Validate() error {
 }
 
 type LogisticsRepository interface {
-	FindMany(ctx context.Context, pagination *Pagination) ([]*Logistics, error)
+	FindMany(ctx context.Context, pagination *Pagination, filters map[string]interface{}) ([]*Logistics, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*Logistics, error)
 	Store(ctx context.Context, ll *Logistics) (*Logistics, error)
 	Update(ctx context.Context, ll *Logistics, id uuid.UUID) (*Logistics, error)
@@ -64,7 +64,7 @@ type LogisticsRepository interface {
 }
 
 type LogisticsUsecase interface {
-	GetMany(pagination *Pagination) ([]*Logistics, error)
+	GetMany(pagination *Pagination, filters map[string]interface{}) ([]*Logistics, error)
 	GetByID(id uuid.UUID) (*Logistics, error)
 	Create(ll *Logistics) (*Logistics, error)
 	Modify(ll *Logistics, id uuid.UUID) (*Logistics, error)

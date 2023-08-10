@@ -18,6 +18,8 @@ func TestCustomerUseCase_GetMany(t *testing.T) {
 	offset := 0
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
 
+	filter := map[string]interface{}{}
+
 	t.Run("success", func(t *testing.T) {
 		mockCustomers := []*domain.Customer{
 			{
@@ -32,11 +34,11 @@ func TestCustomerUseCase_GetMany(t *testing.T) {
 			},
 		}
 
-		mockCustomerRepo.On("FindMany", mock.Anything, pagination).Return(mockCustomers, nil).Once()
+		mockCustomerRepo.On("FindMany", mock.Anything, pagination, filter).Return(mockCustomers, nil).Once()
 
 		u := NewCustomerUsecase(mockCustomerRepo, time.Second*2)
 
-		customers, err := u.GetMany(pagination)
+		customers, err := u.GetMany(pagination, filter)
 
 		assert.NoError(t, err)
 		assert.NotNil(t, customers)
@@ -46,11 +48,11 @@ func TestCustomerUseCase_GetMany(t *testing.T) {
 	})
 
 	t.Run("error", func(t *testing.T) {
-		mockCustomerRepo.On("FindMany", mock.Anything, pagination).Return(nil, errors.New("Error fetching")).Once()
+		mockCustomerRepo.On("FindMany", mock.Anything, pagination, filter).Return(nil, errors.New("Error fetching")).Once()
 
 		u := NewCustomerUsecase(mockCustomerRepo, time.Second*2)
 
-		customers, err := u.GetMany(pagination)
+		customers, err := u.GetMany(pagination, filter)
 
 		assert.Error(t, err)
 		assert.Nil(t, customers)

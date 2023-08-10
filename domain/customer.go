@@ -18,7 +18,7 @@ type Customer struct {
 }
 
 type CustomerRepository interface {
-	FindMany(ctx context.Context, pagination *Pagination) ([]*Customer, error)
+	FindMany(ctx context.Context, pagination *Pagination, filters map[string]interface{}) ([]*Customer, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*Customer, error)
 	Store(ctx context.Context, c *Customer) (*Customer, error)
 	Update(ctx context.Context, c *Customer, id uuid.UUID) (*Customer, error)
@@ -26,7 +26,7 @@ type CustomerRepository interface {
 }
 
 type CustomerUsecase interface {
-	GetMany(pagination *Pagination) ([]*Customer, error)
+	GetMany(pagination *Pagination, filters map[string]interface{}) ([]*Customer, error)
 	GetByID(id uuid.UUID) (*Customer, error)
 	Create(c *Customer) (*Customer, error)
 	Modify(c *Customer, id uuid.UUID) (*Customer, error)

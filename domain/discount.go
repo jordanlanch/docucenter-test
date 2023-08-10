@@ -27,7 +27,7 @@ type Discount struct {
 }
 
 type DiscountRepository interface {
-	FindMany(ctx context.Context, pagination *Pagination) ([]*Discount, error)
+	FindMany(ctx context.Context, pagination *Pagination, filters map[string]interface{}) ([]*Discount, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*Discount, error)
 	FindByTypeAndQuantity(ctx context.Context, dtype LogisticsType, quantity int) (*Discount, error)
 	Store(ctx context.Context, d *Discount) (*Discount, error)
@@ -36,7 +36,7 @@ type DiscountRepository interface {
 }
 
 type DiscountUsecase interface {
-	GetMany(pagination *Pagination) ([]*Discount, error)
+	GetMany(pagination *Pagination, filters map[string]interface{}) ([]*Discount, error)
 	GetByTypeAndQuantity(dtype LogisticsType, quantity int) (*Discount, error)
 	Create(d *Discount) (*Discount, error)
 	Modify(d *Discount, id uuid.UUID) (*Discount, error)

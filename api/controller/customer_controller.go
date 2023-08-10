@@ -33,10 +33,16 @@ func (mc *CustomerController) Fetch(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Invalid offset parameter"})
 		return
 	}
+	filters := make(map[string]interface{})
+	for k, v := range c.Request.URL.Query() {
+		if k != "limit" && k != "offset" {
+			filters[k] = v[0]
+		}
+	}
 
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
 
-	customers, err := mc.CustomerUsecase.GetMany(pagination)
+	customers, err := mc.CustomerUsecase.GetMany(pagination, filters)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return

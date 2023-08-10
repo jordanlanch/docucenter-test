@@ -31,10 +31,14 @@ func applyPagination(db *gorm.DB, pagination *domain.Pagination) *gorm.DB {
 	return db
 }
 
-func (r *customerRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.Customer, error) {
+func (r *customerRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Customer, error) {
 	var customer []*domain.Customer
 	db := r.db.WithContext(ctx)
 	db = applyPagination(db, pagination)
+
+	for k, v := range filters {
+		db = db.Where(k+" = ?", v)
+	}
 
 	result := db.Find(&customer)
 	if result.Error != nil {

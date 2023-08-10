@@ -70,6 +70,22 @@ func TestWarehousePorts(t *testing.T) {
 		t.Log("Ending test:", t.Name())
 	})
 
+	t.Run("Fetch warehouse ports with filters", func(t *testing.T) {
+		t.Log("Starting test:", t.Name())
+
+		resp := expect.GET("/warehouse_ports").
+			WithHeader("Authorization", fmt.Sprintf("Bearer %s", accessToken)).
+			WithQueryString("limit=10&offset=0?type=land").
+			Expect().
+			Status(http.StatusOK).
+			JSON().Array()
+
+		firstWarehousePort := resp.Value(0).Object()
+		firstWarehousePort.Value("type").String().IsEqual("land")
+
+		t.Log("Ending test:", t.Name())
+	})
+
 	t.Run("Get warehouse port by id", func(t *testing.T) {
 		t.Log("Starting test:", t.Name())
 

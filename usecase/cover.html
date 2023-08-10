@@ -114,11 +114,11 @@ func NewCustomerUsecase(customerRepository domain.CustomerRepository, timeout ti
         }
 }</span>
 
-func (cu *customerUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Customer, error) <span class="cov3" title="2">{
+func (cu *customerUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Customer, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
         defer cancel()
 
-        return cu.customerRepository.FindMany(ctx, pagination)
+        return cu.customerRepository.FindMany(ctx, pagination, filters)
 }</span>
 
 func (cu *customerUsecase) GetByID(id uuid.UUID) (*domain.Customer, error) <span class="cov3" title="2">{
@@ -186,11 +186,11 @@ func NewDiscountUsecase(discountRepository domain.DiscountRepository, timeout ti
         }
 }</span>
 
-func (du *discountUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Discount, error) <span class="cov1" title="1">{
+func (du *discountUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Discount, error) <span class="cov1" title="1">{
         ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
         defer cancel()
 
-        return du.discountRepository.FindMany(ctx, pagination)
+        return du.discountRepository.FindMany(ctx, pagination, filters)
 }</span>
 
 func (du *discountUsecase) GetByTypeAndQuantity(dtype domain.LogisticsType, quantity int) (*domain.Discount, error) <span class="cov3" title="2">{
@@ -300,11 +300,11 @@ func NewLogisticsUsecase(LogisticsRepository domain.LogisticsRepository, discoun
         }
 }</span>
 
-func (llu *LogisticsUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Logistics, error) <span class="cov3" title="2">{
+func (llu *LogisticsUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Logistics, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
         defer cancel()
 
-        return llu.LogisticsRepository.FindMany(ctx, pagination)
+        return llu.LogisticsRepository.FindMany(ctx, pagination, filters)
 }</span>
 
 func (llu *LogisticsUsecase) GetByID(id uuid.UUID) (*domain.Logistics, error) <span class="cov3" title="2">{
@@ -408,11 +408,11 @@ func NewProductUsecase(productRepository domain.ProductRepository, timeout time.
         }
 }</span>
 
-func (pu *productUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Product, error) <span class="cov0" title="0">{
+func (pu *productUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.Product, error) <span class="cov0" title="0">{
         ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
         defer cancel()
 
-        return pu.productRepository.FindMany(ctx, pagination)
+        return pu.productRepository.FindMany(ctx, pagination, filters)
 }</span>
 
 func (pu *productUsecase) GetByID(id uuid.UUID) (*domain.Product, error) <span class="cov3" title="2">{
@@ -569,11 +569,11 @@ func NewWarehousePortUsecase(warehousePortRepository domain.WarehousePortReposit
         }
 }</span>
 
-func (wpu *warehousePortUsecase) GetMany(pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) <span class="cov0" title="0">{
+func (wpu *warehousePortUsecase) GetMany(pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.WarehousesAndPorts, error) <span class="cov0" title="0">{
         ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
         defer cancel()
 
-        return wpu.warehousePortRepository.FindMany(ctx, pagination)
+        return wpu.warehousePortRepository.FindMany(ctx, pagination, filters)
 }</span>
 
 func (wpu *warehousePortUsecase) GetByID(id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov4" title="2">{

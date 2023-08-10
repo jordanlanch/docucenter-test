@@ -34,9 +34,16 @@ func (pc *LogisticsController) Fetch(c *gin.Context) {
 		return
 	}
 
+	filters := make(map[string]interface{})
+	for k, v := range c.Request.URL.Query() {
+		if k != "limit" && k != "offset" {
+			filters[k] = v[0]
+		}
+	}
+
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
 
-	logistics, err := pc.LogisticsUsecase.GetMany(pagination)
+	logistics, err := pc.LogisticsUsecase.GetMany(pagination, filters)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return

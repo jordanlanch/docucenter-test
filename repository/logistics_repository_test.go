@@ -82,16 +82,34 @@ func TestLogisticsRepository(t *testing.T) {
 		limit := 10
 		offset := 0
 		pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
-		logisticsList, err := logisticsRepo.FindMany(context.Background(), pagination)
+		filter := map[string]interface{}{}
+		logisticsList, err := logisticsRepo.FindMany(context.Background(), pagination, filter)
 		assert.NoError(t, err)
 		assert.GreaterOrEqual(t, len(logisticsList), 2)
+	})
+
+	t.Run("FindMany - success with filter", func(t *testing.T) {
+		logistics1 := createSampleLogistics(product.ID, warehousePort.ID, customer.ID)
+		_, _ = logisticsRepo.Store(context.Background(), logistics1)
+
+		logistics2 := createSampleLogistics(product.ID, warehousePort.ID, customer.ID)
+		_, _ = logisticsRepo.Store(context.Background(), logistics2)
+
+		limit := 10
+		offset := 0
+		pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
+		filter := map[string]interface{}{"product_id": product.ID}
+		logisticsList, err := logisticsRepo.FindMany(context.Background(), pagination, filter)
+		assert.NoError(t, err)
+		assert.GreaterOrEqual(t, len(logisticsList), 1)
 	})
 
 	t.Run("FindMany - empty", func(t *testing.T) {
 		limit := 10
 		offset := 100
 		pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
-		logisticsList, err := logisticsRepo.FindMany(context.Background(), pagination)
+		filter := map[string]interface{}{}
+		logisticsList, err := logisticsRepo.FindMany(context.Background(), pagination, filter)
 		assert.NoError(t, err)
 		assert.Equal(t, 0, len(logisticsList))
 	})

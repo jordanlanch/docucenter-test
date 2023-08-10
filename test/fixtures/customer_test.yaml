@@ -34,10 +34,10 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 400 Bad Request
         code: 400
-        duration: 1.506966ms
+        duration: 585.784µs
     - id: 1
       request:
         proto: HTTP/1.1
@@ -71,10 +71,10 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 404 Not Found
         code: 404
-        duration: 4.92874ms
+        duration: 5.553507ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -101,17 +101,17 @@ interactions:
         trailer: {}
         content_length: 408
         uncompressed: false
-        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MjMwMzgzNn0.dWhz4RroUp4r-RpO1jxDBTY4rNd9750ctnnAYcs-2Zc"}'
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MjMwODgwNn0.VST54U0_799YwOCiQ8924iVkShqZa7pit-MPX87e738"}'
         headers:
             Content-Length:
                 - "408"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 62.132995ms
+        duration: 73.334939ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -138,17 +138,17 @@ interactions:
         trailer: {}
         content_length: 408
         uncompressed: false
-        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MjMwMzgzNn0.dWhz4RroUp4r-RpO1jxDBTY4rNd9750ctnnAYcs-2Zc"}'
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MjMwODgwNn0.VST54U0_799YwOCiQ8924iVkShqZa7pit-MPX87e738"}'
         headers:
             Content-Length:
                 - "408"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 55.141335ms
+        duration: 55.148655ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -164,7 +164,7 @@ interactions:
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
             Content-Type:
                 - application/json; charset=utf-8
         url: http://127.0.0.1:42783/customers
@@ -175,19 +175,19 @@ interactions:
         proto_minor: 1
         transfer_encoding: []
         trailer: {}
-        content_length: 195
+        content_length: 196
         uncompressed: false
-        body: '{"id":"6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3","name":"John Doe","email":"john.doe@example.com","created_at":"2023-08-10T15:23:56.265873333-05:00","updated_at":"2023-08-10T15:23:56.26587338-05:00"}'
+        body: '{"id":"7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6","name":"John Doe","email":"john.doe@example.com","created_at":"2023-08-10T16:46:46.698214181-05:00","updated_at":"2023-08-10T16:46:46.698214227-05:00"}'
         headers:
             Content-Length:
-                - "195"
+                - "196"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 201 Created
         code: 201
-        duration: 2.824024ms
+        duration: 13.785451ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -203,8 +203,8 @@ interactions:
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://127.0.0.1:42783/customers/6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://127.0.0.1:42783/customers/7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6
         method: GET
       response:
         proto: HTTP/1.1
@@ -214,17 +214,17 @@ interactions:
         trailer: {}
         content_length: 180
         uncompressed: false
-        body: '{"id":"6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3","name":"John Doe","email":"john.doe@example.com","created_at":"2023-08-10T15:23:56.265873Z","updated_at":"2023-08-10T15:23:56.265873Z"}'
+        body: '{"id":"7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6","name":"John Doe","email":"john.doe@example.com","created_at":"2023-08-10T16:46:46.698214Z","updated_at":"2023-08-10T16:46:46.698214Z"}'
         headers:
             Content-Length:
                 - "180"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 1.217676ms
+        duration: 1.171258ms
     - id: 6
       request:
         proto: HTTP/1.1
@@ -240,10 +240,10 @@ interactions:
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://127.0.0.1:42783/customers/6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3
+        url: http://127.0.0.1:42783/customers/7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6
         method: PUT
       response:
         proto: HTTP/1.1
@@ -253,17 +253,17 @@ interactions:
         trailer: {}
         content_length: 188
         uncompressed: false
-        body: '{"id":"6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3","name":"Jane Doe","email":"jane.doe@example.com","created_at":"2023-08-10T15:23:56.265873Z","updated_at":"2023-08-10T15:23:56.276367458-05:00"}'
+        body: '{"id":"7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6","name":"Jane Doe","email":"jane.doe@example.com","created_at":"2023-08-10T16:46:46.698214Z","updated_at":"2023-08-10T16:46:46.730767612-05:00"}'
         headers:
             Content-Length:
                 - "188"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 2.480416ms
+        duration: 15.739076ms
     - id: 7
       request:
         proto: HTTP/1.1
@@ -279,7 +279,7 @@ interactions:
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
         url: http://127.0.0.1:42783/customers?limit=10&offset=0
         method: GET
       response:
@@ -290,17 +290,17 @@ interactions:
         trailer: {}
         content_length: 556
         uncompressed: false
-        body: '[{"id":"a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890","name":"Empresa ABC","email":"contacto@empresaabc.com","created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"b2c3d4e5-f6a7-8901-b2c3-d4e5f6a78901","name":"Empresa XYZ","email":"contacto@empresaxyz.com","created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3","name":"Jane Doe","email":"jane.doe@example.com","created_at":"2023-08-10T15:23:56.265873Z","updated_at":"2023-08-10T15:23:56.276589Z"}]'
+        body: '[{"id":"a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890","name":"Empresa ABC","email":"contacto@empresaabc.com","created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"b2c3d4e5-f6a7-8901-b2c3-d4e5f6a78901","name":"Empresa XYZ","email":"contacto@empresaxyz.com","created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6","name":"Jane Doe","email":"jane.doe@example.com","created_at":"2023-08-10T16:46:46.698214Z","updated_at":"2023-08-10T16:46:46.731078Z"}]'
         headers:
             Content-Length:
                 - "556"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 732.224µs
+        duration: 858.76µs
     - id: 8
       request:
         proto: HTTP/1.1
@@ -316,8 +316,45 @@ interactions:
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://127.0.0.1:42783/customers/6bb7deb8-2c8d-4e8c-bd54-d8d0106e64f3
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://127.0.0.1:42783/customers?email=contacto%40empresaabc.com&limit=10&offset=0
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 188
+        uncompressed: false
+        body: '[{"id":"a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890","name":"Empresa ABC","email":"contacto@empresaabc.com","created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"}]'
+        headers:
+            Content-Length:
+                - "188"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 21:46:46 GMT
+        status: 200 OK
+        code: 200
+        duration: 1.187374ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: 127.0.0.1:42783
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwNn0.exJH8NA5zTi_io8A8CugVclVKNBZmtaHilSKLTC99kk
+        url: http://127.0.0.1:42783/customers/7bc2e3f3-efc9-4e9e-b850-5832e03eb1d6
         method: DELETE
       response:
         proto: HTTP/1.1
@@ -334,7 +371,7 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:46 GMT
         status: 200 OK
         code: 200
-        duration: 3.132423ms
+        duration: 12.841893ms

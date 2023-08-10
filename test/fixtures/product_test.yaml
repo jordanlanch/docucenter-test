@@ -9,7 +9,7 @@ interactions:
         content_length: 57
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:41553'
+        host: '[::1]:38655'
         remote_addr: ""
         request_uri: ""
         body: '{"email":"jordan.dev93@gmail.com","password":"pass1234*"}'
@@ -17,7 +17,7 @@ interactions:
         headers:
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://[::1]:41553/login
+        url: http://[::1]:38655/login
         method: POST
       response:
         proto: HTTP/1.1
@@ -27,17 +27,17 @@ interactions:
         trailer: {}
         content_length: 408
         uncompressed: false
-        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MjMwMzgzNn0.dWhz4RroUp4r-RpO1jxDBTY4rNd9750ctnnAYcs-2Zc"}'
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MjMwODgwN30.LgnCTCItj1whKyno0-PXLzvYwxfJP2Z--Dks0cakEPA"}'
         headers:
             Content-Length:
                 - "408"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:47 GMT
         status: 200 OK
         code: 200
-        duration: 60.059621ms
+        duration: 59.898062ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -46,17 +46,17 @@ interactions:
         content_length: 38
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:41553'
+        host: '[::1]:38655'
         remote_addr: ""
         request_uri: ""
         body: '{"name":"SampleProduct","type":"land"}'
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://[::1]:41553/products
+        url: http://[::1]:38655/products
         method: POST
       response:
         proto: HTTP/1.1
@@ -66,17 +66,17 @@ interactions:
         trailer: {}
         content_length: 184
         uncompressed: false
-        body: '{"id":"59d74382-4f54-45d1-8e3f-7816fc1c6ce2","name":"SampleProduct","type":"land","created_at":"2023-08-10T15:23:56.746754081-05:00","updated_at":"2023-08-10T15:23:56.746754129-05:00"}'
+        body: '{"id":"3942085b-ab43-427e-8b5f-9b4b6bd82f2a","name":"SampleProduct","type":"land","created_at":"2023-08-10T16:46:47.338153218-05:00","updated_at":"2023-08-10T16:46:47.338153263-05:00"}'
         headers:
             Content-Length:
                 - "184"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:47 GMT
         status: 201 Created
         code: 201
-        duration: 2.935384ms
+        duration: 8.256292ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -85,15 +85,15 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:41553'
+        host: '[::1]:38655'
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://[::1]:41553/products?limit=10&offset=0
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0
+        url: http://[::1]:38655/products?limit=10&offset=0
         method: GET
       response:
         proto: HTTP/1.1
@@ -103,17 +103,17 @@ interactions:
         trailer: {}
         content_length: 691
         uncompressed: false
-        body: '[{"id":"e5f6a789-0123-4567-f8a9-0123456789ab","name":"Producto Terrestre 1","type":"land","created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"f6a78901-2345-6789-a0bc-123456789abc","name":"Producto Marítimo 1","type":"maritime","created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"03a79196-8173-4e13-a1a9-a128a942a65c","name":"product 1","type":"land","created_at":"2023-08-10T15:23:56.571322Z","updated_at":"2023-08-10T15:23:56.571322Z"},{"id":"59d74382-4f54-45d1-8e3f-7816fc1c6ce2","name":"SampleProduct","type":"land","created_at":"2023-08-10T15:23:56.746754Z","updated_at":"2023-08-10T15:23:56.746754Z"}]'
+        body: '[{"id":"e5f6a789-0123-4567-f8a9-0123456789ab","name":"Producto Terrestre 1","type":"land","created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"f6a78901-2345-6789-a0bc-123456789abc","name":"Producto Marítimo 1","type":"maritime","created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"be11011a-8a82-4729-932a-882a92215dd1","name":"product 1","type":"land","created_at":"2023-08-10T16:46:47.140197Z","updated_at":"2023-08-10T16:46:47.140197Z"},{"id":"3942085b-ab43-427e-8b5f-9b4b6bd82f2a","name":"SampleProduct","type":"land","created_at":"2023-08-10T16:46:47.338153Z","updated_at":"2023-08-10T16:46:47.338153Z"}]'
         headers:
             Content-Length:
                 - "691"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:47 GMT
         status: 200 OK
         code: 200
-        duration: 935.138µs
+        duration: 1.232267ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -122,15 +122,52 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:41553'
+        host: '[::1]:38655'
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://[::1]:41553/products/59d74382-4f54-45d1-8e3f-7816fc1c6ce2
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0
+        url: http://[::1]:38655/products?limit=10&offset=0&type=land
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 511
+        uncompressed: false
+        body: '[{"id":"e5f6a789-0123-4567-f8a9-0123456789ab","name":"Producto Terrestre 1","type":"land","created_at":"2023-08-10T21:46:45.546092Z","updated_at":"2023-08-10T21:46:45.546092Z"},{"id":"be11011a-8a82-4729-932a-882a92215dd1","name":"product 1","type":"land","created_at":"2023-08-10T16:46:47.140197Z","updated_at":"2023-08-10T16:46:47.140197Z"},{"id":"3942085b-ab43-427e-8b5f-9b4b6bd82f2a","name":"SampleProduct","type":"land","created_at":"2023-08-10T16:46:47.338153Z","updated_at":"2023-08-10T16:46:47.338153Z"}]'
+        headers:
+            Content-Length:
+                - "511"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 21:46:47 GMT
+        status: 200 OK
+        code: 200
+        duration: 824.517µs
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38655'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0
+        url: http://[::1]:38655/products/3942085b-ab43-427e-8b5f-9b4b6bd82f2a
         method: GET
       response:
         proto: HTTP/1.1
@@ -140,18 +177,18 @@ interactions:
         trailer: {}
         content_length: 168
         uncompressed: false
-        body: '{"id":"59d74382-4f54-45d1-8e3f-7816fc1c6ce2","name":"SampleProduct","type":"land","created_at":"2023-08-10T15:23:56.746754Z","updated_at":"2023-08-10T15:23:56.746754Z"}'
+        body: '{"id":"3942085b-ab43-427e-8b5f-9b4b6bd82f2a","name":"SampleProduct","type":"land","created_at":"2023-08-10T16:46:47.338153Z","updated_at":"2023-08-10T16:46:47.338153Z"}'
         headers:
             Content-Length:
                 - "168"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:47 GMT
         status: 200 OK
         code: 200
-        duration: 876.033µs
-    - id: 4
+        duration: 890.901µs
+    - id: 5
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -159,17 +196,17 @@ interactions:
         content_length: 43
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:41553'
+        host: '[::1]:38655'
         remote_addr: ""
         request_uri: ""
         body: '{"name":"UpdatedProduct","type":"maritime"}'
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0
             Content-Type:
                 - application/json; charset=utf-8
-        url: http://[::1]:41553/products/59d74382-4f54-45d1-8e3f-7816fc1c6ce2
+        url: http://[::1]:38655/products/3942085b-ab43-427e-8b5f-9b4b6bd82f2a
         method: PUT
       response:
         proto: HTTP/1.1
@@ -179,18 +216,18 @@ interactions:
         trailer: {}
         content_length: 181
         uncompressed: false
-        body: '{"id":"59d74382-4f54-45d1-8e3f-7816fc1c6ce2","name":"UpdatedProduct","type":"maritime","created_at":"2023-08-10T15:23:56.746754Z","updated_at":"2023-08-10T15:23:56.757814814-05:00"}'
+        body: '{"id":"3942085b-ab43-427e-8b5f-9b4b6bd82f2a","name":"UpdatedProduct","type":"maritime","created_at":"2023-08-10T16:46:47.338153Z","updated_at":"2023-08-10T16:46:47.364388656-05:00"}'
         headers:
             Content-Length:
                 - "181"
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:47 GMT
         status: 200 OK
         code: 200
-        duration: 2.068773ms
-    - id: 5
+        duration: 11.896977ms
+    - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -198,15 +235,15 @@ interactions:
         content_length: 0
         transfer_encoding: []
         trailer: {}
-        host: '[::1]:41553'
+        host: '[::1]:38655'
         remote_addr: ""
         request_uri: ""
         body: ""
         form: {}
         headers:
             Authorization:
-                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
-        url: http://[::1]:41553/products/59d74382-4f54-45d1-8e3f-7816fc1c6ce2
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6IjQzZjdjYjA3LTFkMDMtNGZkNS04NjE4LTZlZDgxOWFiNGQyZiIsImV4cCI6MTY5MTcxMTIwN30.c0bjN8nUVG41T48QtQoyd66ZZmiDY0Cr9wrMz2Lpjx0
+        url: http://[::1]:38655/products/3942085b-ab43-427e-8b5f-9b4b6bd82f2a
         method: DELETE
       response:
         proto: HTTP/1.1
@@ -223,7 +260,7 @@ interactions:
             Content-Type:
                 - application/json; charset=utf-8
             Date:
-                - Thu, 10 Aug 2023 20:23:56 GMT
+                - Thu, 10 Aug 2023 21:46:47 GMT
         status: 200 OK
         code: 200
-        duration: 2.461971ms
+        duration: 2.734581ms

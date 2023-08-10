@@ -18,7 +18,7 @@ type Product struct {
 }
 
 type ProductRepository interface {
-	FindMany(ctx context.Context, pagination *Pagination) ([]*Product, error)
+	FindMany(ctx context.Context, pagination *Pagination, filters map[string]interface{}) ([]*Product, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*Product, error)
 	Store(ctx context.Context, p *Product) (*Product, error)
 	Update(ctx context.Context, p *Product, id uuid.UUID) (*Product, error)
@@ -26,7 +26,7 @@ type ProductRepository interface {
 }
 
 type ProductUsecase interface {
-	GetMany(pagination *Pagination) ([]*Product, error)
+	GetMany(pagination *Pagination, filters map[string]interface{}) ([]*Product, error)
 	GetByID(id uuid.UUID) (*Product, error)
 	Create(p *Product) (*Product, error)
 	Modify(p *Product, id uuid.UUID) (*Product, error)

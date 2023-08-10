@@ -11,5 +11,5 @@ CREATE TABLE products (
 
 -- +goose Down
 -- +goose StatementBegin
-DROP TABLE product;
+DROP TABLE products;
 -- +goose StatementEnd

@@ -18,10 +18,14 @@ func NewWarehousePortRepository(db *gorm.DB, table string) domain.WarehousePortR
 	return &warehousePortRepository{db, table}
 }
 
-func (r *warehousePortRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) {
+func (r *warehousePortRepository) FindMany(ctx context.Context, pagination *domain.Pagination, filters map[string]interface{}) ([]*domain.WarehousesAndPorts, error) {
 	var warehousePort []*domain.WarehousesAndPorts
 	db := r.db.WithContext(ctx)
 	db = applyPagination(db, pagination)
+
+	for k, v := range filters {
+		db = db.Where(k+" = ?", v)
+	}
 
 	result := db.Find(&warehousePort)
 	if result.Error != nil {

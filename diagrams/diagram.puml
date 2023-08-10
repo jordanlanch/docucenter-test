@@ -1,0 +1,81 @@
+@startuml "class_diagram"
+!include style.puml
+title **E-R**\nClass Diagram
+
+
+  package "Database Schema" {
+
+  entity "users" {
+    + id : UUID (PK)
+    ---
+    email : VARCHAR(255)
+    password : VARCHAR(255)
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+  }
+
+  entity "discounts" {
+    + id : UUID (PK)
+    ---
+    type : VARCHAR(50)
+    quantity_from : INT
+    quantity_to : INT
+    percentage : FLOAT
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+  }
+
+  entity "customers" {
+    + id : UUID (PK)
+    ---
+    name : VARCHAR(255)
+    email : VARCHAR(255)
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+  }
+
+  entity "warehouses_and_ports" {
+    + id : UUID (PK)
+    ---
+    type : VARCHAR(50)
+    name : VARCHAR(255)
+    location : VARCHAR(255)
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+  }
+
+  entity "products" {
+    + id : UUID (PK)
+    ---
+    type : VARCHAR(50)
+    name : VARCHAR(255)
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+  }
+
+  entity "logistics" {
+    + id : UUID (PK)
+    ---
+    customer_id : UUID (FK)
+    product_id : UUID (FK)
+    warehouse_port_id : UUID (FK)
+    type : VARCHAR(50)
+    quantity : INT
+    registration_date : TIMESTAMP
+    delivery_date : TIMESTAMP
+    shipping_price : FLOAT
+    discount_shipping_price : FLOAT
+    vehicle_plate : VARCHAR(10)
+    fleet_number : VARCHAR(10)
+    guide_number : VARCHAR(10)
+    discount_percent : FLOAT
+    created_at : TIMESTAMP
+    updated_at : TIMESTAMP
+  }
+
+  "customers" ||--o{ "logistics" : has
+  "products" ||--o{ "logistics" : involves
+  "warehouses_and_ports" ||--o{ "logistics" : uses
+}
+
+@enduml
