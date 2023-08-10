@@ -20,14 +20,21 @@ func NewDiscountUsecase(discountRepository domain.DiscountRepository, timeout ti
 	}
 }
 
-func (du *discountUsecase) GetByType(dtype domain.LogisticsType) (*domain.Discount, error) {
+func (du *discountUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Discount, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
 	defer cancel()
 
-	return du.discountRepository.FindByType(ctx, dtype)
+	return du.discountRepository.FindMany(ctx, pagination)
 }
 
-func (du *discountUsecase) Create(d *domain.Discount) error {
+func (du *discountUsecase) GetByTypeAndQuantity(dtype domain.LogisticsType, quantity int) (*domain.Discount, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
+	defer cancel()
+
+	return du.discountRepository.FindByTypeAndQuantity(ctx, dtype, quantity)
+}
+
+func (du *discountUsecase) Create(d *domain.Discount) (*domain.Discount, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
 	defer cancel()
 
@@ -38,27 +45,28 @@ func (du *discountUsecase) Create(d *domain.Discount) error {
 	return du.discountRepository.Store(ctx, d)
 }
 
-func (du *discountUsecase) Modify(d *domain.Discount) error {
+func (du *discountUsecase) Modify(d *domain.Discount) (*domain.Discount, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
 	defer cancel()
 
-	existingDiscount, err := du.discountRepository.FindByType(ctx, d.Type)
+	existingDiscount, err := du.discountRepository.FindByID(ctx, d.ID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Update fields
 	existingDiscount.Type = d.Type
-	existingDiscount.Quantity = d.Quantity
+	existingDiscount.QuantityFrom = d.QuantityFrom
+	existingDiscount.QuantityTo = d.QuantityTo
 	existingDiscount.Percentage = d.Percentage
 	existingDiscount.UpdatedAt = time.Now()
 
 	return du.discountRepository.Update(ctx, existingDiscount)
 }
 
-func (du *discountUsecase) Remove(dtype domain.LogisticsType) error {
+func (du *discountUsecase) Remove(id uuid.UUID) error {
 	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
 	defer cancel()
 
-	return du.discountRepository.Delete(ctx, dtype)
+	return du.discountRepository.Delete(ctx, id)
 }

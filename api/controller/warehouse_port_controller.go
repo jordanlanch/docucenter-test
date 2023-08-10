@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -10,6 +11,32 @@ import (
 
 type WarehousePortController struct {
 	WarehousePortUsecase domain.WarehousePortUsecase
+}
+
+func (mc *WarehousePortController) Fetch(c *gin.Context) {
+	limitStr := c.DefaultQuery("limit", "10")
+	limit, err := strconv.Atoi(limitStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Invalid limit parameter"})
+		return
+	}
+
+	offsetStr := c.DefaultQuery("offset", "0")
+	offset, err := strconv.Atoi(offsetStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Invalid offset parameter"})
+		return
+	}
+
+	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
+
+	warehousesPorts, err := mc.WarehousePortUsecase.GetMany(pagination)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, warehousesPorts)
 }
 
 func (pc *WarehousePortController) Get(c *gin.Context) {
@@ -25,50 +52,50 @@ func (pc *WarehousePortController) Get(c *gin.Context) {
 		return
 	}
 
-	meter, err := pc.WarehousePortUsecase.GetByID(id)
+	warehousePort, err := pc.WarehousePortUsecase.GetByID(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, meter)
+	c.JSON(http.StatusOK, warehousePort)
 }
 
-// Create - Create a new customer
+// Create - Create a new warehousePort
 func (pc *WarehousePortController) Create(c *gin.Context) {
-	var customer domain.WarehousesAndPorts
-	if err := c.ShouldBindJSON(&customer); err != nil {
+	var warehousePort domain.WarehousesAndPorts
+	if err := c.ShouldBindJSON(&warehousePort); err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	err := pc.WarehousePortUsecase.Create(&customer)
+	newWarehousePort, err := pc.WarehousePortUsecase.Create(&warehousePort)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, customer)
+	c.JSON(http.StatusCreated, newWarehousePort)
 }
 
-// Modify - Update an existing customer
+// Modify - Update an existing warehousePort
 func (pc *WarehousePortController) Modify(c *gin.Context) {
-	var customer domain.WarehousesAndPorts
-	if err := c.ShouldBindJSON(&customer); err != nil {
+	var warehousePort domain.WarehousesAndPorts
+	if err := c.ShouldBindJSON(&warehousePort); err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	err := pc.WarehousePortUsecase.Modify(&customer)
+	updateWarehousePort,err := pc.WarehousePortUsecase.Modify(&warehousePort)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, customer)
+	c.JSON(http.StatusOK, updateWarehousePort)
 }
 
-// Remove - Delete a customer by ID
+// Remove - Delete a warehousePort by ID
 func (pc *WarehousePortController) Remove(c *gin.Context) {
 	idParam := c.Param("id")
 	if idParam == "" {

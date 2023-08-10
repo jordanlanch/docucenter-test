@@ -20,6 +20,13 @@ func NewCustomerUsecase(customerRepository domain.CustomerRepository, timeout ti
 	}
 }
 
+func (cu *customerUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Customer, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
+	defer cancel()
+
+	return cu.customerRepository.FindMany(ctx, pagination)
+}
+
 func (cu *customerUsecase) GetByID(id uuid.UUID) (*domain.Customer, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
 	defer cancel()
@@ -27,7 +34,7 @@ func (cu *customerUsecase) GetByID(id uuid.UUID) (*domain.Customer, error) {
 	return cu.customerRepository.FindByID(ctx, id)
 }
 
-func (cu *customerUsecase) Create(c *domain.Customer) error {
+func (cu *customerUsecase) Create(c *domain.Customer) (*domain.Customer, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
 	defer cancel()
 
@@ -38,13 +45,13 @@ func (cu *customerUsecase) Create(c *domain.Customer) error {
 	return cu.customerRepository.Store(ctx, c)
 }
 
-func (cu *customerUsecase) Modify(c *domain.Customer) error {
+func (cu *customerUsecase) Modify(c *domain.Customer) (*domain.Customer, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
 	defer cancel()
 
 	existingCustomer, err := cu.customerRepository.FindByID(ctx, c.ID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Update fields

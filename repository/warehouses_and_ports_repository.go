@@ -2,6 +2,7 @@ package repository
 
 import (
 	"context"
+	"errors"
 
 	"github.com/google/uuid"
 	"github.com/jordanlanch/docucenter-test/domain"
@@ -17,6 +18,18 @@ func NewWarehousePortRepository(db *gorm.DB, table string) domain.WarehousePortR
 	return &warehousePortRepository{db, table}
 }
 
+func (r *warehousePortRepository) FindMany(ctx context.Context, pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) {
+	var warehousePort []*domain.WarehousesAndPorts
+	db := r.db.WithContext(ctx)
+	db = applyPagination(db, pagination)
+
+	result := db.Find(&warehousePort)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return warehousePort, nil
+}
+
 func (r *warehousePortRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.WarehousesAndPorts, error) {
 	var warehousePort domain.WarehousesAndPorts
 
@@ -27,17 +40,32 @@ func (r *warehousePortRepository) FindByID(ctx context.Context, id uuid.UUID) (*
 	return &warehousePort, nil
 }
 
-func (r *warehousePortRepository) Store(ctx context.Context, wp *domain.WarehousesAndPorts) error {
+func (r *warehousePortRepository) Store(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
 	result := r.db.WithContext(ctx).Create(wp)
-	return result.Error
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	return wp, nil
 }
 
-func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts) error {
+func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
 	result := r.db.WithContext(ctx).Model(&domain.WarehousesAndPorts{}).Where("id = ?", wp.ID).Updates(wp)
-	return result.Error
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	if result.RowsAffected == 0 {
+		return nil, errors.New("no warehouses_and_ports record found to update")
+	}
+	return wp, nil
 }
 
 func (r *warehousePortRepository) Delete(ctx context.Context, id uuid.UUID) error {
 	result := r.db.WithContext(ctx).Delete(&domain.WarehousesAndPorts{}, id)
-	return result.Error
+	if result.Error != nil {
+		return result.Error
+	}
+	if result.RowsAffected == 0 {
+		return errors.New("no warehouses_and_ports record found to delete")
+	}
+	return nil
 }

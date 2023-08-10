@@ -17,24 +17,28 @@ const (
 const DiscountTable = "discounts"
 
 type Discount struct {
-	ID         uuid.UUID     `json:"id"`
-	Type       LogisticsType `json:"type"` // land or maritime
-	Quantity   int           `json:"quantity"`
-	Percentage float64       `json:"percentage"`
-	CreatedAt  time.Time     `json:"created_at"`
-	UpdatedAt  time.Time     `json:"updated_at"`
+	ID           uuid.UUID     `json:"id"`
+	Type         LogisticsType `json:"type"`
+	QuantityFrom int           `json:"quantity_from"`
+	QuantityTo   int           `json:"quantity_to"`
+	Percentage   float64       `json:"percentage"`
+	CreatedAt    time.Time     `json:"created_at"`
+	UpdatedAt    time.Time     `json:"updated_at"`
 }
 
 type DiscountRepository interface {
-	FindByType(ctx context.Context, dtype LogisticsType) (*Discount, error)
-	Store(ctx context.Context, d *Discount) error
-	Update(ctx context.Context, d *Discount) error
-	Delete(ctx context.Context, dtype LogisticsType) error
+	FindMany(ctx context.Context, pagination *Pagination) ([]*Discount, error)
+	FindByID(ctx context.Context, id uuid.UUID) (*Discount, error)
+	FindByTypeAndQuantity(ctx context.Context, dtype LogisticsType, quantity int) (*Discount, error)
+	Store(ctx context.Context, d *Discount) (*Discount, error)
+	Update(ctx context.Context, d *Discount) (*Discount, error)
+	Delete(ctx context.Context, id uuid.UUID) error
 }
 
 type DiscountUsecase interface {
-	GetByType(dtype LogisticsType) (*Discount, error)
-	Create(d *Discount) error
-	Modify(d *Discount) error
-	Remove(dtype LogisticsType) error
+	GetMany(pagination *Pagination) ([]*Discount, error)
+	GetByTypeAndQuantity(dtype LogisticsType, quantity int) (*Discount, error)
+	Create(d *Discount) (*Discount, error)
+	Modify(d *Discount) (*Discount, error)
+	Remove(id uuid.UUID) error
 }

@@ -20,6 +20,13 @@ func NewProductUsecase(productRepository domain.ProductRepository, timeout time.
 	}
 }
 
+func (pu *productUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Product, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
+	defer cancel()
+
+	return pu.productRepository.FindMany(ctx, pagination)
+}
+
 func (pu *productUsecase) GetByID(id uuid.UUID) (*domain.Product, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
 	defer cancel()
@@ -27,7 +34,7 @@ func (pu *productUsecase) GetByID(id uuid.UUID) (*domain.Product, error) {
 	return pu.productRepository.FindByID(ctx, id)
 }
 
-func (pu *productUsecase) Create(p *domain.Product) error {
+func (pu *productUsecase) Create(p *domain.Product) (*domain.Product, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
 	defer cancel()
 
@@ -38,13 +45,13 @@ func (pu *productUsecase) Create(p *domain.Product) error {
 	return pu.productRepository.Store(ctx, p)
 }
 
-func (pu *productUsecase) Modify(p *domain.Product) error {
+func (pu *productUsecase) Modify(p *domain.Product) (*domain.Product, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
 	defer cancel()
 
 	existingProduct, err := pu.productRepository.FindByID(ctx, p.ID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Update fields

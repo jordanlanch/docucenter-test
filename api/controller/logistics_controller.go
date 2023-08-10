@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -10,6 +11,32 @@ import (
 
 type LogisticsController struct {
 	LogisticsUsecase domain.LogisticsUsecase
+}
+
+func (pc *LogisticsController) Fetch(c *gin.Context) {
+	limitStr := c.DefaultQuery("limit", "10")
+	limit, err := strconv.Atoi(limitStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Invalid limit parameter"})
+		return
+	}
+
+	offsetStr := c.DefaultQuery("offset", "0")
+	offset, err := strconv.Atoi(offsetStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Invalid offset parameter"})
+		return
+	}
+
+	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
+
+	logistics, err := pc.LogisticsUsecase.GetMany(pagination)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, logistics)
 }
 
 func (pc *LogisticsController) Get(c *gin.Context) {
@@ -25,47 +52,47 @@ func (pc *LogisticsController) Get(c *gin.Context) {
 		return
 	}
 
-	meter, err := pc.LogisticsUsecase.GetByID(id)
+	logistic, err := pc.LogisticsUsecase.GetByID(id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, meter)
+	c.JSON(http.StatusOK, logistic)
 }
 
 // Create - Create a new customer
 func (pc *LogisticsController) Create(c *gin.Context) {
-	var customer domain.Logistics
-	if err := c.ShouldBindJSON(&customer); err != nil {
+	var logistic domain.Logistics
+	if err := c.ShouldBindJSON(&logistic); err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	err := pc.LogisticsUsecase.Create(&customer)
+	newLogistic, err := pc.LogisticsUsecase.Create(&logistic)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, customer)
+	c.JSON(http.StatusCreated, newLogistic)
 }
 
 // Modify - Update an existing customer
 func (pc *LogisticsController) Modify(c *gin.Context) {
-	var customer domain.Logistics
-	if err := c.ShouldBindJSON(&customer); err != nil {
+	var logistic domain.Logistics
+	if err := c.ShouldBindJSON(&logistic); err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	err := pc.LogisticsUsecase.Modify(&customer)
+	updateLogistic, err := pc.LogisticsUsecase.Modify(&logistic)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, customer)
+	c.JSON(http.StatusOK, updateLogistic)
 }
 
 // Remove - Delete a customer by ID

@@ -20,6 +20,13 @@ func NewWarehousePortUsecase(warehousePortRepository domain.WarehousePortReposit
 	}
 }
 
+func (wpu *warehousePortUsecase) GetMany(pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
+	defer cancel()
+
+	return wpu.warehousePortRepository.FindMany(ctx, pagination)
+}
+
 func (wpu *warehousePortUsecase) GetByID(id uuid.UUID) (*domain.WarehousesAndPorts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
 	defer cancel()
@@ -27,7 +34,7 @@ func (wpu *warehousePortUsecase) GetByID(id uuid.UUID) (*domain.WarehousesAndPor
 	return wpu.warehousePortRepository.FindByID(ctx, id)
 }
 
-func (wpu *warehousePortUsecase) Create(wp *domain.WarehousesAndPorts) error {
+func (wpu *warehousePortUsecase) Create(wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
 	defer cancel()
 
@@ -38,13 +45,13 @@ func (wpu *warehousePortUsecase) Create(wp *domain.WarehousesAndPorts) error {
 	return wpu.warehousePortRepository.Store(ctx, wp)
 }
 
-func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) error {
+func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
 	defer cancel()
 
 	existingWarehousePort, err := wpu.warehousePortRepository.FindByID(ctx, wp.ID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Update fields

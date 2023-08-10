@@ -6,30 +6,38 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/jordanlanch/docucenter-test/domain"
+	"gorm.io/gorm"
 )
 
-type landLogisticsUsecase struct {
-	landLogisticsRepository domain.LogisticsRepository
+type LogisticsUsecase struct {
+	LogisticsRepository domain.LogisticsRepository
 	discountRepository      domain.DiscountRepository
 	contextTimeout          time.Duration
 }
 
-func NewLogisticsUsecase(landLogisticsRepository domain.LogisticsRepository, discountRepository domain.DiscountRepository, timeout time.Duration) domain.LogisticsUsecase {
-	return &landLogisticsUsecase{
-		landLogisticsRepository: landLogisticsRepository,
+func NewLogisticsUsecase(LogisticsRepository domain.LogisticsRepository, discountRepository domain.DiscountRepository, timeout time.Duration) domain.LogisticsUsecase {
+	return &LogisticsUsecase{
+		LogisticsRepository: LogisticsRepository,
 		discountRepository:      discountRepository,
 		contextTimeout:          timeout,
 	}
 }
 
-func (llu *landLogisticsUsecase) GetByID(id uuid.UUID) (*domain.Logistics, error) {
+func (llu *LogisticsUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Logistics, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
 	defer cancel()
 
-	return llu.landLogisticsRepository.FindByID(ctx, id)
+	return llu.LogisticsRepository.FindMany(ctx, pagination)
 }
 
-func (llu *landLogisticsUsecase) Create(ll *domain.Logistics) error {
+func (llu *LogisticsUsecase) GetByID(id uuid.UUID) (*domain.Logistics, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
+	defer cancel()
+
+	return llu.LogisticsRepository.FindByID(ctx, id)
+}
+
+func (llu *LogisticsUsecase) Create(ll *domain.Logistics) (*domain.Logistics, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
 	defer cancel()
 
@@ -38,26 +46,30 @@ func (llu *landLogisticsUsecase) Create(ll *domain.Logistics) error {
 	ll.UpdatedAt = time.Now()
 
 	// Calculate discount based on quantity
-	discount, err := llu.discountRepository.FindByType(ctx, ll.Type)
+	discount, err := llu.discountRepository.FindByTypeAndQuantity(ctx, ll.Type, ll.Quantity)
 	if err != nil {
-		return err
-	}
+		if err != gorm.ErrRecordNotFound {
+			return nil, err // if it's another error, return it
+		}
 
-	if ll.Quantity > discount.Quantity {
+		// Set default values when there's no discount found
+		ll.DiscountShippingPrice = 0
+		ll.DiscountPercent = 0
+	} else {
 		ll.DiscountShippingPrice = discount.Percentage / 100 * ll.ShippingPrice
 		ll.DiscountPercent = discount.Percentage
 	}
 
-	return llu.landLogisticsRepository.Store(ctx, ll)
+	return llu.LogisticsRepository.Store(ctx, ll)
 }
 
-func (llu *landLogisticsUsecase) Modify(ll *domain.Logistics) error {
+func (llu *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
 	defer cancel()
 
-	existingLogistics, err := llu.landLogisticsRepository.FindByID(ctx, ll.ID)
+	existingLogistics, err := llu.LogisticsRepository.FindByID(ctx, ll.ID)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	// Update fields
@@ -72,21 +84,26 @@ func (llu *landLogisticsUsecase) Modify(ll *domain.Logistics) error {
 	existingLogistics.UpdatedAt = time.Now()
 
 	// Calculate discount based on quantity
-	discount, err := llu.discountRepository.FindByType(ctx, ll.Type)
+	discount, err := llu.discountRepository.FindByTypeAndQuantity(ctx, ll.Type, ll.Quantity)
 	if err != nil {
-		return err
-	}
-	if existingLogistics.Quantity > discount.Quantity {
+		if err != gorm.ErrRecordNotFound {
+			return nil, err // if it's another error, return it
+		}
+
+		// Set default values when there's no discount found
+		existingLogistics.DiscountShippingPrice = 0
+		existingLogistics.DiscountPercent = 0
+	} else {
 		existingLogistics.DiscountShippingPrice = discount.Percentage / 100 * existingLogistics.ShippingPrice
 		existingLogistics.DiscountPercent = discount.Percentage
 	}
 
-	return llu.landLogisticsRepository.Update(ctx, existingLogistics)
+	return llu.LogisticsRepository.Update(ctx, existingLogistics)
 }
 
-func (llu *landLogisticsUsecase) Remove(id uuid.UUID) error {
+func (llu *LogisticsUsecase) Remove(id uuid.UUID) error {
 	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
 	defer cancel()
 
-	return llu.landLogisticsRepository.Delete(ctx, id)
+	return llu.LogisticsRepository.Delete(ctx, id)
 }

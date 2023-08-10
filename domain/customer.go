@@ -18,15 +18,17 @@ type Customer struct {
 }
 
 type CustomerRepository interface {
+	FindMany(ctx context.Context, pagination *Pagination) ([]*Customer, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*Customer, error)
-	Store(ctx context.Context, c *Customer) error
-	Update(ctx context.Context, c *Customer) error
+	Store(ctx context.Context, c *Customer) (*Customer, error)
+	Update(ctx context.Context, c *Customer) (*Customer, error)
 	Delete(ctx context.Context, id uuid.UUID) error
 }
 
 type CustomerUsecase interface {
+	GetMany(pagination *Pagination) ([]*Customer, error)
 	GetByID(id uuid.UUID) (*Customer, error)
-	Create(c *Customer) error
-	Modify(c *Customer) error
+	Create(c *Customer) (*Customer, error)
+	Modify(c *Customer) (*Customer, error)
 	Remove(id uuid.UUID) error
 }

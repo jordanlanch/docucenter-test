@@ -54,22 +54,28 @@
 		<div id="topbar">
 			<div id="nav">
 				<select id="files">
-
-				<option value="file0">github.com/jordanlanch/docucenter-test/usecase/consumption_usecase.go (100.0%)</option>
-
-				<option value="file1">github.com/jordanlanch/docucenter-test/usecase/login_usecase.go (100.0%)</option>
-
-				<option value="file2">github.com/jordanlanch/docucenter-test/usecase/meter_usecase.go (100.0%)</option>
-
-				<option value="file3">github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go (100.0%)</option>
-
-				<option value="file4">github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go (100.0%)</option>
-
+				
+				<option value="file0">github.com/jordanlanch/docucenter-test/usecase/customer_usecase.go (100.0%)</option>
+				
+				<option value="file1">github.com/jordanlanch/docucenter-test/usecase/discount_usecase.go (100.0%)</option>
+				
+				<option value="file2">github.com/jordanlanch/docucenter-test/usecase/login_usecase.go (100.0%)</option>
+				
+				<option value="file3">github.com/jordanlanch/docucenter-test/usecase/logistics_usecase.go (87.2%)</option>
+				
+				<option value="file4">github.com/jordanlanch/docucenter-test/usecase/product_usecase.go (88.0%)</option>
+				
+				<option value="file5">github.com/jordanlanch/docucenter-test/usecase/refresh_token_usecase.go (100.0%)</option>
+				
+				<option value="file6">github.com/jordanlanch/docucenter-test/usecase/signup_usecase.go (100.0%)</option>
+				
+				<option value="file7">github.com/jordanlanch/docucenter-test/usecase/warehouses_and_ports_usecase.go (88.5%)</option>
+				
 				</select>
 			</div>
 			<div id="legend">
 				<span>not tracked</span>
-
+			
 				<span class="cov0">no coverage</span>
 				<span class="cov1">low coverage</span>
 				<span class="cov2">*</span>
@@ -81,11 +87,11 @@
 				<span class="cov8">*</span>
 				<span class="cov9">*</span>
 				<span class="cov10">high coverage</span>
-
+			
 			</div>
 		</div>
 		<div id="content">
-
+		
 		<pre class="file" id="file0" style="display: none">package usecase
 
 import (
@@ -96,34 +102,143 @@ import (
         "github.com/jordanlanch/docucenter-test/domain"
 )
 
-type consumptionUsecase struct {
-        consumptionRepository domain.ConsumptionRepository
-        contextTimeout        time.Duration
+type customerUsecase struct {
+        customerRepository domain.CustomerRepository
+        contextTimeout     time.Duration
 }
 
-func NewConsumptionUsecase(consumptionRepository domain.ConsumptionRepository, timeout time.Duration) domain.ConsumptionUsecase <span class="cov10" title="4">{
-        return &amp;consumptionUsecase{
-                consumptionRepository: consumptionRepository,
-                contextTimeout:        timeout,
+func NewCustomerUsecase(customerRepository domain.CustomerRepository, timeout time.Duration) domain.CustomerUsecase <span class="cov10" title="10">{
+        return &amp;customerUsecase{
+                customerRepository: customerRepository,
+                contextTimeout:     timeout,
         }
 }</span>
 
-func (cu *consumptionUsecase) GetConsumptionByID(id uuid.UUID) (*domain.Consumption, error) <span class="cov5" title="2">{
+func (cu *customerUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Customer, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
         defer cancel()
 
-        return cu.consumptionRepository.FindByID(ctx, id)
+        return cu.customerRepository.FindMany(ctx, pagination)
 }</span>
 
-func (cu *consumptionUsecase) GetConsumptionsByPeriod(periodType, start, end string, meterID []int, pagination *domain.Pagination) (*domain.Response, error) <span class="cov5" title="2">{
+func (cu *customerUsecase) GetByID(id uuid.UUID) (*domain.Customer, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
         defer cancel()
 
-        return cu.consumptionRepository.FindByPeriod(ctx, periodType, start, end, meterID, pagination)
+        return cu.customerRepository.FindByID(ctx, id)
+}</span>
+
+func (cu *customerUsecase) Create(c *domain.Customer) (*domain.Customer, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
+        defer cancel()
+
+        c.ID = uuid.New() // Assign a new UUID to the customer
+        c.CreatedAt = time.Now()
+        c.UpdatedAt = time.Now()
+
+        return cu.customerRepository.Store(ctx, c)
+}</span>
+
+func (cu *customerUsecase) Modify(c *domain.Customer) (*domain.Customer, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
+        defer cancel()
+
+        existingCustomer, err := cu.customerRepository.FindByID(ctx, c.ID)
+        if err != nil </span><span class="cov1" title="1">{
+                return nil, err
+        }</span>
+
+        // Update fields
+        <span class="cov1" title="1">existingCustomer.Name = c.Name
+        existingCustomer.Email = c.Email
+        existingCustomer.UpdatedAt = time.Now()
+
+        return cu.customerRepository.Update(ctx, existingCustomer)</span>
+}
+
+func (cu *customerUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
+        defer cancel()
+
+        return cu.customerRepository.Delete(ctx, id)
 }</span>
 </pre>
-
+		
 		<pre class="file" id="file1" style="display: none">package usecase
+
+import (
+        "context"
+        "time"
+
+        "github.com/google/uuid"
+        "github.com/jordanlanch/docucenter-test/domain"
+)
+
+type discountUsecase struct {
+        discountRepository domain.DiscountRepository
+        contextTimeout     time.Duration
+}
+
+func NewDiscountUsecase(discountRepository domain.DiscountRepository, timeout time.Duration) domain.DiscountUsecase <span class="cov10" title="9">{
+        return &amp;discountUsecase{
+                discountRepository: discountRepository,
+                contextTimeout:     timeout,
+        }
+}</span>
+
+func (du *discountUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Discount, error) <span class="cov1" title="1">{
+        ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
+        defer cancel()
+
+        return du.discountRepository.FindMany(ctx, pagination)
+}</span>
+
+func (du *discountUsecase) GetByTypeAndQuantity(dtype domain.LogisticsType, quantity int) (*domain.Discount, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
+        defer cancel()
+
+        return du.discountRepository.FindByTypeAndQuantity(ctx, dtype, quantity)
+}</span>
+
+func (du *discountUsecase) Create(d *domain.Discount) (*domain.Discount, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
+        defer cancel()
+
+        d.ID = uuid.New() // Assign a new UUID to the discount
+        d.CreatedAt = time.Now()
+        d.UpdatedAt = time.Now()
+
+        return du.discountRepository.Store(ctx, d)
+}</span>
+
+func (du *discountUsecase) Modify(d *domain.Discount) (*domain.Discount, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
+        defer cancel()
+
+        existingDiscount, err := du.discountRepository.FindByID(ctx, d.ID)
+        if err != nil </span><span class="cov1" title="1">{
+                return nil, err
+        }</span>
+
+        // Update fields
+        <span class="cov1" title="1">existingDiscount.Type = d.Type
+        existingDiscount.QuantityFrom = d.QuantityFrom
+        existingDiscount.QuantityTo = d.QuantityTo
+        existingDiscount.Percentage = d.Percentage
+        existingDiscount.UpdatedAt = time.Now()
+
+        return du.discountRepository.Update(ctx, existingDiscount)</span>
+}
+
+func (du *discountUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
+        defer cancel()
+
+        return du.discountRepository.Delete(ctx, id)
+}</span>
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package usecase
 
 import (
         "context"
@@ -159,8 +274,119 @@ func (lu *loginUsecase) CreateRefreshToken(user *domain.User, secret string, exp
         return tokenutil.CreateRefreshToken(user, secret, expiry)
 }</span>
 </pre>
+		
+		<pre class="file" id="file3" style="display: none">package usecase
 
-		<pre class="file" id="file2" style="display: none">package usecase
+import (
+        "context"
+        "time"
+
+        "github.com/google/uuid"
+        "github.com/jordanlanch/docucenter-test/domain"
+        "gorm.io/gorm"
+)
+
+type LogisticsUsecase struct {
+        LogisticsRepository domain.LogisticsRepository
+        discountRepository      domain.DiscountRepository
+        contextTimeout          time.Duration
+}
+
+func NewLogisticsUsecase(LogisticsRepository domain.LogisticsRepository, discountRepository domain.DiscountRepository, timeout time.Duration) domain.LogisticsUsecase <span class="cov10" title="10">{
+        return &amp;LogisticsUsecase{
+                LogisticsRepository: LogisticsRepository,
+                discountRepository:      discountRepository,
+                contextTimeout:          timeout,
+        }
+}</span>
+
+func (llu *LogisticsUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Logistics, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
+        defer cancel()
+
+        return llu.LogisticsRepository.FindMany(ctx, pagination)
+}</span>
+
+func (llu *LogisticsUsecase) GetByID(id uuid.UUID) (*domain.Logistics, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
+        defer cancel()
+
+        return llu.LogisticsRepository.FindByID(ctx, id)
+}</span>
+
+func (llu *LogisticsUsecase) Create(ll *domain.Logistics) (*domain.Logistics, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
+        defer cancel()
+
+        ll.ID = uuid.New() // Assign a new UUID to the land logistics entry
+        ll.CreatedAt = time.Now()
+        ll.UpdatedAt = time.Now()
+
+        // Calculate discount based on quantity
+        discount, err := llu.discountRepository.FindByTypeAndQuantity(ctx, ll.Type, ll.Quantity)
+        if err != nil </span><span class="cov1" title="1">{
+                if err != gorm.ErrRecordNotFound </span><span class="cov1" title="1">{
+                        return nil, err // if it's another error, return it
+                }</span>
+
+                // Set default values when there's no discount found
+                <span class="cov0" title="0">ll.DiscountShippingPrice = 0
+                ll.DiscountPercent = 0</span>
+        } else<span class="cov1" title="1"> {
+                ll.DiscountShippingPrice = discount.Percentage / 100 * ll.ShippingPrice
+                ll.DiscountPercent = discount.Percentage
+        }</span>
+
+        <span class="cov1" title="1">return llu.LogisticsRepository.Store(ctx, ll)</span>
+}
+
+func (llu *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
+        defer cancel()
+
+        existingLogistics, err := llu.LogisticsRepository.FindByID(ctx, ll.ID)
+        if err != nil </span><span class="cov1" title="1">{
+                return nil, err
+        }</span>
+
+        // Update fields
+        <span class="cov1" title="1">existingLogistics.ProductID = ll.ProductID
+        existingLogistics.Quantity = ll.Quantity
+        existingLogistics.RegistrationDate = ll.RegistrationDate
+        existingLogistics.DeliveryDate = ll.DeliveryDate
+        existingLogistics.WarehousePortID = ll.WarehousePortID
+        existingLogistics.ShippingPrice = ll.ShippingPrice
+        existingLogistics.VehiclePlate = ll.VehiclePlate
+        existingLogistics.GuideNumber = ll.GuideNumber
+        existingLogistics.UpdatedAt = time.Now()
+
+        // Calculate discount based on quantity
+        discount, err := llu.discountRepository.FindByTypeAndQuantity(ctx, ll.Type, ll.Quantity)
+        if err != nil </span><span class="cov0" title="0">{
+                if err != gorm.ErrRecordNotFound </span><span class="cov0" title="0">{
+                        return nil, err // if it's another error, return it
+                }</span>
+
+                // Set default values when there's no discount found
+                <span class="cov0" title="0">existingLogistics.DiscountShippingPrice = 0
+                existingLogistics.DiscountPercent = 0</span>
+        } else<span class="cov1" title="1"> {
+                existingLogistics.DiscountShippingPrice = discount.Percentage / 100 * existingLogistics.ShippingPrice
+                existingLogistics.DiscountPercent = discount.Percentage
+        }</span>
+
+        <span class="cov1" title="1">return llu.LogisticsRepository.Update(ctx, existingLogistics)</span>
+}
+
+func (llu *LogisticsUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
+        defer cancel()
+
+        return llu.LogisticsRepository.Delete(ctx, id)
+}</span>
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package usecase
 
 import (
         "context"
@@ -170,34 +396,69 @@ import (
         "github.com/jordanlanch/docucenter-test/domain"
 )
 
-type MeterUsecase struct {
-        meterRepository domain.MeterRepository
-        contextTimeout  time.Duration
+type productUsecase struct {
+        productRepository domain.ProductRepository
+        contextTimeout    time.Duration
 }
 
-func NewMeterUsecase(meterRepository domain.MeterRepository, timeout time.Duration) domain.MeterUsecase <span class="cov10" title="5">{
-        return &amp;MeterUsecase{
-                meterRepository: meterRepository,
-                contextTimeout:  timeout,
+func NewProductUsecase(productRepository domain.ProductRepository, timeout time.Duration) domain.ProductUsecase <span class="cov10" title="10">{
+        return &amp;productUsecase{
+                productRepository: productRepository,
+                contextTimeout:    timeout,
         }
 }</span>
 
-func (cu *MeterUsecase) GetMeterById(id uuid.UUID) (*domain.Meter, error) <span class="cov4" title="2">{
-        ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
+func (pu *productUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Product, error) <span class="cov0" title="0">{
+        ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
         defer cancel()
 
-        return cu.meterRepository.FindByID(ctx, id)
+        return pu.productRepository.FindMany(ctx, pagination)
 }</span>
 
-func (cu *MeterUsecase) GetManyMeters(pagination *domain.Pagination) ([]*domain.Meter, error) <span class="cov4" title="2">{
-        ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
+func (pu *productUsecase) GetByID(id uuid.UUID) (*domain.Product, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
         defer cancel()
 
-        return cu.meterRepository.FindMany(ctx, pagination)
+        return pu.productRepository.FindByID(ctx, id)
+}</span>
+
+func (pu *productUsecase) Create(p *domain.Product) (*domain.Product, error) <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
+        defer cancel()
+
+        p.ID = uuid.New() // Assign a new UUID to the product
+        p.CreatedAt = time.Now()
+        p.UpdatedAt = time.Now()
+
+        return pu.productRepository.Store(ctx, p)
+}</span>
+
+func (pu *productUsecase) Modify(p *domain.Product) (*domain.Product, error) <span class="cov6" title="4">{
+        ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
+        defer cancel()
+
+        existingProduct, err := pu.productRepository.FindByID(ctx, p.ID)
+        if err != nil </span><span class="cov3" title="2">{
+                return nil, err
+        }</span>
+
+        // Update fields
+        <span class="cov3" title="2">existingProduct.Name = p.Name
+        existingProduct.Type = p.Type
+        existingProduct.UpdatedAt = time.Now()
+
+        return pu.productRepository.Update(ctx, existingProduct)</span>
+}
+
+func (pu *productUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
+        defer cancel()
+
+        return pu.productRepository.Delete(ctx, id)
 }</span>
 </pre>
-
-		<pre class="file" id="file3" style="display: none">package usecase
+		
+		<pre class="file" id="file5" style="display: none">package usecase
 
 import (
         "context"
@@ -237,8 +498,8 @@ func (rtu *refreshTokenUsecase) ExtractIDFromToken(requestToken string, secret s
         return tokenutil.ExtractIDFromToken(requestToken, secret)
 }</span>
 </pre>
-
-		<pre class="file" id="file4" style="display: none">package usecase
+		
+		<pre class="file" id="file6" style="display: none">package usecase
 
 import (
         "context"
@@ -280,7 +541,80 @@ func (su *signupUsecase) CreateRefreshToken(user *domain.User, secret string, ex
         return tokenutil.CreateRefreshToken(user, secret, expiry)
 }</span>
 </pre>
+		
+		<pre class="file" id="file7" style="display: none">package usecase
 
+import (
+        "context"
+        "time"
+
+        "github.com/google/uuid"
+        "github.com/jordanlanch/docucenter-test/domain"
+)
+
+type warehousePortUsecase struct {
+        warehousePortRepository domain.WarehousePortRepository
+        contextTimeout          time.Duration
+}
+
+func NewWarehousePortUsecase(warehousePortRepository domain.WarehousePortRepository, timeout time.Duration) domain.WarehousePortUsecase <span class="cov10" title="8">{
+        return &amp;warehousePortUsecase{
+                warehousePortRepository: warehousePortRepository,
+                contextTimeout:          timeout,
+        }
+}</span>
+
+func (wpu *warehousePortUsecase) GetMany(pagination *domain.Pagination) ([]*domain.WarehousesAndPorts, error) <span class="cov0" title="0">{
+        ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
+        defer cancel()
+
+        return wpu.warehousePortRepository.FindMany(ctx, pagination)
+}</span>
+
+func (wpu *warehousePortUsecase) GetByID(id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov4" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
+        defer cancel()
+
+        return wpu.warehousePortRepository.FindByID(ctx, id)
+}</span>
+
+func (wpu *warehousePortUsecase) Create(wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) <span class="cov4" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
+        defer cancel()
+
+        wp.ID = uuid.New() // Assign a new UUID to the warehouse port
+        wp.CreatedAt = time.Now()
+        wp.UpdatedAt = time.Now()
+
+        return wpu.warehousePortRepository.Store(ctx, wp)
+}</span>
+
+func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) <span class="cov4" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
+        defer cancel()
+
+        existingWarehousePort, err := wpu.warehousePortRepository.FindByID(ctx, wp.ID)
+        if err != nil </span><span class="cov1" title="1">{
+                return nil, err
+        }</span>
+
+        // Update fields
+        <span class="cov1" title="1">existingWarehousePort.Name = wp.Name
+        existingWarehousePort.Type = wp.Type
+        existingWarehousePort.Location = wp.Location
+        existingWarehousePort.UpdatedAt = time.Now()
+
+        return wpu.warehousePortRepository.Update(ctx, existingWarehousePort)</span>
+}
+
+func (wpu *warehousePortUsecase) Remove(id uuid.UUID) error <span class="cov4" title="2">{
+        ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
+        defer cancel()
+
+        return wpu.warehousePortRepository.Delete(ctx, id)
+}</span>
+</pre>
+		
 		</div>
 	</body>
 	<script>

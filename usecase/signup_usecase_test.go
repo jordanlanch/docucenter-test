@@ -1,131 +1,131 @@
 package usecase
 
-// import (
-// 	"context"
-// 	"errors"
-// 	"testing"
-// 	"time"
+import (
+	"context"
+	"errors"
+	"testing"
+	"time"
 
-// 	"github.com/google/uuid"
-// 	"github.com/jordanlanch/docucenter-test/domain"
-// 	"github.com/jordanlanch/docucenter-test/domain/mocks"
-// 	"github.com/stretchr/testify/assert"
-// 	"github.com/stretchr/testify/mock"
-// )
+	"github.com/google/uuid"
+	"github.com/jordanlanch/docucenter-test/domain"
+	"github.com/jordanlanch/docucenter-test/domain/mocks"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+)
 
-// func TestCreate(t *testing.T) {
-// 	mockUserRepository := new(mocks.UserRepository)
-// 	newUser := &domain.User{
-// 		ID:    uuid.New(),
-// 		Email: "test@test.com",
-// 	}
+func TestSignUpCreate(t *testing.T) {
+	mockUserRepository := new(mocks.UserRepository)
+	newUser := &domain.User{
+		ID:    uuid.New(),
+		Email: "test@test.com",
+	}
 
-// 	t.Run("success", func(t *testing.T) {
-// 		mockUserRepository.On("Create", mock.Anything, newUser).Return(newUser, nil).Once()
+	t.Run("success", func(t *testing.T) {
+		mockUserRepository.On("Create", mock.Anything, newUser).Return(newUser, nil).Once()
 
-// 		u := NewSignupUsecase(mockUserRepository, time.Second*2)
+		u := NewSignupUsecase(mockUserRepository, time.Second*2)
 
-// 		user, err := u.Create(context.Background(), newUser)
+		user, err := u.Create(context.Background(), newUser)
 
-// 		assert.NoError(t, err)
-// 		assert.NotNil(t, user)
-// 		assert.Equal(t, newUser.Email, user.Email)
+		assert.NoError(t, err)
+		assert.NotNil(t, user)
+		assert.Equal(t, newUser.Email, user.Email)
 
-// 		mockUserRepository.AssertExpectations(t)
-// 	})
+		mockUserRepository.AssertExpectations(t)
+	})
 
-// 	t.Run("error", func(t *testing.T) {
-// 		mockUserRepository.On("Create", mock.Anything, newUser).Return(nil, errors.New("Unexpected")).Once()
+	t.Run("error", func(t *testing.T) {
+		mockUserRepository.On("Create", mock.Anything, newUser).Return(nil, errors.New("Unexpected")).Once()
 
-// 		u := NewSignupUsecase(mockUserRepository, time.Second*2)
+		u := NewSignupUsecase(mockUserRepository, time.Second*2)
 
-// 		user, err := u.Create(context.Background(), newUser)
+		user, err := u.Create(context.Background(), newUser)
 
-// 		assert.Error(t, err)
-// 		assert.Nil(t, user)
+		assert.Error(t, err)
+		assert.Nil(t, user)
 
-// 		mockUserRepository.AssertExpectations(t)
-// 	})
-// }
+		mockUserRepository.AssertExpectations(t)
+	})
+}
 
-// func TestGetUserByEmail(t *testing.T) {
-// 	mockUserRepository := new(mocks.UserRepository)
-// 	email := "test@test.com"
+func TestGetUserByEmail(t *testing.T) {
+	mockUserRepository := new(mocks.UserRepository)
+	email := "test@test.com"
 
-// 	t.Run("success", func(t *testing.T) {
-// 		mockUser := &domain.User{
-// 			ID:    uuid.New(),
-// 			Email: email,
-// 		}
+	t.Run("success", func(t *testing.T) {
+		mockUser := &domain.User{
+			ID:    uuid.New(),
+			Email: email,
+		}
 
-// 		mockUserRepository.On("FindByEmail", mock.Anything, email).Return(mockUser, nil).Once()
+		mockUserRepository.On("FindByEmail", mock.Anything, email).Return(mockUser, nil).Once()
 
-// 		u := NewSignupUsecase(mockUserRepository, time.Second*2)
+		u := NewSignupUsecase(mockUserRepository, time.Second*2)
 
-// 		user, err := u.GetUserByEmail(context.Background(), email)
+		user, err := u.GetUserByEmail(context.Background(), email)
 
-// 		assert.NoError(t, err)
-// 		assert.NotNil(t, user)
-// 		assert.Equal(t, email, user.Email)
+		assert.NoError(t, err)
+		assert.NotNil(t, user)
+		assert.Equal(t, email, user.Email)
 
-// 		mockUserRepository.AssertExpectations(t)
-// 	})
+		mockUserRepository.AssertExpectations(t)
+	})
 
-// 	t.Run("error", func(t *testing.T) {
-// 		mockUserRepository.On("FindByEmail", mock.Anything, email).Return(nil, errors.New("Unexpected")).Once()
+	t.Run("error", func(t *testing.T) {
+		mockUserRepository.On("FindByEmail", mock.Anything, email).Return(nil, errors.New("Unexpected")).Once()
 
-// 		u := NewSignupUsecase(mockUserRepository, time.Second*2)
+		u := NewSignupUsecase(mockUserRepository, time.Second*2)
 
-// 		user, err := u.GetUserByEmail(context.Background(), email)
+		user, err := u.GetUserByEmail(context.Background(), email)
 
-// 		assert.Error(t, err)
-// 		assert.Nil(t, user)
+		assert.Error(t, err)
+		assert.Nil(t, user)
 
-// 		mockUserRepository.AssertExpectations(t)
-// 	})
-// }
+		mockUserRepository.AssertExpectations(t)
+	})
+}
 
-// func TestCreateAccessToken(t *testing.T) {
-// 	user := &domain.User{
-// 		ID:    uuid.New(),
-// 		Email: "test@test.com",
-// 	}
+func TestCreateAccessToken(t *testing.T) {
+	user := &domain.User{
+		ID:    uuid.New(),
+		Email: "test@test.com",
+	}
 
-// 	secret := "secret"
-// 	expiry := 3600
+	secret := "secret"
+	expiry := 3600
 
-// 	u := NewSignupUsecase(nil, time.Second*2)
+	u := NewSignupUsecase(nil, time.Second*2)
 
-// 	token, err := u.CreateAccessToken(user, secret, expiry)
+	token, err := u.CreateAccessToken(user, secret, expiry)
 
-// 	assert.NoError(t, err)
-// 	assert.NotEmpty(t, token)
-// }
+	assert.NoError(t, err)
+	assert.NotEmpty(t, token)
+}
 
-// func TestCreateRefreshToken(t *testing.T) {
-// 	user := &domain.User{
-// 		ID:    uuid.New(),
-// 		Email: "test@test.com",
-// 	}
+func TestCreateRefreshToken(t *testing.T) {
+	user := &domain.User{
+		ID:    uuid.New(),
+		Email: "test@test.com",
+	}
 
-// 	secret := "secret"
-// 	expiry := 3600
+	secret := "secret"
+	expiry := 3600
 
-// 	u := NewSignupUsecase(nil, time.Second*2)
+	u := NewSignupUsecase(nil, time.Second*2)
 
-// 	token, err := u.CreateRefreshToken(user, secret, expiry)
+	token, err := u.CreateRefreshToken(user, secret, expiry)
 
-// 	assert.NoError(t, err)
-// 	assert.NotEmpty(t, token)
-// }
+	assert.NoError(t, err)
+	assert.NotEmpty(t, token)
+}
 
-// func TestNewSignupUsecase(t *testing.T) {
-// 	mockUserRepository := new(mocks.UserRepository)
-// 	timeout := time.Second * 2
+func TestNewSignupUsecase(t *testing.T) {
+	mockUserRepository := new(mocks.UserRepository)
+	timeout := time.Second * 2
 
-// 	u := NewSignupUsecase(mockUserRepository, timeout)
+	u := NewSignupUsecase(mockUserRepository, timeout)
 
-// 	assert.NotNil(t, u)
-// 	assert.Equal(t, mockUserRepository, u.(*signupUsecase).userRepository)
-// 	assert.Equal(t, timeout, u.(*signupUsecase).contextTimeout)
-// }
+	assert.NotNil(t, u)
+	assert.Equal(t, mockUserRepository, u.(*signupUsecase).userRepository)
+	assert.Equal(t, timeout, u.(*signupUsecase).contextTimeout)
+}

@@ -13,6 +13,7 @@ const LogisticsTable = "logistics"
 
 type Logistics struct {
 	ID                    uuid.UUID     `json:"id"`
+	CustomerID            uuid.UUID     `json:"customer_id"`
 	ProductID             uuid.UUID     `json:"product_id"`
 	WarehousePortID       uuid.UUID     `json:"warehouse_port_id"`
 	Type                  LogisticsType `json:"type"`
@@ -44,15 +45,17 @@ func (ll *Logistics) Validate() error {
 }
 
 type LogisticsRepository interface {
+	FindMany(ctx context.Context, pagination *Pagination) ([]*Logistics, error)
 	FindByID(ctx context.Context, id uuid.UUID) (*Logistics, error)
-	Store(ctx context.Context, ll *Logistics) error
-	Update(ctx context.Context, ll *Logistics) error
+	Store(ctx context.Context, ll *Logistics) (*Logistics, error)
+	Update(ctx context.Context, ll *Logistics) (*Logistics, error)
 	Delete(ctx context.Context, id uuid.UUID) error
 }
 
 type LogisticsUsecase interface {
+	GetMany(pagination *Pagination) ([]*Logistics, error)
 	GetByID(id uuid.UUID) (*Logistics, error)
-	Create(ll *Logistics) error
-	Modify(ll *Logistics) error
+	Create(ll *Logistics) (*Logistics, error)
+	Modify(ll *Logistics) (*Logistics, error)
 	Remove(id uuid.UUID) error
 }
