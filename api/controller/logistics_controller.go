@@ -1,12 +1,18 @@
 package controller
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/invopop/jsonschema"
 	"github.com/jordanlanch/docucenter-test/domain"
+	"github.com/stoewer/go-strcase"
+	"github.com/xeipuuv/gojsonschema"
 )
 
 type LogisticsController struct {
@@ -61,10 +67,43 @@ func (pc *LogisticsController) Get(c *gin.Context) {
 	c.JSON(http.StatusOK, logistic)
 }
 
-// Create - Create a new customer
+// Create - Create a new logistic
 func (pc *LogisticsController) Create(c *gin.Context) {
 	var logistic domain.Logistics
-	if err := c.ShouldBindJSON(&logistic); err != nil {
+
+	r := new(jsonschema.Reflector)
+	r.KeyNamer = strcase.SnakeCase
+	logisticSchemaReflect := r.Reflect(domain.Logistics{})
+	schemaLoader := gojsonschema.NewGoLoader(&logisticSchemaReflect)
+
+	requestBody, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	documentLoader := gojsonschema.NewBytesLoader(requestBody)
+
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if !result.Valid() {
+		err = fmt.Errorf("[ERROR] invalid payload %+v", result.Errors())
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if err := json.Unmarshal(requestBody, &logistic); err != nil {
+		err = fmt.Errorf("[ERROR] error unmarshaling JSON %+v", err)
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	// Validate using the Validate function
+	if err := logistic.Validate(); err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
@@ -78,15 +117,54 @@ func (pc *LogisticsController) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, newLogistic)
 }
 
-// Modify - Update an existing customer
+// Modify - Update an existing logistic
 func (pc *LogisticsController) Modify(c *gin.Context) {
-	var logistic domain.Logistics
-	if err := c.ShouldBindJSON(&logistic); err != nil {
+	idParam := c.Param("id")
+	if idParam == "" {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Missing id parameter"})
+		return
+	}
+
+	id, err := uuid.Parse(idParam)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	updateLogistic, err := pc.LogisticsUsecase.Modify(&logistic)
+	var logistic domain.Logistics
+
+	r := new(jsonschema.Reflector)
+	r.KeyNamer = strcase.SnakeCase
+	logisticSchemaReflect := r.Reflect(domain.Logistics{})
+	schemaLoader := gojsonschema.NewGoLoader(&logisticSchemaReflect)
+
+	requestBody, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	documentLoader := gojsonschema.NewBytesLoader(requestBody)
+
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if !result.Valid() {
+		err = fmt.Errorf("[ERROR] invalid payload %+v", result.Errors())
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if err := json.Unmarshal(requestBody, &logistic); err != nil {
+		err = fmt.Errorf("[ERROR] error unmarshaling JSON %+v", err)
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	updateLogistic, err := pc.LogisticsUsecase.Modify(&logistic, id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return

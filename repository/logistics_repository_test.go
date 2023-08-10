@@ -38,9 +38,9 @@ func createSampleWarehousePort() *domain.WarehousesAndPorts {
 func createSampleLogistics(productID, warehousePortID, customerID uuid.UUID) *domain.Logistics {
 	return &domain.Logistics{
 		ID:                    uuid.New(),
-		CustomerID:            customerID,
-		ProductID:             productID,
-		WarehousePortID:       warehousePortID,
+		CustomerID:            customerID.String(),
+		ProductID:             productID.String(),
+		WarehousePortID:       warehousePortID.String(),
 		Type:                  "land",
 		Quantity:              10,
 		RegistrationDate:      time.Now(),
@@ -121,10 +121,10 @@ func TestLogisticsRepository(t *testing.T) {
 	// Casos de prueba para Update
 	t.Run("Update - success", func(t *testing.T) {
 		logistics := createSampleLogistics(product.ID, warehousePort.ID, customer.ID)
-		_, _ = logisticsRepo.Store(context.Background(), logistics)
+		newLogistic, _ := logisticsRepo.Store(context.Background(), logistics)
 
 		logistics.Quantity = 50
-		_, err := logisticsRepo.Update(context.Background(), logistics)
+		_, err := logisticsRepo.Update(context.Background(), logistics, newLogistic.ID)
 		assert.NoError(t, err)
 
 		updated, _ := logisticsRepo.FindByID(context.Background(), logistics.ID)
@@ -135,7 +135,7 @@ func TestLogisticsRepository(t *testing.T) {
 		logistics := &domain.Logistics{
 			ID: uuid.New(),
 		}
-		_, err := logisticsRepo.Update(context.Background(), logistics)
+		_, err := logisticsRepo.Update(context.Background(), logistics, logistics.ID)
 		assert.Error(t, err)
 	})
 

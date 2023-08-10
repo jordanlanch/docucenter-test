@@ -44,10 +44,10 @@ func TestDiscountRepositoryFindByID(t *testing.T) {
 		Percentage:   10.5,
 	}
 
-	_, err := repo.Store(context.Background(), discount)
+	newDiscount, err := repo.Store(context.Background(), discount)
 	assert.NoError(t, err)
 
-	foundDiscount, err := repo.FindByID(context.Background(), id)
+	foundDiscount, err := repo.FindByID(context.Background(), newDiscount.ID)
 	assert.NoError(t, err)
 	assert.Equal(t, id, foundDiscount.ID)
 }
@@ -84,11 +84,11 @@ func TestDiscountRepositoryUpdate(t *testing.T) {
 		QuantityTo:   21,
 		Percentage:   13,
 	}
-	_, err := repo.Store(context.Background(), discount)
+	newDiscount, err := repo.Store(context.Background(), discount)
 	assert.NoError(t, err)
 
 	discount.Percentage = 15.0
-	_, err = repo.Update(context.Background(), discount)
+	_, err = repo.Update(context.Background(), discount, newDiscount.ID)
 	assert.NoError(t, err)
 
 	updatedDiscount, _ := repo.FindByTypeAndQuantity(context.Background(), domain.Land, 19)
@@ -99,17 +99,16 @@ func TestDiscountRepositoryDelete(t *testing.T) {
 	repo := NewDiscountRepository(db, domain.DiscountTable)
 
 	discount := &domain.Discount{
-		ID:           uuid.New(),
 		Type:         domain.Land,
 		QuantityFrom: 22,
 		QuantityTo:   29,
 		Percentage:   16,
 	}
 
-	_, err := repo.Store(context.Background(), discount)
+	newDiscount, err := repo.Store(context.Background(), discount)
 	assert.NoError(t, err)
 
-	err = repo.Delete(context.Background(), discount.ID)
+	err = repo.Delete(context.Background(), newDiscount.ID)
 	assert.NoError(t, err)
 
 	_, err = repo.FindByTypeAndQuantity(context.Background(), domain.Land, 23)
@@ -127,7 +126,7 @@ func TestDiscountRepositoryUpdateNonExistent(t *testing.T) {
 		Percentage:   17,
 	}
 
-	_, err := repo.Update(context.Background(), discount)
+	_, err := repo.Update(context.Background(), discount, discount.ID)
 	assert.Error(t, err)
 }
 

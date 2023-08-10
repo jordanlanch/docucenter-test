@@ -45,11 +45,11 @@ func (wpu *warehousePortUsecase) Create(wp *domain.WarehousesAndPorts) (*domain.
 	return wpu.warehousePortRepository.Store(ctx, wp)
 }
 
-func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
+func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts, id uuid.UUID) (*domain.WarehousesAndPorts, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
 	defer cancel()
 
-	existingWarehousePort, err := wpu.warehousePortRepository.FindByID(ctx, wp.ID)
+	existingWarehousePort, err := wpu.warehousePortRepository.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -60,7 +60,7 @@ func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) (*domain.
 	existingWarehousePort.Location = wp.Location
 	existingWarehousePort.UpdatedAt = time.Now()
 
-	return wpu.warehousePortRepository.Update(ctx, existingWarehousePort)
+	return wpu.warehousePortRepository.Update(ctx, existingWarehousePort, id)
 }
 
 func (wpu *warehousePortUsecase) Remove(id uuid.UUID) error {

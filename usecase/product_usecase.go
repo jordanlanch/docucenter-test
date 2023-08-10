@@ -45,11 +45,11 @@ func (pu *productUsecase) Create(p *domain.Product) (*domain.Product, error) {
 	return pu.productRepository.Store(ctx, p)
 }
 
-func (pu *productUsecase) Modify(p *domain.Product) (*domain.Product, error) {
+func (pu *productUsecase) Modify(p *domain.Product, id uuid.UUID) (*domain.Product, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
 	defer cancel()
 
-	existingProduct, err := pu.productRepository.FindByID(ctx, p.ID)
+	existingProduct, err := pu.productRepository.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (pu *productUsecase) Modify(p *domain.Product) (*domain.Product, error) {
 	existingProduct.Type = p.Type
 	existingProduct.UpdatedAt = time.Now()
 
-	return pu.productRepository.Update(ctx, existingProduct)
+	return pu.productRepository.Update(ctx, existingProduct, id)
 }
 
 func (pu *productUsecase) Remove(id uuid.UUID) error {

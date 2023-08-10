@@ -1,12 +1,18 @@
 package controller
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
+	"github.com/invopop/jsonschema"
 	"github.com/jordanlanch/docucenter-test/domain"
+	"github.com/stoewer/go-strcase"
+	"github.com/xeipuuv/gojsonschema"
 )
 
 type DiscountController struct {
@@ -75,15 +81,42 @@ func (pc *DiscountController) Get(c *gin.Context) {
 	c.JSON(http.StatusOK, discount)
 }
 
-// Create - Create a new customer
+// Create - Create a new discount
 func (pc *DiscountController) Create(c *gin.Context) {
 	var discount domain.Discount
-	if err := c.ShouldBindJSON(&discount); err != nil {
+
+	r := new(jsonschema.Reflector)
+	r.KeyNamer = strcase.SnakeCase
+	discountSchemaReflect := r.Reflect(domain.Discount{})
+	schemaLoader := gojsonschema.NewGoLoader(&discountSchemaReflect)
+
+	requestBody, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	documentLoader := gojsonschema.NewBytesLoader(requestBody)
+
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	newDiscount,err := pc.DiscountUsecase.Create(&discount)
+	if !result.Valid() {
+		err = fmt.Errorf("[ERROR] invalid payload %+v", result.Errors())
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if err := json.Unmarshal(requestBody, &discount); err != nil {
+		err = fmt.Errorf("[ERROR] error unmarshaling JSON %+v", err)
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	newDiscount, err := pc.DiscountUsecase.Create(&discount)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return
@@ -92,15 +125,54 @@ func (pc *DiscountController) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, newDiscount)
 }
 
-// Modify - Update an existing customer
+// Modify - Update an existing discount
 func (pc *DiscountController) Modify(c *gin.Context) {
-	var discount domain.Discount
-	if err := c.ShouldBindJSON(&discount); err != nil {
+	idParam := c.Param("id")
+	if idParam == "" {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: "Missing id parameter"})
+		return
+	}
+
+	id, err := uuid.Parse(idParam)
+	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
 		return
 	}
 
-	updateDiscount, err := pc.DiscountUsecase.Modify(&discount)
+	var discount domain.Discount
+
+	r := new(jsonschema.Reflector)
+	r.KeyNamer = strcase.SnakeCase
+	discountSchemaReflect := r.Reflect(domain.Discount{})
+	schemaLoader := gojsonschema.NewGoLoader(&discountSchemaReflect)
+
+	requestBody, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	documentLoader := gojsonschema.NewBytesLoader(requestBody)
+
+	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if !result.Valid() {
+		err = fmt.Errorf("[ERROR] invalid payload %+v", result.Errors())
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	if err := json.Unmarshal(requestBody, &discount); err != nil {
+		err = fmt.Errorf("[ERROR] error unmarshaling JSON %+v", err)
+		c.JSON(http.StatusBadRequest, domain.ErrorResponse{Message: err.Error()})
+		return
+	}
+
+	updateDiscount, err := pc.DiscountUsecase.Modify(&discount, id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.ErrorResponse{Message: err.Error()})
 		return

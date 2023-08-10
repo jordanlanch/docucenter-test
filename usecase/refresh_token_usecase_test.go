@@ -15,6 +15,7 @@ import (
 
 func TestGetUserByEmailRefresh(t *testing.T) {
 	mockUserRepository := new(mocks.UserRepository)
+
 	email := "test@test.com"
 
 	t.Run("success", func(t *testing.T) {
@@ -51,6 +52,7 @@ func TestGetUserByEmailRefresh(t *testing.T) {
 }
 
 func TestCreateAccessTokenRefresh(t *testing.T) {
+
 	user := &domain.User{
 		ID:    uuid.New(),
 		Email: "test@test.com",
@@ -68,6 +70,7 @@ func TestCreateAccessTokenRefresh(t *testing.T) {
 }
 
 func TestCreateRefreshTokenRefresh(t *testing.T) {
+
 	user := &domain.User{
 		ID:    uuid.New(),
 		Email: "test@test.com",

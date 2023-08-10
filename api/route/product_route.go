@@ -19,7 +19,8 @@ func NewProductRouter(env *bootstrap.Env, timeout time.Duration, db *gorm.DB, gr
 	}
 
 	group.POST("/products", pc.Create)
+	group.GET("/products", pc.Fetch)
 	group.GET("/products/:id", pc.Get)
 	group.PUT("/products/:id", pc.Modify)
-	group.DELETE("/products/:id", pc.Modify)
+	group.DELETE("/products/:id", pc.Remove)
 }

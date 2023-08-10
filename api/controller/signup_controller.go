@@ -7,7 +7,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/invopop/jsonschema"
 	"github.com/jordanlanch/docucenter-test/bootstrap"
 	"github.com/jordanlanch/docucenter-test/domain"
@@ -75,7 +74,6 @@ func (sc *SignupController) Signup(c *gin.Context) {
 	payload.Password = string(encryptedPassword)
 
 	user := &domain.User{
-		ID:       uuid.New(),
 		Email:    payload.Email,
 		Password: payload.Password,
 	}

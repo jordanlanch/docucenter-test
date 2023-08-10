@@ -55,7 +55,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">github.com/jordanlanch/docucenter-test/repository/customer_repository.go (74.3%)</option>
+				<option value="file0">github.com/jordanlanch/docucenter-test/repository/customer_repository.go (71.4%)</option>
 				
 				<option value="file1">github.com/jordanlanch/docucenter-test/repository/discount_repository.go (85.3%)</option>
 				
@@ -151,12 +151,12 @@ func (r *customerRepository) Store(ctx context.Context, c *domain.Customer) (*do
         <span class="cov9" title="5">return c, nil</span>
 }
 
-func (r *customerRepository) Update(ctx context.Context, c *domain.Customer) (*domain.Customer, error) <span class="cov4" title="2">{
+func (r *customerRepository) Update(ctx context.Context, c *domain.Customer, id uuid.UUID) (*domain.Customer, error) <span class="cov1" title="1">{
         result := r.db.WithContext(ctx).Model(&amp;domain.Customer{}).Where("id = ?", c.ID).Updates(c)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov4" title="2">if result.RowsAffected == 0 </span><span class="cov1" title="1">{
+        <span class="cov1" title="1">if result.RowsAffected == 0 </span><span class="cov0" title="0">{
                 return nil, errors.New("no customer record found to update")
         }</span>
         <span class="cov1" title="1">return c, nil</span>
@@ -232,8 +232,8 @@ func (r *discountRepository) Store(ctx context.Context, d *domain.Discount) (*do
         <span class="cov7" title="5">return d, nil</span>
 }
 
-func (r *discountRepository) Update(ctx context.Context, d *domain.Discount) (*domain.Discount, error) <span class="cov4" title="2">{
-        result := r.db.WithContext(ctx).Model(&amp;domain.Discount{}).Where("id = ?", d.ID).Updates(d)
+func (r *discountRepository) Update(ctx context.Context, d *domain.Discount, id uuid.UUID) (*domain.Discount, error) <span class="cov4" title="2">{
+        result := r.db.WithContext(ctx).Model(&amp;domain.Discount{}).Where("id = ?", id).Updates(d)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
@@ -305,8 +305,8 @@ func (r *LogisticsRepository) Store(ctx context.Context, ll *domain.Logistics) (
         <span class="cov10" title="6">return ll, nil</span>
 }
 
-func (r *LogisticsRepository) Update(ctx context.Context, ll *domain.Logistics) (*domain.Logistics, error) <span class="cov4" title="2">{
-        result := r.db.WithContext(ctx).Model(&amp;domain.Logistics{}).Where("id = ?", ll.ID).Updates(ll)
+func (r *LogisticsRepository) Update(ctx context.Context, ll *domain.Logistics, id uuid.UUID) (*domain.Logistics, error) <span class="cov4" title="2">{
+        result := r.db.WithContext(ctx).Model(&amp;domain.Logistics{}).Where("id = ?", id).Updates(ll)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
@@ -378,8 +378,8 @@ func (r *productRepository) Store(ctx context.Context, p *domain.Product) (*doma
         <span class="cov10" title="10">return p, nil</span>
 }
 
-func (r *productRepository) Update(ctx context.Context, p *domain.Product) (*domain.Product, error) <span class="cov3" title="2">{
-        result := r.db.WithContext(ctx).Model(&amp;domain.Product{}).Where("id = ?", p.ID).Updates(p)
+func (r *productRepository) Update(ctx context.Context, p *domain.Product, id uuid.UUID) (*domain.Product, error) <span class="cov3" title="2">{
+        result := r.db.WithContext(ctx).Model(&amp;domain.Product{}).Where("id = ?", id).Updates(p)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
@@ -421,12 +421,12 @@ func NewUserRepository(db *gorm.DB, table string) domain.UserRepository <span cl
         return &amp;userRepository{db, table}
 }</span>
 
-func (r *userRepository) Create(ctx context.Context, user *domain.User) (*domain.User, error) <span class="cov1" title="1">{
+func (r *userRepository) Create(ctx context.Context, user *domain.User) (*domain.User, error) <span class="cov10" title="4">{
         result := r.db.WithContext(ctx).Create(user)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>
-        <span class="cov1" title="1">return user, nil</span>
+        <span class="cov10" title="4">return user, nil</span>
 }
 
 func (r *userRepository) FindByID(ctx context.Context, id uuid.UUID) (*domain.User, error) <span class="cov5" title="2">{
@@ -520,8 +520,8 @@ func (r *warehousePortRepository) Store(ctx context.Context, wp *domain.Warehous
         <span class="cov8" title="5">return wp, nil</span>
 }
 
-func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) <span class="cov1" title="1">{
-        result := r.db.WithContext(ctx).Model(&amp;domain.WarehousesAndPorts{}).Where("id = ?", wp.ID).Updates(wp)
+func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts, id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov1" title="1">{
+        result := r.db.WithContext(ctx).Model(&amp;domain.WarehousesAndPorts{}).Where("id = ?", id).Updates(wp)
         if result.Error != nil </span><span class="cov0" title="0">{
                 return nil, result.Error
         }</span>

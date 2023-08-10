@@ -19,7 +19,8 @@ func NewCustomerRouter(env *bootstrap.Env, timeout time.Duration, db *gorm.DB, g
 	}
 
 	group.POST("/customers", cc.Create)
+	group.GET("/customers", cc.Fetch)
 	group.GET("/customers/:id", cc.Get)
 	group.PUT("/customers/:id", cc.Modify)
-	group.DELETE("/customers/:id", cc.Modify)
+	group.DELETE("/customers/:id", cc.Remove)
 }

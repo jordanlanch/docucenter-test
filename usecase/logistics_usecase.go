@@ -11,15 +11,15 @@ import (
 
 type LogisticsUsecase struct {
 	LogisticsRepository domain.LogisticsRepository
-	discountRepository      domain.DiscountRepository
-	contextTimeout          time.Duration
+	discountRepository  domain.DiscountRepository
+	contextTimeout      time.Duration
 }
 
 func NewLogisticsUsecase(LogisticsRepository domain.LogisticsRepository, discountRepository domain.DiscountRepository, timeout time.Duration) domain.LogisticsUsecase {
 	return &LogisticsUsecase{
 		LogisticsRepository: LogisticsRepository,
-		discountRepository:      discountRepository,
-		contextTimeout:          timeout,
+		discountRepository:  discountRepository,
+		contextTimeout:      timeout,
 	}
 }
 
@@ -63,11 +63,11 @@ func (llu *LogisticsUsecase) Create(ll *domain.Logistics) (*domain.Logistics, er
 	return llu.LogisticsRepository.Store(ctx, ll)
 }
 
-func (llu *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, error) {
+func (llu *LogisticsUsecase) Modify(ll *domain.Logistics, id uuid.UUID) (*domain.Logistics, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
 	defer cancel()
 
-	existingLogistics, err := llu.LogisticsRepository.FindByID(ctx, ll.ID)
+	existingLogistics, err := llu.LogisticsRepository.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -98,7 +98,7 @@ func (llu *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, er
 		existingLogistics.DiscountPercent = discount.Percentage
 	}
 
-	return llu.LogisticsRepository.Update(ctx, existingLogistics)
+	return llu.LogisticsRepository.Update(ctx, existingLogistics, id)
 }
 
 func (llu *LogisticsUsecase) Remove(id uuid.UUID) error {

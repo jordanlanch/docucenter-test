@@ -15,6 +15,7 @@ import (
 func TestLogisticsUsecase_GetMany(t *testing.T) {
 	mockLogisticsRepo := new(mocks.LogisticsRepository)
 	mockDiscountRepo := new(mocks.DiscountRepository)
+
 	limit := 10
 	offset := 0
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
@@ -51,6 +52,7 @@ func TestLogisticsUsecase_GetMany(t *testing.T) {
 
 func TestLogisticsUsecase_GetByID(t *testing.T) {
 	mockLogisticsRepo := new(mocks.LogisticsRepository)
+
 	logisticID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {
@@ -84,7 +86,6 @@ func TestLogisticsUsecase_GetByID(t *testing.T) {
 		mockLogisticsRepo.AssertExpectations(t)
 	})
 }
-
 
 func TestLogisticsUsecase_Create(t *testing.T) {
 	mockLogisticsRepo := new(mocks.LogisticsRepository)
@@ -132,7 +133,6 @@ func TestLogisticsUsecase_Create(t *testing.T) {
 	})
 }
 
-
 func TestLogisticsUsecase_Modify(t *testing.T) {
 	mockLogisticsRepo := new(mocks.LogisticsRepository)
 	mockDiscountRepo := new(mocks.DiscountRepository)
@@ -153,11 +153,11 @@ func TestLogisticsUsecase_Modify(t *testing.T) {
 	t.Run("success", func(t *testing.T) {
 		mockLogisticsRepo.On("FindByID", mock.Anything, mockLogistic.ID).Return(mockLogistic, nil).Once()
 		mockDiscountRepo.On("FindByTypeAndQuantity", mock.Anything, mockLogistic.Type, mockLogistic.Quantity).Return(mockDiscount, nil).Once()
-		mockLogisticsRepo.On("Update", mock.Anything, mockLogistic).Return(mockLogistic, nil).Once()
+		mockLogisticsRepo.On("Update", mock.Anything, mockLogistic, mockLogistic.ID).Return(mockLogistic, nil).Once()
 
 		u := NewLogisticsUsecase(mockLogisticsRepo, mockDiscountRepo, time.Second*2)
 
-		result, err := u.Modify(mockLogistic)
+		result, err := u.Modify(mockLogistic, mockLogistic.ID)
 
 		assert.NoError(t, err)
 		assert.NotNil(t, result)
@@ -171,7 +171,7 @@ func TestLogisticsUsecase_Modify(t *testing.T) {
 
 		u := NewLogisticsUsecase(mockLogisticsRepo, mockDiscountRepo, time.Second*2)
 
-		result, err := u.Modify(mockLogistic)
+		result, err := u.Modify(mockLogistic, mockLogistic.ID)
 
 		assert.Error(t, err)
 		assert.Nil(t, result)
@@ -182,6 +182,7 @@ func TestLogisticsUsecase_Modify(t *testing.T) {
 
 func TestLogisticsUsecase_Remove(t *testing.T) {
 	mockLogisticsRepo := new(mocks.LogisticsRepository)
+
 	logisticID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {

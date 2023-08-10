@@ -139,11 +139,11 @@ func (cu *customerUsecase) Create(c *domain.Customer) (*domain.Customer, error) 
         return cu.customerRepository.Store(ctx, c)
 }</span>
 
-func (cu *customerUsecase) Modify(c *domain.Customer) (*domain.Customer, error) <span class="cov3" title="2">{
+func (cu *customerUsecase) Modify(c *domain.Customer, id uuid.UUID) (*domain.Customer, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
         defer cancel()
 
-        existingCustomer, err := cu.customerRepository.FindByID(ctx, c.ID)
+        existingCustomer, err := cu.customerRepository.FindByID(ctx, id)
         if err != nil </span><span class="cov1" title="1">{
                 return nil, err
         }</span>
@@ -153,7 +153,7 @@ func (cu *customerUsecase) Modify(c *domain.Customer) (*domain.Customer, error) 
         existingCustomer.Email = c.Email
         existingCustomer.UpdatedAt = time.Now()
 
-        return cu.customerRepository.Update(ctx, existingCustomer)</span>
+        return cu.customerRepository.Update(ctx, existingCustomer, id)</span>
 }
 
 func (cu *customerUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
@@ -211,11 +211,11 @@ func (du *discountUsecase) Create(d *domain.Discount) (*domain.Discount, error) 
         return du.discountRepository.Store(ctx, d)
 }</span>
 
-func (du *discountUsecase) Modify(d *domain.Discount) (*domain.Discount, error) <span class="cov3" title="2">{
+func (du *discountUsecase) Modify(d *domain.Discount, id uuid.UUID) (*domain.Discount, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
         defer cancel()
 
-        existingDiscount, err := du.discountRepository.FindByID(ctx, d.ID)
+        existingDiscount, err := du.discountRepository.FindByID(ctx, id)
         if err != nil </span><span class="cov1" title="1">{
                 return nil, err
         }</span>
@@ -227,7 +227,7 @@ func (du *discountUsecase) Modify(d *domain.Discount) (*domain.Discount, error) 
         existingDiscount.Percentage = d.Percentage
         existingDiscount.UpdatedAt = time.Now()
 
-        return du.discountRepository.Update(ctx, existingDiscount)</span>
+        return du.discountRepository.Update(ctx, existingDiscount, id)</span>
 }
 
 func (du *discountUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
@@ -288,15 +288,15 @@ import (
 
 type LogisticsUsecase struct {
         LogisticsRepository domain.LogisticsRepository
-        discountRepository      domain.DiscountRepository
-        contextTimeout          time.Duration
+        discountRepository  domain.DiscountRepository
+        contextTimeout      time.Duration
 }
 
 func NewLogisticsUsecase(LogisticsRepository domain.LogisticsRepository, discountRepository domain.DiscountRepository, timeout time.Duration) domain.LogisticsUsecase <span class="cov10" title="10">{
         return &amp;LogisticsUsecase{
                 LogisticsRepository: LogisticsRepository,
-                discountRepository:      discountRepository,
-                contextTimeout:          timeout,
+                discountRepository:  discountRepository,
+                contextTimeout:      timeout,
         }
 }</span>
 
@@ -340,11 +340,11 @@ func (llu *LogisticsUsecase) Create(ll *domain.Logistics) (*domain.Logistics, er
         <span class="cov1" title="1">return llu.LogisticsRepository.Store(ctx, ll)</span>
 }
 
-func (llu *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, error) <span class="cov3" title="2">{
+func (llu *LogisticsUsecase) Modify(ll *domain.Logistics, id uuid.UUID) (*domain.Logistics, error) <span class="cov3" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), llu.contextTimeout)
         defer cancel()
 
-        existingLogistics, err := llu.LogisticsRepository.FindByID(ctx, ll.ID)
+        existingLogistics, err := llu.LogisticsRepository.FindByID(ctx, id)
         if err != nil </span><span class="cov1" title="1">{
                 return nil, err
         }</span>
@@ -375,7 +375,7 @@ func (llu *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, er
                 existingLogistics.DiscountPercent = discount.Percentage
         }</span>
 
-        <span class="cov1" title="1">return llu.LogisticsRepository.Update(ctx, existingLogistics)</span>
+        <span class="cov1" title="1">return llu.LogisticsRepository.Update(ctx, existingLogistics, id)</span>
 }
 
 func (llu *LogisticsUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
@@ -433,11 +433,11 @@ func (pu *productUsecase) Create(p *domain.Product) (*domain.Product, error) <sp
         return pu.productRepository.Store(ctx, p)
 }</span>
 
-func (pu *productUsecase) Modify(p *domain.Product) (*domain.Product, error) <span class="cov6" title="4">{
+func (pu *productUsecase) Modify(p *domain.Product, id uuid.UUID) (*domain.Product, error) <span class="cov6" title="4">{
         ctx, cancel := context.WithTimeout(context.Background(), pu.contextTimeout)
         defer cancel()
 
-        existingProduct, err := pu.productRepository.FindByID(ctx, p.ID)
+        existingProduct, err := pu.productRepository.FindByID(ctx, id)
         if err != nil </span><span class="cov3" title="2">{
                 return nil, err
         }</span>
@@ -447,7 +447,7 @@ func (pu *productUsecase) Modify(p *domain.Product) (*domain.Product, error) <sp
         existingProduct.Type = p.Type
         existingProduct.UpdatedAt = time.Now()
 
-        return pu.productRepository.Update(ctx, existingProduct)</span>
+        return pu.productRepository.Update(ctx, existingProduct, id)</span>
 }
 
 func (pu *productUsecase) Remove(id uuid.UUID) error <span class="cov3" title="2">{
@@ -505,6 +505,7 @@ import (
         "context"
         "time"
 
+        "github.com/google/uuid"
         "github.com/jordanlanch/docucenter-test/domain"
         "github.com/jordanlanch/docucenter-test/internal/tokenutil"
 )
@@ -524,6 +525,10 @@ func NewSignupUsecase(userRepository domain.UserRepository, timeout time.Duratio
 func (su *signupUsecase) Create(ctx context.Context, user *domain.User) (*domain.User, error) <span class="cov4" title="2">{
         ctx, cancel := context.WithTimeout(ctx, su.contextTimeout)
         defer cancel()
+
+        user.ID = uuid.New() // Assign a new UUID to the warehouse port
+        user.CreatedAt = time.Now()
+        user.UpdatedAt = time.Now()
         return su.userRepository.Create(ctx, user)
 }</span>
 
@@ -589,11 +594,11 @@ func (wpu *warehousePortUsecase) Create(wp *domain.WarehousesAndPorts) (*domain.
         return wpu.warehousePortRepository.Store(ctx, wp)
 }</span>
 
-func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) <span class="cov4" title="2">{
+func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts, id uuid.UUID) (*domain.WarehousesAndPorts, error) <span class="cov4" title="2">{
         ctx, cancel := context.WithTimeout(context.Background(), wpu.contextTimeout)
         defer cancel()
 
-        existingWarehousePort, err := wpu.warehousePortRepository.FindByID(ctx, wp.ID)
+        existingWarehousePort, err := wpu.warehousePortRepository.FindByID(ctx, id)
         if err != nil </span><span class="cov1" title="1">{
                 return nil, err
         }</span>
@@ -604,7 +609,7 @@ func (wpu *warehousePortUsecase) Modify(wp *domain.WarehousesAndPorts) (*domain.
         existingWarehousePort.Location = wp.Location
         existingWarehousePort.UpdatedAt = time.Now()
 
-        return wpu.warehousePortRepository.Update(ctx, existingWarehousePort)</span>
+        return wpu.warehousePortRepository.Update(ctx, existingWarehousePort, id)</span>
 }
 
 func (wpu *warehousePortUsecase) Remove(id uuid.UUID) error <span class="cov4" title="2">{

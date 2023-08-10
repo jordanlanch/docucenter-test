@@ -56,8 +56,8 @@ func (r *discountRepository) Store(ctx context.Context, d *domain.Discount) (*do
 	return d, nil
 }
 
-func (r *discountRepository) Update(ctx context.Context, d *domain.Discount) (*domain.Discount, error) {
-	result := r.db.WithContext(ctx).Model(&domain.Discount{}).Where("id = ?", d.ID).Updates(d)
+func (r *discountRepository) Update(ctx context.Context, d *domain.Discount, id uuid.UUID) (*domain.Discount, error) {
+	result := r.db.WithContext(ctx).Model(&domain.Discount{}).Where("id = ?", id).Updates(d)
 	if result.Error != nil {
 		return nil, result.Error
 	}

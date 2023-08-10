@@ -99,13 +99,13 @@ func (_m *ProductRepository) Store(ctx context.Context, p *domain.Product) (*dom
 	return r0, r1
 }
 
-// Update provides a mock function with given fields: ctx, p
-func (_m *ProductRepository) Update(ctx context.Context, p *domain.Product) (*domain.Product, error) {
-	ret := _m.Called(ctx, p)
+// Update provides a mock function with given fields: ctx, p, id
+func (_m *ProductRepository) Update(ctx context.Context, p *domain.Product, id uuid.UUID) (*domain.Product, error) {
+	ret := _m.Called(ctx, p, id)
 
 	var r0 *domain.Product
-	if rf, ok := ret.Get(0).(func(context.Context, *domain.Product) *domain.Product); ok {
-		r0 = rf(ctx, p)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.Product, uuid.UUID) *domain.Product); ok {
+		r0 = rf(ctx, p, id)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*domain.Product)
@@ -113,8 +113,8 @@ func (_m *ProductRepository) Update(ctx context.Context, p *domain.Product) (*do
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *domain.Product) error); ok {
-		r1 = rf(ctx, p)
+	if rf, ok := ret.Get(1).(func(context.Context, *domain.Product, uuid.UUID) error); ok {
+		r1 = rf(ctx, p, id)
 	} else {
 		r1 = ret.Error(1)
 	}

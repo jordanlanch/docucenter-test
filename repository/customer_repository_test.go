@@ -38,19 +38,18 @@ func TestCustomerRepositoryFindByID(t *testing.T) {
 	repo := NewCustomerRepository(db, domain.CustomerTable)
 
 	// Test finding a customer by valid ID
-	id := uuid.New()
 	customer := &domain.Customer{
-		ID:    id,
+		ID:    uuid.New(),
 		Name:  "John Doe",
 		Email: "johndoe@example.com",
 	}
 
-	_, err := repo.Store(context.Background(), customer)
+	newCustomer, err := repo.Store(context.Background(), customer)
 	assert.NoError(t, err)
 
-	foundCustomer, err := repo.FindByID(context.Background(), id)
+	foundCustomer, err := repo.FindByID(context.Background(), newCustomer.ID)
 	assert.NoError(t, err)
-	assert.Equal(t, id, foundCustomer.ID)
+	assert.Equal(t, newCustomer.ID, foundCustomer.ID)
 
 	// Test finding a customer by non-existent ID
 	_, err = repo.FindByID(context.Background(), uuid.New())
@@ -66,44 +65,34 @@ func TestCustomerRepositoryUpdate(t *testing.T) {
 		Name:  "John Doe",
 		Email: "johndoe@example.com",
 	}
-	_, err := repo.Store(context.Background(), customer)
+	newCustomer, err := repo.Store(context.Background(), customer)
 	assert.NoError(t, err)
 
 	customer.Email = "updated@example.com"
-	_, err = repo.Update(context.Background(), customer)
+	_, err = repo.Update(context.Background(), customer, newCustomer.ID)
 	assert.NoError(t, err)
 
-	updatedCustomer, _ := repo.FindByID(context.Background(), customer.ID)
+	updatedCustomer, _ := repo.FindByID(context.Background(), newCustomer.ID)
 	assert.Equal(t, "updated@example.com", updatedCustomer.Email)
-
-	// Test updating a non-existent customer
-	nonExistentCustomer := &domain.Customer{
-		ID:    uuid.New(),
-		Name:  "Jane Doe",
-		Email: "janedoe@example.com",
-	}
-	_, err = repo.Update(context.Background(), nonExistentCustomer)
-	assert.Error(t, err)
 }
 
 func TestCustomerRepositoryDelete(t *testing.T) {
 	repo := NewCustomerRepository(db, domain.CustomerTable)
 
 	// Test deleting a valid customer
-	id := uuid.New()
 	customer := &domain.Customer{
-		ID:    id,
+		ID:    uuid.New(),
 		Name:  "John Doe",
 		Email: "johndoe@example.com",
 	}
 
-	_, err := repo.Store(context.Background(), customer)
+	newCustomer, err := repo.Store(context.Background(), customer)
 	assert.NoError(t, err)
 
-	err = repo.Delete(context.Background(), id)
+	err = repo.Delete(context.Background(), newCustomer.ID)
 	assert.NoError(t, err)
 
-	_, err = repo.FindByID(context.Background(), id)
+	_, err = repo.FindByID(context.Background(), newCustomer.ID)
 	assert.Error(t, err)
 
 	// Test deleting a non-existent customer

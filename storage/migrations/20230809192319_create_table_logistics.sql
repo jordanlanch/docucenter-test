@@ -3,7 +3,7 @@
 CREATE TABLE logistics (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   customer_id UUID NOT NULL REFERENCES customers(id),
-  product_id UUID NOT NULL REFERENCES product(id),
+  product_id UUID NOT NULL REFERENCES products(id),
   warehouse_port_id UUID NOT NULL REFERENCES warehouses_and_ports(id),
   type VARCHAR(50) NOT NULL CHECK (type IN ('land', 'maritime')),
   quantity INT NOT NULL,

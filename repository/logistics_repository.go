@@ -48,8 +48,8 @@ func (r *LogisticsRepository) Store(ctx context.Context, ll *domain.Logistics) (
 	return ll, nil
 }
 
-func (r *LogisticsRepository) Update(ctx context.Context, ll *domain.Logistics) (*domain.Logistics, error) {
-	result := r.db.WithContext(ctx).Model(&domain.Logistics{}).Where("id = ?", ll.ID).Updates(ll)
+func (r *LogisticsRepository) Update(ctx context.Context, ll *domain.Logistics, id uuid.UUID) (*domain.Logistics, error) {
+	result := r.db.WithContext(ctx).Model(&domain.Logistics{}).Where("id = ?", id).Updates(ll)
 	if result.Error != nil {
 		return nil, result.Error
 	}

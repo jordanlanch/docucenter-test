@@ -99,13 +99,13 @@ func (_m *WarehousePortRepository) Store(ctx context.Context, wp *domain.Warehou
 	return r0, r1
 }
 
-// Update provides a mock function with given fields: ctx, wp
-func (_m *WarehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
-	ret := _m.Called(ctx, wp)
+// Update provides a mock function with given fields: ctx, wp, id
+func (_m *WarehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts, id uuid.UUID) (*domain.WarehousesAndPorts, error) {
+	ret := _m.Called(ctx, wp, id)
 
 	var r0 *domain.WarehousesAndPorts
-	if rf, ok := ret.Get(0).(func(context.Context, *domain.WarehousesAndPorts) *domain.WarehousesAndPorts); ok {
-		r0 = rf(ctx, wp)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.WarehousesAndPorts, uuid.UUID) *domain.WarehousesAndPorts); ok {
+		r0 = rf(ctx, wp, id)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*domain.WarehousesAndPorts)
@@ -113,8 +113,8 @@ func (_m *WarehousePortRepository) Update(ctx context.Context, wp *domain.Wareho
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *domain.WarehousesAndPorts) error); ok {
-		r1 = rf(ctx, wp)
+	if rf, ok := ret.Get(1).(func(context.Context, *domain.WarehousesAndPorts, uuid.UUID) error); ok {
+		r1 = rf(ctx, wp, id)
 	} else {
 		r1 = ret.Error(1)
 	}

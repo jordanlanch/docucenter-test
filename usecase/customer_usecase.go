@@ -45,11 +45,11 @@ func (cu *customerUsecase) Create(c *domain.Customer) (*domain.Customer, error) 
 	return cu.customerRepository.Store(ctx, c)
 }
 
-func (cu *customerUsecase) Modify(c *domain.Customer) (*domain.Customer, error) {
+func (cu *customerUsecase) Modify(c *domain.Customer, id uuid.UUID) (*domain.Customer, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), cu.contextTimeout)
 	defer cancel()
 
-	existingCustomer, err := cu.customerRepository.FindByID(ctx, c.ID)
+	existingCustomer, err := cu.customerRepository.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (cu *customerUsecase) Modify(c *domain.Customer) (*domain.Customer, error) 
 	existingCustomer.Email = c.Email
 	existingCustomer.UpdatedAt = time.Now()
 
-	return cu.customerRepository.Update(ctx, existingCustomer)
+	return cu.customerRepository.Update(ctx, existingCustomer, id)
 }
 
 func (cu *customerUsecase) Remove(id uuid.UUID) error {

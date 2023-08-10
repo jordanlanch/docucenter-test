@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/jordanlanch/docucenter-test/domain"
 	"github.com/jordanlanch/docucenter-test/internal/tokenutil"
 )
@@ -23,6 +24,10 @@ func NewSignupUsecase(userRepository domain.UserRepository, timeout time.Duratio
 func (su *signupUsecase) Create(ctx context.Context, user *domain.User) (*domain.User, error) {
 	ctx, cancel := context.WithTimeout(ctx, su.contextTimeout)
 	defer cancel()
+
+	user.ID = uuid.New() // Assign a new UUID to the warehouse port
+	user.CreatedAt = time.Now()
+	user.UpdatedAt = time.Now()
 	return su.userRepository.Create(ctx, user)
 }
 

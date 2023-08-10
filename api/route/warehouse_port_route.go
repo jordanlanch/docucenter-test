@@ -19,7 +19,8 @@ func NewWarehousePortRouter(env *bootstrap.Env, timeout time.Duration, db *gorm.
 	}
 
 	group.POST("/warehouse_ports", wpc.Create)
+	group.GET("/warehouse_ports", wpc.Fetch)
 	group.GET("/warehouse_ports/:id", wpc.Get)
 	group.PUT("/warehouse_ports/:id", wpc.Modify)
-	group.DELETE("/warehouse_ports/:id", wpc.Modify)
+	group.DELETE("/warehouse_ports/:id", wpc.Remove)
 }

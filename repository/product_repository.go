@@ -48,8 +48,8 @@ func (r *productRepository) Store(ctx context.Context, p *domain.Product) (*doma
 	return p, nil
 }
 
-func (r *productRepository) Update(ctx context.Context, p *domain.Product) (*domain.Product, error) {
-	result := r.db.WithContext(ctx).Model(&domain.Product{}).Where("id = ?", p.ID).Updates(p)
+func (r *productRepository) Update(ctx context.Context, p *domain.Product, id uuid.UUID) (*domain.Product, error) {
+	result := r.db.WithContext(ctx).Model(&domain.Product{}).Where("id = ?", id).Updates(p)
 	if result.Error != nil {
 		return nil, result.Error
 	}

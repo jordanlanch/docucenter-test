@@ -14,6 +14,7 @@ import (
 
 func TestDiscountUseCase_GetMany(t *testing.T) {
 	mockDiscountRepo := new(mocks.DiscountRepository)
+
 	limit := 10
 	offset := 0
 	pagination := &domain.Pagination{Limit: &limit, Offset: &offset}
@@ -132,11 +133,11 @@ func TestDiscountUseCase_Modify(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		mockDiscountRepo.On("FindByID", mock.Anything, mockDiscount.ID).Return(mockDiscount, nil).Once()
-		mockDiscountRepo.On("Update", mock.Anything, mockDiscount).Return(mockDiscount, nil).Once()
+		mockDiscountRepo.On("Update", mock.Anything, mockDiscount, mockDiscount.ID).Return(mockDiscount, nil).Once()
 
 		u := NewDiscountUsecase(mockDiscountRepo, time.Second*2)
 
-		_, err := u.Modify(mockDiscount)
+		_, err := u.Modify(mockDiscount, mockDiscount.ID)
 
 		assert.NoError(t, err)
 		mockDiscountRepo.AssertExpectations(t)
@@ -147,7 +148,7 @@ func TestDiscountUseCase_Modify(t *testing.T) {
 
 		u := NewDiscountUsecase(mockDiscountRepo, time.Second*2)
 
-		_, err := u.Modify(mockDiscount)
+		_, err := u.Modify(mockDiscount, mockDiscount.ID)
 
 		assert.Error(t, err)
 		mockDiscountRepo.AssertExpectations(t)
@@ -156,6 +157,7 @@ func TestDiscountUseCase_Modify(t *testing.T) {
 
 func TestDiscountUseCase_Remove(t *testing.T) {
 	mockDiscountRepo := new(mocks.DiscountRepository)
+
 	discountID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {

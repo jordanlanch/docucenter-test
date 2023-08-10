@@ -14,6 +14,7 @@ import (
 
 func TestWarehousePortGetByID(t *testing.T) {
 	mockWarehousePortRepo := new(mocks.WarehousePortRepository)
+
 	warehousePortID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {
@@ -85,6 +86,7 @@ func TestWarehousePortCreate(t *testing.T) {
 
 func TestWarehousePortModify(t *testing.T) {
 	mockWarehousePortRepo := new(mocks.WarehousePortRepository)
+
 	warehousePortID := uuid.New()
 
 	mockWarehousePort := &domain.WarehousesAndPorts{
@@ -96,11 +98,11 @@ func TestWarehousePortModify(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		mockWarehousePortRepo.On("FindByID", mock.Anything, warehousePortID).Return(mockWarehousePort, nil).Once()
-		mockWarehousePortRepo.On("Update", mock.Anything, mockWarehousePort).Return(mockWarehousePort, nil).Once()
+		mockWarehousePortRepo.On("Update", mock.Anything, mockWarehousePort, warehousePortID).Return(mockWarehousePort, nil).Once()
 
 		u := NewWarehousePortUsecase(mockWarehousePortRepo, time.Second*2)
 
-		_, err := u.Modify(mockWarehousePort)
+		_, err := u.Modify(mockWarehousePort, mockWarehousePort.ID)
 
 		assert.NoError(t, err)
 		mockWarehousePortRepo.AssertExpectations(t)
@@ -111,7 +113,7 @@ func TestWarehousePortModify(t *testing.T) {
 
 		u := NewWarehousePortUsecase(mockWarehousePortRepo, time.Second*2)
 
-		_, err := u.Modify(mockWarehousePort)
+		_, err := u.Modify(mockWarehousePort, mockWarehousePort.ID)
 
 		assert.Error(t, err)
 		mockWarehousePortRepo.AssertExpectations(t)
@@ -120,6 +122,7 @@ func TestWarehousePortModify(t *testing.T) {
 
 func TestWarehousePortRemove(t *testing.T) {
 	mockWarehousePortRepo := new(mocks.WarehousePortRepository)
+
 	warehousePortID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {

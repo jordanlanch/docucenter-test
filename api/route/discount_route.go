@@ -19,7 +19,8 @@ func NewDiscountRouter(env *bootstrap.Env, timeout time.Duration, db *gorm.DB, g
 	}
 
 	group.POST("/discounts", cc.Create)
-	group.GET("/discounts/:type", cc.Get)
-	group.PUT("/discounts/:type", cc.Modify)
-	group.DELETE("/discounts/:type", cc.Modify)
+	group.GET("/discounts", cc.Fetch)
+	group.GET("/discounts/:type/:quantity", cc.Get)
+	group.PUT("/discounts/:id", cc.Modify)
+	group.DELETE("/discounts/:id", cc.Remove)
 }

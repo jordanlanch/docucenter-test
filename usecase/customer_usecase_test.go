@@ -59,12 +59,10 @@ func TestCustomerUseCase_GetMany(t *testing.T) {
 	})
 }
 
-
-
 func TestCustomerUseCase_GetByID(t *testing.T) {
 	mockCustomerRepo := new(mocks.CustomerRepository)
-	id := uuid.New()
 
+	id := uuid.New()
 	t.Run("success", func(t *testing.T) {
 		mockCustomer := &domain.Customer{
 			ID:    id,
@@ -135,6 +133,7 @@ func TestCustomerUseCase_Create(t *testing.T) {
 
 func TestCustomerUseCase_Modify(t *testing.T) {
 	mockCustomerRepo := new(mocks.CustomerRepository)
+
 	customerID := uuid.New()
 
 	mockCustomer := &domain.Customer{
@@ -145,11 +144,11 @@ func TestCustomerUseCase_Modify(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		mockCustomerRepo.On("FindByID", mock.Anything, customerID).Return(mockCustomer, nil).Once()
-		mockCustomerRepo.On("Update", mock.Anything, mockCustomer).Return(mockCustomer, nil).Once()
+		mockCustomerRepo.On("Update", mock.Anything, mockCustomer, customerID).Return(mockCustomer, nil).Once()
 
 		u := NewCustomerUsecase(mockCustomerRepo, time.Second*2)
 
-		_, err := u.Modify(mockCustomer)
+		_, err := u.Modify(mockCustomer, mockCustomer.ID)
 
 		assert.NoError(t, err)
 		mockCustomerRepo.AssertExpectations(t)
@@ -160,7 +159,7 @@ func TestCustomerUseCase_Modify(t *testing.T) {
 
 		u := NewCustomerUsecase(mockCustomerRepo, time.Second*2)
 
-		_, err := u.Modify(mockCustomer)
+		_, err := u.Modify(mockCustomer, mockCustomer.ID)
 
 		assert.Error(t, err)
 		mockCustomerRepo.AssertExpectations(t)
@@ -169,6 +168,7 @@ func TestCustomerUseCase_Modify(t *testing.T) {
 
 func TestCustomerUseCase_Remove(t *testing.T) {
 	mockCustomerRepo := new(mocks.CustomerRepository)
+
 	customerID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {

@@ -2,8 +2,8 @@ package repository
 
 import (
 	"context"
-	"testing"
 	"fmt"
+	"testing"
 
 	"github.com/google/uuid"
 	"github.com/jordanlanch/docucenter-test/domain"
@@ -26,17 +26,16 @@ func TestStoreProduct(t *testing.T) {
 func TestFindProductByID(t *testing.T) {
 	repo := NewProductRepository(db, "products")
 
-	id := uuid.New()
 	product := &domain.Product{
-		ID: id,
-		// Add other fields from your Product struct as needed.
+		ID:   uuid.New(),
+		Name: "Name Product",
+		Type: "land",
 	}
-	repo.Store(context.Background(), product)
+	newProduct, _ := repo.Store(context.Background(), product)
 
-	foundProduct, err := repo.FindByID(context.Background(), id)
+	foundProduct, err := repo.FindByID(context.Background(), newProduct.ID)
 	assert.NoError(t, err)
-	assert.Equal(t, id, foundProduct.ID)
-
+	assert.Equal(t, newProduct.ID, foundProduct.ID)
 	_, err = repo.FindByID(context.Background(), uuid.New())
 	assert.Error(t, err)
 }
@@ -46,14 +45,14 @@ func TestUpdateProduct(t *testing.T) {
 
 	product := &domain.Product{
 		ID:   uuid.New(),
-		Name: "Updated Name",
+		Name: "New Name",
 		Type: "maritime",
 	}
-	repo.Store(context.Background(), product)
+	newProduct, _ := repo.Store(context.Background(), product)
 
 	// Update fields for product and save updated values
-	// For example: product.Name = "Updated Name"
-	_, err := repo.Update(context.Background(), product)
+	product.Name = "Updated Name"
+	_, err := repo.Update(context.Background(), product, newProduct.ID)
 	assert.NoError(t, err)
 
 	updatedProduct, _ := repo.FindByID(context.Background(), product.ID)
@@ -61,27 +60,26 @@ func TestUpdateProduct(t *testing.T) {
 	assert.Equal(t, "Updated Name", updatedProduct.Name)
 }
 
-
 func TestDeleteProduct(t *testing.T) {
 	repo := NewProductRepository(db, "products")
 
 	product := &domain.Product{
-		ID: uuid.New(),
-		// Add other fields from your Product struct as needed.
+		ID:   uuid.New(),
+		Name: "Name Product delete",
+		Type: "land",
 	}
 
-	repo.Store(context.Background(), product)
+	newProduct, _ := repo.Store(context.Background(), product)
 
-	err := repo.Delete(context.Background(), product.ID)
+	err := repo.Delete(context.Background(), newProduct.ID)
 	assert.NoError(t, err)
 
-	_, err = repo.FindByID(context.Background(), product.ID)
+	_, err = repo.FindByID(context.Background(), newProduct.ID)
 	assert.Error(t, err)
 }
 
 func TestFindManyProducts(t *testing.T) {
 	repo := NewProductRepository(db, "products")
-
 
 	// Crear algunos productos para probar la paginación
 	for i := 0; i < 5; i++ {
@@ -92,7 +90,6 @@ func TestFindManyProducts(t *testing.T) {
 		}
 		repo.Store(context.Background(), product)
 	}
-
 
 	// Prueba de paginación
 	limit := 2
@@ -108,12 +105,12 @@ func TestUpdateProductNotFound(t *testing.T) {
 	repo := NewProductRepository(db, "products")
 
 	product := &domain.Product{
-		ID:   uuid.New(), // Usar un ID que no existe en la base de datos
+		ID:   uuid.New(),
 		Name: "Non-existent Product",
 		Type: "land",
 	}
 
-	_, err := repo.Update(context.Background(), product)
+	_, err := repo.Update(context.Background(), product, uuid.New())
 	assert.Error(t, err)
 }
 

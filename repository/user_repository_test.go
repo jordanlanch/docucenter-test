@@ -13,8 +13,9 @@ func TestCreate(t *testing.T) {
 	repo := NewUserRepository(db, "users")
 
 	user := &domain.User{
-		ID:    uuid.New(),
-		Email: "test@test.com",
+		ID:       uuid.New(),
+		Email:    "test@test.com",
+		Password: "pasword111",
 	}
 
 	createdUser, err := repo.Create(context.Background(), user)
@@ -25,17 +26,16 @@ func TestCreate(t *testing.T) {
 func TestFindByID(t *testing.T) {
 	repo := NewUserRepository(db, "users")
 
-	id := uuid.New()
 	user := &domain.User{
-		ID:    id,
-		Email: "test@test.com",
+		ID:       uuid.New(),
+		Email:    "test@test.com",
+		Password: "pasword111",
 	}
-	db.Create(user)
+	newUser, _ := repo.Create(context.Background(), user)
 
-	foundUser, err := repo.FindByID(context.Background(), id)
+	foundUser, err := repo.FindByID(context.Background(), newUser.ID)
 	assert.NoError(t, err)
-	assert.Equal(t, id, foundUser.ID)
-
+	assert.Equal(t, newUser.ID, foundUser.ID)
 	_, err = repo.FindByID(context.Background(), uuid.New())
 	assert.Error(t, err)
 }
@@ -45,12 +45,13 @@ func TestFindByEmail(t *testing.T) {
 
 	email := "test@test.com"
 	user := &domain.User{
-		ID:    uuid.New(),
-		Email: email,
+		ID:       uuid.New(),
+		Email:    email,
+		Password: "pasword111",
 	}
-	db.Create(user)
+	newUser, _ := repo.Create(context.Background(), user)
 
-	foundUser, err := repo.FindByEmail(context.Background(), email)
+	foundUser, err := repo.FindByEmail(context.Background(), newUser.Email)
 	assert.NoError(t, err)
 	assert.Equal(t, email, foundUser.Email)
 
@@ -62,13 +63,14 @@ func TestUpdate(t *testing.T) {
 	repo := NewUserRepository(db, "users")
 
 	user := &domain.User{
-		ID:    uuid.New(),
-		Email: "test@test.com",
+		ID:       uuid.New(),
+		Email:    "test@test.com",
+		Password: "pasword111",
 	}
-	db.Create(user)
+	newUser, _ := repo.Create(context.Background(), user)
 
-	user.Email = "updated@test.com"
-	updatedUser, err := repo.Update(context.Background(), user)
+	newUser.Email = "updated@test.com"
+	updatedUser, err := repo.Update(context.Background(), newUser)
 	assert.NoError(t, err)
 	assert.Equal(t, "updated@test.com", updatedUser.Email)
 }

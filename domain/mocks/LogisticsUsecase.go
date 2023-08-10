@@ -83,13 +83,13 @@ func (_m *LogisticsUsecase) GetMany(pagination *domain.Pagination) ([]*domain.Lo
 	return r0, r1
 }
 
-// Modify provides a mock function with given fields: ll
-func (_m *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, error) {
-	ret := _m.Called(ll)
+// Modify provides a mock function with given fields: ll, id
+func (_m *LogisticsUsecase) Modify(ll *domain.Logistics, id uuid.UUID) (*domain.Logistics, error) {
+	ret := _m.Called(ll, id)
 
 	var r0 *domain.Logistics
-	if rf, ok := ret.Get(0).(func(*domain.Logistics) *domain.Logistics); ok {
-		r0 = rf(ll)
+	if rf, ok := ret.Get(0).(func(*domain.Logistics, uuid.UUID) *domain.Logistics); ok {
+		r0 = rf(ll, id)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*domain.Logistics)
@@ -97,8 +97,8 @@ func (_m *LogisticsUsecase) Modify(ll *domain.Logistics) (*domain.Logistics, err
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(*domain.Logistics) error); ok {
-		r1 = rf(ll)
+	if rf, ok := ret.Get(1).(func(*domain.Logistics, uuid.UUID) error); ok {
+		r1 = rf(ll, id)
 	} else {
 		r1 = ret.Error(1)
 	}

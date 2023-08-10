@@ -122,13 +122,13 @@ func (_m *DiscountRepository) Store(ctx context.Context, d *domain.Discount) (*d
 	return r0, r1
 }
 
-// Update provides a mock function with given fields: ctx, d
-func (_m *DiscountRepository) Update(ctx context.Context, d *domain.Discount) (*domain.Discount, error) {
-	ret := _m.Called(ctx, d)
+// Update provides a mock function with given fields: ctx, d, id
+func (_m *DiscountRepository) Update(ctx context.Context, d *domain.Discount, id uuid.UUID) (*domain.Discount, error) {
+	ret := _m.Called(ctx, d, id)
 
 	var r0 *domain.Discount
-	if rf, ok := ret.Get(0).(func(context.Context, *domain.Discount) *domain.Discount); ok {
-		r0 = rf(ctx, d)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.Discount, uuid.UUID) *domain.Discount); ok {
+		r0 = rf(ctx, d, id)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*domain.Discount)
@@ -136,8 +136,8 @@ func (_m *DiscountRepository) Update(ctx context.Context, d *domain.Discount) (*
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *domain.Discount) error); ok {
-		r1 = rf(ctx, d)
+	if rf, ok := ret.Get(1).(func(context.Context, *domain.Discount, uuid.UUID) error); ok {
+		r1 = rf(ctx, d, id)
 	} else {
 		r1 = ret.Error(1)
 	}

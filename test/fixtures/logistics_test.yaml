@@ -1,0 +1,384 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 57
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.dev93@gmail.com","password":"pass1234*"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/login
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 408
+        uncompressed: false
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MjMwMzgzNn0.dWhz4RroUp4r-RpO1jxDBTY4rNd9750ctnnAYcs-2Zc"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 59.017551ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 50
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.doe@example.com","name":"Jordan"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/customers
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 196
+        uncompressed: false
+        body: '{"id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","name":"Jordan","email":"jordan.doe@example.com","created_at":"2023-08-10T15:23:56.565117128-05:00","updated_at":"2023-08-10T15:23:56.565117172-05:00"}'
+        headers:
+            Content-Length:
+                - "196"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 201 Created
+        code: 201
+        duration: 2.652917ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 34
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"name":"product 1","type":"land"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/products
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 179
+        uncompressed: false
+        body: '{"id":"03a79196-8173-4e13-a1a9-a128a942a65c","name":"product 1","type":"land","created_at":"2023-08-10T15:23:56.57132283-05:00","updated_at":"2023-08-10T15:23:56.571322874-05:00"}'
+        headers:
+            Content-Length:
+                - "179"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 201 Created
+        code: 201
+        duration: 2.741601ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 58
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"location":"calle 1 N 1 1","name":"land 1","type":"land"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/warehouse_ports
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 204
+        uncompressed: false
+        body: '{"id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","name":"land 1","type":"land","location":"calle 1 N 1 1","created_at":"2023-08-10T15:23:56.577647453-05:00","updated_at":"2023-08-10T15:23:56.577647495-05:00"}'
+        headers:
+            Content-Length:
+                - "204"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 201 Created
+        code: 201
+        duration: 2.638006ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 378
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","delivery_date":"2023-08-10T15:23:56.58334447-05:00","guide_number":"1234567890","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","quantity":10,"registration_date":"2023-08-10T15:23:56.583344183-05:00","shipping_price":100,"type":"land","vehicle_plate":"ABC123","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/logistics
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 524
+        uncompressed: false
+        body: '{"id":"ad24ed9e-964c-4019-827f-875dd6c955f8","customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","type":"land","quantity":10,"registration_date":"2023-08-10T15:23:56.583344183-05:00","delivery_date":"2023-08-10T15:23:56.58334447-05:00","shipping_price":100,"vehicle_plate":"ABC123","guide_number":"1234567890","created_at":"2023-08-10T15:23:56.583991641-05:00","updated_at":"2023-08-10T15:23:56.583991687-05:00"}'
+        headers:
+            Content-Length:
+                - "524"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 201 Created
+        code: 201
+        duration: 5.086819ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 384
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","delivery_date":"2023-08-10T15:23:56.594405341-05:00","fleet_number":"DEF1234H","guide_number":"9876543210","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","quantity":15,"registration_date":"2023-08-10T15:23:56.594405054-05:00","shipping_price":100,"type":"maritime","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/logistics
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 579
+        uncompressed: false
+        body: '{"id":"37429020-9364-4085-b31f-dfa5393702dc","customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","type":"maritime","quantity":15,"registration_date":"2023-08-10T15:23:56.594405054-05:00","delivery_date":"2023-08-10T15:23:56.594405341-05:00","shipping_price":100,"discount_shipping_price":3,"fleet_number":"DEF1234H","guide_number":"9876543210","discount_percent":3,"created_at":"2023-08-10T15:23:56.595668248-05:00","updated_at":"2023-08-10T15:23:56.595668302-05:00"}'
+        headers:
+            Content-Length:
+                - "579"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 201 Created
+        code: 201
+        duration: 3.517495ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+        url: http://[::1]:43889/logistics?limit=10&offset=0
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        trailer: {}
+        content_length: -1
+        uncompressed: false
+        body: '[{"id":"78901234-5678-9abc-d0ef-123456789def","customer_id":"a1b2c3d4-e5f6-7890-a1b2-c3d4e5f67890","product_id":"e5f6a789-0123-4567-f8a9-0123456789ab","warehouse_port_id":"c3d4e5f6-a789-0123-c4d5-e6f7a8901234","type":"land","quantity":5,"registration_date":"2023-08-01T10:00:00Z","delivery_date":"2023-08-10T10:00:00Z","shipping_price":100,"vehicle_plate":"ABC123","guide_number":"L123456789","created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"89012345-6789-abcd-ef01-23456789abcd","customer_id":"b2c3d4e5-f6a7-8901-b2c3-d4e5f6a78901","product_id":"f6a78901-2345-6789-a0bc-123456789abc","warehouse_port_id":"d4e5f6a7-8901-2345-e6f7-a89012345678","type":"maritime","quantity":12,"registration_date":"2023-08-02T11:00:00Z","delivery_date":"2023-08-12T11:00:00Z","shipping_price":100,"discount_shipping_price":97,"fleet_number":"XYZ1234A","guide_number":"M123456789","discount_percent":3,"created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"ad24ed9e-964c-4019-827f-875dd6c955f8","customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","type":"land","quantity":10,"registration_date":"2023-08-10T15:23:56.583344Z","delivery_date":"2023-08-10T15:23:56.583344Z","shipping_price":100,"vehicle_plate":"ABC123","guide_number":"1234567890","created_at":"2023-08-10T15:23:56.583991Z","updated_at":"2023-08-10T15:23:56.583991Z"},{"id":"37429020-9364-4085-b31f-dfa5393702dc","customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","type":"maritime","quantity":15,"registration_date":"2023-08-10T15:23:56.594405Z","delivery_date":"2023-08-10T15:23:56.594405Z","shipping_price":100,"discount_shipping_price":3,"fleet_number":"DEF1234H","guide_number":"9876543210","discount_percent":3,"created_at":"2023-08-10T15:23:56.595668Z","updated_at":"2023-08-10T15:23:56.595668Z"}]'
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 1.347001ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+        url: http://[::1]:43889/logistics/37429020-9364-4085-b31f-dfa5393702dc
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 547
+        uncompressed: false
+        body: '{"id":"37429020-9364-4085-b31f-dfa5393702dc","customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","type":"maritime","quantity":15,"registration_date":"2023-08-10T15:23:56.594405Z","delivery_date":"2023-08-10T15:23:56.594405Z","shipping_price":100,"discount_shipping_price":3,"fleet_number":"DEF1234H","guide_number":"9876543210","discount_percent":3,"created_at":"2023-08-10T15:23:56.595668Z","updated_at":"2023-08-10T15:23:56.595668Z"}'
+        headers:
+            Content-Length:
+                - "547"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 1.057028ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 382
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","delivery_date":"2023-08-10T15:23:56.609519422-05:00","fleet_number":"DEF1234H","guide_number":"85217963","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","quantity":20,"registration_date":"2023-08-10T15:23:56.609519131-05:00","shipping_price":200,"type":"maritime","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:43889/logistics/37429020-9364-4085-b31f-dfa5393702dc
+        method: PUT
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 569
+        uncompressed: false
+        body: '{"id":"37429020-9364-4085-b31f-dfa5393702dc","customer_id":"34aaa8d7-2e47-4705-a655-b8703b81bf83","product_id":"03a79196-8173-4e13-a1a9-a128a942a65c","warehouse_port_id":"6373ccf2-c8b9-4b88-8d7d-dc8122dbe0f7","type":"maritime","quantity":20,"registration_date":"2023-08-10T15:23:56.609519131-05:00","delivery_date":"2023-08-10T15:23:56.609519422-05:00","shipping_price":200,"discount_shipping_price":6,"fleet_number":"DEF1234H","guide_number":"85217963","discount_percent":3,"created_at":"2023-08-10T15:23:56.595668Z","updated_at":"2023-08-10T15:23:56.610513511-05:00"}'
+        headers:
+            Content-Length:
+                - "569"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 2.999999ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:43889'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+        url: http://[::1]:43889/logistics/37429020-9364-4085-b31f-dfa5393702dc
+        method: DELETE
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 44
+        uncompressed: false
+        body: '{"message":"Logistics deleted successfully"}'
+        headers:
+            Content-Length:
+                - "44"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 2.031301ms

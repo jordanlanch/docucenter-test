@@ -13,11 +13,11 @@ const (
 )
 
 type User struct {
-	ID        uuid.UUID `json:"id"`
-	Email     string    `json:"email"`
-	Password  string    `json:"password,omitempty"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID        uuid.UUID `json:"id,omitempty"`
+	Email     string    `json:"email" jsonschema:"required,description=Email of the user,title=Email"`
+	Password  string    `json:"password" jsonschema:"required,description=Password of the user,title=Password"`
+	CreatedAt time.Time `json:"created_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at,omitempty"`
 }
 
 // SetPassword encripta la contraseña y la asigna al usuario.

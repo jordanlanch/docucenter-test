@@ -45,11 +45,11 @@ func (du *discountUsecase) Create(d *domain.Discount) (*domain.Discount, error) 
 	return du.discountRepository.Store(ctx, d)
 }
 
-func (du *discountUsecase) Modify(d *domain.Discount) (*domain.Discount, error) {
+func (du *discountUsecase) Modify(d *domain.Discount, id uuid.UUID) (*domain.Discount, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), du.contextTimeout)
 	defer cancel()
 
-	existingDiscount, err := du.discountRepository.FindByID(ctx, d.ID)
+	existingDiscount, err := du.discountRepository.FindByID(ctx, id)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +61,7 @@ func (du *discountUsecase) Modify(d *domain.Discount) (*domain.Discount, error) 
 	existingDiscount.Percentage = d.Percentage
 	existingDiscount.UpdatedAt = time.Now()
 
-	return du.discountRepository.Update(ctx, existingDiscount)
+	return du.discountRepository.Update(ctx, existingDiscount, id)
 }
 
 func (du *discountUsecase) Remove(id uuid.UUID) error {

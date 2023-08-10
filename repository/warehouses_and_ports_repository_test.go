@@ -27,21 +27,19 @@ func TestStoreWarehousePort(t *testing.T) {
 func TestFindWarehousePortByID(t *testing.T) {
 	repo := NewWarehousePortRepository(db, domain.WarehousePortTable)
 
-	id := uuid.New()
 	warehousePort := &domain.WarehousesAndPorts{
-		ID:       id,
+		ID:       uuid.New(),
 		Type:     "land",
 		Name:     "TestWarehouse",
 		Location: "TestLocation",
 	}
 
-	_, err := repo.Store(context.Background(), warehousePort)
+	newWarehousePort, err := repo.Store(context.Background(), warehousePort)
 	assert.NoError(t, err)
 
-	foundWarehousePort, err := repo.FindByID(context.Background(), id)
+	foundWarehousePort, err := repo.FindByID(context.Background(), newWarehousePort.ID)
 	assert.NoError(t, err)
-	assert.Equal(t, id, foundWarehousePort.ID)
-
+	assert.Equal(t, newWarehousePort.ID, foundWarehousePort.ID)
 	_, err = repo.FindByID(context.Background(), uuid.New())
 	assert.Error(t, err)
 }
@@ -56,11 +54,11 @@ func TestUpdateWarehousePort(t *testing.T) {
 		Location: "TestLocation",
 	}
 
-	_, err := repo.Store(context.Background(), warehousePort)
+	newWarehouse, err := repo.Store(context.Background(), warehousePort)
 	assert.NoError(t, err)
 
 	warehousePort.Name = "UpdatedWarehouse"
-	_, err = repo.Update(context.Background(), warehousePort)
+	_, err = repo.Update(context.Background(), warehousePort, newWarehouse.ID)
 	assert.NoError(t, err)
 
 	updatedWarehousePort, _ := repo.FindByID(context.Background(), warehousePort.ID)
@@ -97,18 +95,15 @@ func TestDeleteWarehousePort(t *testing.T) {
 		Location: "TestLocation",
 	}
 
-	_, err := repo.Store(context.Background(), warehousePort)
+	newWarehouse, err := repo.Store(context.Background(), warehousePort)
 	assert.NoError(t, err)
 
-	err = repo.Delete(context.Background(), warehousePort.ID)
+	err = repo.Delete(context.Background(), newWarehouse.ID)
 	assert.NoError(t, err)
 
-	_, err = repo.FindByID(context.Background(), warehousePort.ID)
+	_, err = repo.FindByID(context.Background(), newWarehouse.ID)
 	assert.Error(t, err)
 }
-
-
-
 
 func TestDeleteWarehousePortError(t *testing.T) {
 	repo := NewWarehousePortRepository(db, domain.WarehousePortTable)

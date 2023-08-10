@@ -20,7 +20,8 @@ func NewLogisticsRouter(env *bootstrap.Env, timeout time.Duration, db *gorm.DB, 
 	}
 
 	group.POST("/logistics", llc.Create)
+	group.GET("/logistics", llc.Fetch)
 	group.GET("/logistics/:id", llc.Get)
 	group.PUT("/logistics/:id", llc.Modify)
-	group.DELETE("/logistics/:id", llc.Modify)
+	group.DELETE("/logistics/:id", llc.Remove)
 }

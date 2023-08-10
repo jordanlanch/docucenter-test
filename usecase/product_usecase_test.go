@@ -14,6 +14,7 @@ import (
 
 func TestProductGetByID(t *testing.T) {
 	mockProductRepo := new(mocks.ProductRepository)
+
 	productID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {
@@ -84,6 +85,7 @@ func TestProductCreate(t *testing.T) {
 
 func TestProductLandModify(t *testing.T) {
 	mockProductRepo := new(mocks.ProductRepository)
+
 	productID := uuid.New()
 
 	mockProduct := &domain.Product{
@@ -94,11 +96,11 @@ func TestProductLandModify(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		mockProductRepo.On("FindByID", mock.Anything, productID).Return(mockProduct, nil).Once()
-		mockProductRepo.On("Update", mock.Anything, mockProduct).Return(mockProduct, nil).Once()
+		mockProductRepo.On("Update", mock.Anything, mockProduct, productID).Return(mockProduct, nil).Once()
 
 		u := NewProductUsecase(mockProductRepo, time.Second*2)
 
-		_, err := u.Modify(mockProduct)
+		_, err := u.Modify(mockProduct, mockProduct.ID)
 
 		assert.NoError(t, err)
 		mockProductRepo.AssertExpectations(t)
@@ -109,7 +111,7 @@ func TestProductLandModify(t *testing.T) {
 
 		u := NewProductUsecase(mockProductRepo, time.Second*2)
 
-		_, err := u.Modify(mockProduct)
+		_, err := u.Modify(mockProduct, mockProduct.ID)
 
 		assert.Error(t, err)
 		mockProductRepo.AssertExpectations(t)
@@ -118,6 +120,7 @@ func TestProductLandModify(t *testing.T) {
 
 func TestProductMaritimeModify(t *testing.T) {
 	mockProductRepo := new(mocks.ProductRepository)
+
 	productID := uuid.New()
 
 	mockProduct := &domain.Product{
@@ -128,11 +131,11 @@ func TestProductMaritimeModify(t *testing.T) {
 
 	t.Run("success", func(t *testing.T) {
 		mockProductRepo.On("FindByID", mock.Anything, productID).Return(mockProduct, nil).Once()
-		mockProductRepo.On("Update", mock.Anything, mockProduct).Return(mockProduct, nil).Once()
+		mockProductRepo.On("Update", mock.Anything, mockProduct, productID).Return(mockProduct, nil).Once()
 
 		u := NewProductUsecase(mockProductRepo, time.Second*2)
 
-		_, err := u.Modify(mockProduct)
+		_, err := u.Modify(mockProduct, mockProduct.ID)
 
 		assert.NoError(t, err)
 		mockProductRepo.AssertExpectations(t)
@@ -143,7 +146,7 @@ func TestProductMaritimeModify(t *testing.T) {
 
 		u := NewProductUsecase(mockProductRepo, time.Second*2)
 
-		_, err := u.Modify(mockProduct)
+		_, err := u.Modify(mockProduct, mockProduct.ID)
 
 		assert.Error(t, err)
 		mockProductRepo.AssertExpectations(t)
@@ -152,6 +155,7 @@ func TestProductMaritimeModify(t *testing.T) {
 
 func TestProductRemove(t *testing.T) {
 	mockProductRepo := new(mocks.ProductRepository)
+
 	productID := uuid.New()
 
 	t.Run("success", func(t *testing.T) {

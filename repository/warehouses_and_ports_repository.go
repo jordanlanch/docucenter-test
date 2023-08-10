@@ -48,8 +48,8 @@ func (r *warehousePortRepository) Store(ctx context.Context, wp *domain.Warehous
 	return wp, nil
 }
 
-func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts) (*domain.WarehousesAndPorts, error) {
-	result := r.db.WithContext(ctx).Model(&domain.WarehousesAndPorts{}).Where("id = ?", wp.ID).Updates(wp)
+func (r *warehousePortRepository) Update(ctx context.Context, wp *domain.WarehousesAndPorts, id uuid.UUID) (*domain.WarehousesAndPorts, error) {
+	result := r.db.WithContext(ctx).Model(&domain.WarehousesAndPorts{}).Where("id = ?", id).Updates(wp)
 	if result.Error != nil {
 		return nil, result.Error
 	}

@@ -1,0 +1,229 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 57
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38665'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"email":"jordan.dev93@gmail.com","password":"pass1234*"}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:38665/login
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 408
+        uncompressed: false
+        body: '{"accessToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8","refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MjMwMzgzNn0.dWhz4RroUp4r-RpO1jxDBTY4rNd9750ctnnAYcs-2Zc"}'
+        headers:
+            Content-Length:
+                - "408"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 61.625437ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 68
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38665'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"percentage":20,"quantity_from":80,"quantity_to":100,"type":"land"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:38665/discounts
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 214
+        uncompressed: false
+        body: '{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T15:23:56.421212713-05:00","updated_at":"2023-08-10T15:23:56.421212764-05:00"}'
+        headers:
+            Content-Length:
+                - "214"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 201 Created
+        code: 201
+        duration: 3.065369ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38665'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+        url: http://[::1]:38665/discounts?limit=10&offset=0
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 598
+        uncompressed: false
+        body: '[{"id":"30915017-178c-40ae-91bc-1540cc2fc6e1","type":"land","quantity_from":11,"quantity_to":20,"percentage":5,"created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"613de318-f56e-47e9-aad8-dafc837958d6","type":"maritime","quantity_from":11,"quantity_to":20,"percentage":3,"created_at":"2023-08-10T20:23:55.217313Z","updated_at":"2023-08-10T20:23:55.217313Z"},{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T15:23:56.421212Z","updated_at":"2023-08-10T15:23:56.421212Z"}]'
+        headers:
+            Content-Length:
+                - "598"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 932.113µs
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38665'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+        url: http://[::1]:38665/discounts/land/90
+        method: GET
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 198
+        uncompressed: false
+        body: '{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"land","quantity_from":80,"quantity_to":100,"percentage":20,"created_at":"2023-08-10T15:23:56.421212Z","updated_at":"2023-08-10T15:23:56.421212Z"}'
+        headers:
+            Content-Length:
+                - "198"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 962.448µs
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 72
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38665'
+        remote_addr: ""
+        request_uri: ""
+        body: '{"percentage":15,"quantity_from":20,"quantity_to":200,"type":"maritime"}'
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+            Content-Type:
+                - application/json; charset=utf-8
+        url: http://[::1]:38665/discounts/6250e572-d628-4d12-97cc-56fba75a0a9e
+        method: PUT
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 210
+        uncompressed: false
+        body: '{"id":"6250e572-d628-4d12-97cc-56fba75a0a9e","type":"maritime","quantity_from":20,"quantity_to":200,"percentage":15,"created_at":"2023-08-10T15:23:56.421212Z","updated_at":"2023-08-10T15:23:56.432842602-05:00"}'
+        headers:
+            Content-Length:
+                - "210"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 2.342016ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: '[::1]:38665'
+        remote_addr: ""
+        request_uri: ""
+        body: ""
+        form: {}
+        headers:
+            Authorization:
+                - Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmRhbi5kZXY5M0BnbWFpbC5jb20iLCJpZCI6ImM3Yzk2ZWU5LWExZGUtNGIxNi05Y2JhLTBiYjE1ZTk5MjVmMSIsImV4cCI6MTY5MTcwNjIzNn0.E4C8JbNHI03ruW9DiaSXLQTC2-DhxRIszbroSoz1Sb8
+        url: http://[::1]:38665/discounts/6250e572-d628-4d12-97cc-56fba75a0a9e
+        method: DELETE
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding: []
+        trailer: {}
+        content_length: 43
+        uncompressed: false
+        body: '{"message":"Discount deleted successfully"}'
+        headers:
+            Content-Length:
+                - "43"
+            Content-Type:
+                - application/json; charset=utf-8
+            Date:
+                - Thu, 10 Aug 2023 20:23:56 GMT
+        status: 200 OK
+        code: 200
+        duration: 1.81002ms

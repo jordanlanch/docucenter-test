@@ -61,7 +61,7 @@ func (r *customerRepository) Store(ctx context.Context, c *domain.Customer) (*do
 	return c, nil
 }
 
-func (r *customerRepository) Update(ctx context.Context, c *domain.Customer) (*domain.Customer, error) {
+func (r *customerRepository) Update(ctx context.Context, c *domain.Customer, id uuid.UUID) (*domain.Customer, error) {
 	result := r.db.WithContext(ctx).Model(&domain.Customer{}).Where("id = ?", c.ID).Updates(c)
 	if result.Error != nil {
 		return nil, result.Error

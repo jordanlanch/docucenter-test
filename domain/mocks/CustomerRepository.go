@@ -99,13 +99,13 @@ func (_m *CustomerRepository) Store(ctx context.Context, c *domain.Customer) (*d
 	return r0, r1
 }
 
-// Update provides a mock function with given fields: ctx, c
-func (_m *CustomerRepository) Update(ctx context.Context, c *domain.Customer) (*domain.Customer, error) {
-	ret := _m.Called(ctx, c)
+// Update provides a mock function with given fields: ctx, c, id
+func (_m *CustomerRepository) Update(ctx context.Context, c *domain.Customer, id uuid.UUID) (*domain.Customer, error) {
+	ret := _m.Called(ctx, c, id)
 
 	var r0 *domain.Customer
-	if rf, ok := ret.Get(0).(func(context.Context, *domain.Customer) *domain.Customer); ok {
-		r0 = rf(ctx, c)
+	if rf, ok := ret.Get(0).(func(context.Context, *domain.Customer, uuid.UUID) *domain.Customer); ok {
+		r0 = rf(ctx, c, id)
 	} else {
 		if ret.Get(0) != nil {
 			r0 = ret.Get(0).(*domain.Customer)
@@ -113,8 +113,8 @@ func (_m *CustomerRepository) Update(ctx context.Context, c *domain.Customer) (*
 	}
 
 	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, *domain.Customer) error); ok {
-		r1 = rf(ctx, c)
+	if rf, ok := ret.Get(1).(func(context.Context, *domain.Customer, uuid.UUID) error); ok {
+		r1 = rf(ctx, c, id)
 	} else {
 		r1 = ret.Error(1)
 	}
